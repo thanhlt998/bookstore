@@ -1,0 +1,86 @@
+body {
+    overflow-x: hidden;
+}
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-nav {
+    margin-top: 5px;
+}
+
+#nav-2 {
+    position: absolute;
+    top: 54.6px;
+    height: 50px;
+}
+
+#badge {
+    position: absolute;
+    top: -2px;
+    left: 45px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 12px;
+}
+
+.carousel-item {
+    height: 600px;
+}
+
+.carousel-image-1 {
+    background: url(../images/beverage-book-caffeine-261820.jpg);
+    background-size: cover;
+}
+.carousel-image-2 {
+    background: url(../images/bible-biblia-book-1112048.jpg);
+    background-size: cover;
+}
+.carousel-image-3 {
+    background: url(../images/book-book-pages-bookcase-415071.jpg);
+    background-size: cover;
+}
+
+.book-promotion-img {
+    position: relative;
+}
+
+.promotion-label {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: -10px;
+    right: 0;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-left: 0px;
+}
+
+#introduction {
+    box-shadow: 0 10px 4px #a0a0a054;
+}
+
+a.footer-link {
+    text-decoration: none;
+}
+
+/* Book list view */
+
+.book-list-view {
+    position: relative;
+}
+
+.book-list-view .promotion-badge {
+    font-size: 150%;
+    color: white;
+    position: absolute;
+    width: 25%;
+    height: 15%;
+    background: red;
+    padding-top: 5%;
+    top: 0;
+    right: -10%;
+
+}
