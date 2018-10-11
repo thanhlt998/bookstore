@@ -2,32 +2,45 @@ package com.thanh.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.thanh.entity.Image;
+
+@Repository
+@Transactional
 @Component("imageDao")
-class ImageDao {
-	
-	private NamedParameterJdbcTemplate jdbc;
-	
+public class ImageDao {
 	@Autowired
-	public void setJdbc(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
 	
-	public List<String> getImagesByBookId(int bookId) {
-		MapSqlParameterSource params = new MapSqlParameterSource("bookId", bookId);
-		String sql = "select imageUrl from image where bookId = :bookId";
-		return jdbc.queryForList(sql, params, String.class);
+	@SuppressWarnings("unchecked")
+	public List<String> getImageUrlsByBookId(int bookId) {
+		Query query = getSession().createQuery("select imageUrl from image where bookId = :bookId");
+		query.setParameter("bookId", bookId);
+		return query.list();
 	}
 	
-	public String getAnImageByBookId(int bookId) {
-		MapSqlParameterSource params = new MapSqlParameterSource("bookId", bookId);
-		String sql = "select imageUrl from image where bookId = :bookId limit 1";
-		return jdbc.queryForObject(sql, params, String.class);
+	public String getAnImageUrlByBookId(int bookId) {
+		Criteria criteria = getSession().createCriteria(Image.class);
+		criteria.add(Restrictions.eq("bookId", bookId));
+		criteria.setMaxResults(1);
+		
+		List<Image> results = criteria.list();
+		if(results.isEmpty()) {
+			return null;
+		}
+		return results.get(0).getImageUrl();
 	}
 }

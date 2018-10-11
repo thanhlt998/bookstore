@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,6 +24,8 @@ import com.thanh.dao.UserDao;
 import com.thanh.entity.User;
 import com.thanh.enumeration.Authority;
 import com.thanh.enumeration.Gender;
+
+import BeforeTest.GenerateDataTest;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(value = { "classpath:com/thanh/config/dao-context.xml",
@@ -41,14 +44,8 @@ public class UserDaoTest {
 	
 	@Before
 	public void init() {
-		users = new ArrayList<>();
-		try {
-			users.add(new User(1, "tuanthanh98", "123456789", "Le Tuan Thanh", "thanhlt98@gmail.com",
-						dateFormat.parse("1998-10-28"), Gender.MALE, "Hung Yen", "0101010101", Authority.ROLE_ADMIN));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		GenerateDataTest.generateData(jdbc);
 	}
 
 	@Test

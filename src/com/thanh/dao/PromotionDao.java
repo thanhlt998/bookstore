@@ -1,51 +1,44 @@
 package com.thanh.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.thanh.entity.Promotion;
 
+@Repository
+@Transactional
 @Component("promotionDao")
 public class PromotionDao {
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private NamedParameterJdbcTemplate jdbc;
-
+	
 	@Autowired
-	public void setJdbc(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
-
-	private List<Integer> getCurrentDiscountByBookId(int bookId) {
-		Date now = Calendar.getInstance().getTime();
-
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("bookId", bookId);
-		params.addValue("now", dateFormat.format(now));
-
-		String sql = "select discount from promotion, promotionEvent where promotionEvent.bookId = :bookId and"
-				+ " promotion.promotionId = promotionEvent.promotionId and (:now between promotion.fromDate and promotion.toDate)";
-		return jdbc.queryForList(sql, params, Integer.class);
+	
+	public Promotion getPromotionByPromotionId(int promotionId) {
+		Criteria criteria = getSession().createCriteria(Promotion.class);
+		criteria.add(Restrictions.idEq(promotionId));
+		return (Promotion) criteria.uniqueResult();
 	}
-
-	private List<Promotion> getCurrentPromotionByBookId(int bookId) {
-		Date now = Calendar.getInstance().getTime();
-
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("bookId", bookId);
-		params.addValue("now", dateFormat.format(now));
-
-		String sql = "select promotion.promotionId, promotionDescription, fromDate, toDate, discount from promotion, promotionEvent where promotionEvent.bookId = :bookId and"
-				+ " promotion.promotionId = promotionEvent.promotionId and (:now between promotion.fromDate and promotion.toDate)";
-		return jdbc.query(sql, params, new BeanPropertyRowMapper(Promotion.class));
+	
+	@SuppressWarnings("unchecked")
+	public List<Promotion> getAllCurrentPromotion(List<Integer> promotionIdList){
+		Date today = Calendar.getInstance().getTime();
+		Criteria criteria = getSession().createCriteria(Promotion.class);
+		criteria.add(Restrictions.lt("fromDate", today));
+		criteria.add(Restrictions.gt("toDate", today));
+		return criteria.list();
 	}
 }

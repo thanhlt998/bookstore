@@ -64,7 +64,7 @@ public class LoginController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST, produces="application/x-www-form-urlencoded;charset=UTF-8")
 	public String registerAccount(HttpServletRequest request) {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -81,8 +81,16 @@ public class LoginController {
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
 
-		User user = new User(username, password, username, email, birthDate, gender, address, phone,
+		User user = new User(username, password, name, email, birthDate, gender, address, phone,
 				Authority.ROLE_USER);
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(name);
+		System.out.println(email);
+		System.out.println(birthDate);
+		System.out.println(gender);
+		System.out.println(address);
+		System.out.println(phone);
 
 		userService.createUser(user);
 

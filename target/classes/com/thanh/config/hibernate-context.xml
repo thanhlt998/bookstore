@@ -21,7 +21,16 @@
 
 		<property name="annotatedClasses">
 			<list>
-				<value>com.thanh.entity.*</value>
+				<value>com.thanh.entity.User</value>
+				<value>com.thanh.entity.Book</value>
+				<value>com.thanh.entity.Category</value>
+				<value>com.thanh.entity.Image</value>
+				<value>com.thanh.entity.Manufacturer</value>
+				<value>com.thanh.entity.Order</value>
+				<value>com.thanh.entity.OrderDetail</value>
+				<value>com.thanh.entity.Promotion</value>
+				<value>com.thanh.entity.PromotionEvent</value>
+				<value>com.thanh.entity.Storage</value>
 			</list>
 		</property>
 
@@ -37,5 +46,8 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<tx:annotation-driven />
+	<bean id="exceptionTranslator"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
+	</bean>
 
 </beans>

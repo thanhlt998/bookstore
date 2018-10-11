@@ -1,6 +1,16 @@
 package com.thanh.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="promotionEvent")
 public class PromotionEvent {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int promotionEventId;
 	private int promotionId;
 	private int bookId;
@@ -14,7 +24,6 @@ public class PromotionEvent {
 	}
 
 	public PromotionEvent(int promotionId, int bookId, int userId) {
-		super();
 		this.promotionId = promotionId;
 		this.bookId = bookId;
 		this.userId = userId;

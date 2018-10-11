@@ -2,39 +2,41 @@ package com.thanh.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.thanh.entity.Book;
-import com.thanh.model.BookListView;
 
+@Repository
+@Transactional
 @Component("bookDao")
 public class BookDao {
 	
-private NamedParameterJdbcTemplate jdbc;
-	
 	@Autowired
-	public void setJdbc(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
 	}
 	
-	public List<Book> getBooks(int limit, int offset) {
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		String sql = "select * from book limit :limit, :offset";
-		
-		params.addValue("limit", limit);
-		params.addValue("offset", offset);
-		
-		return jdbc.query(sql, params, new BeanPropertyRowMapper<>(Book.class));
+	public Book getBookByBookId(int bookId) {
+		Criteria criteria = getSession().createCriteria(Book.class);
+		criteria.add(Restrictions.idEq(bookId));
+		return (Book) criteria.uniqueResult();
 	}
 	
-//	public List<BookListView> getBookListViewByBookId(int limit, int offset) {
-//		List<Book> books = getBooks(limit, offset);
-//		
-//	}
+	@SuppressWarnings("unchecked")
+	public List<Book> getBookListByOffsetQuantity(int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(Book.class);
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
+	}
+	
 }

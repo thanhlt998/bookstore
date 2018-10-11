@@ -1,6 +1,16 @@
 package com.thanh.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="book")
 public class Book {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int bookId;
 	private int categoryId;
 	private String bookName;
