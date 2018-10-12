@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class CategoryDao {
 	
 	public Category getCategoryByCategoryId(int categoryId) {
 		Criteria criteria = getSession().createCriteria(Category.class);
-		criteria.add(Restrictions.idEq(categoryId));
+		criteria.add(Restrictions.eq("categoryId", categoryId));
 		return (Category) criteria.uniqueResult();
 	}
 	
@@ -36,6 +37,13 @@ public class CategoryDao {
 		Criteria criteria = getSession().createCriteria(Category.class);
 		criteria.addOrder(Order.asc("categoryName"));
 		return criteria.list();
+	}
+	
+	public String getCategoryNameByCategoryId(int categoryId) {
+		Criteria criteria = getSession().createCriteria(Category.class);
+		criteria.add(Restrictions.idEq(categoryId));
+		criteria.setProjection(Projections.property("categoryName"));
+		return (String) criteria.uniqueResult();
 	}
 	
 }

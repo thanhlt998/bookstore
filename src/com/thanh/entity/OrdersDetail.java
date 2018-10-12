@@ -8,17 +8,21 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="orderDetail")
-@IdClass(value=OrderDetailPK.class)
-public class OrderDetail {
+@Table(name="ordersDetail")
+@IdClass(value=OrdersDetailPK.class)
+public class OrdersDetail {
 	@Id
 	private int orderId;
 	@Id
 	private int bookId;
 	private int quantity;
 	private int pricePerUnit;
+	
+	public OrdersDetail() {
+		
+	}
 
-	public OrderDetail(int orderId, int bookId, int quantity, int pricePerUnit) {
+	public OrdersDetail(int orderId, int bookId, int quantity, int pricePerUnit) {
 		this.orderId = orderId;
 		this.bookId = bookId;
 		this.quantity = quantity;

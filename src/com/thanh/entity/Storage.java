@@ -15,6 +15,10 @@ public class Storage {
 	private String storageName;
 	private String storageAddress;
 	private int stockKeeperId;
+	
+	public Storage() {
+		
+	}
 
 	public Storage(int storageId, String storageName, String storageAddress, int stockKeeperId) {
 		this.storageId = storageId;

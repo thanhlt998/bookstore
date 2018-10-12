@@ -19,6 +19,10 @@ public class Importation {
 	private int quantity;
 	private Date importDate;
 	private int importPrice;
+	
+	public Importation() {
+		
+	}
 
 	public Importation(int importationId, int storageId, int bookId, int quantity, Date importDate, int importPrice) {
 		this.importationId = importationId;

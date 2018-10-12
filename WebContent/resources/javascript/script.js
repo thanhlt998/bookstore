@@ -1,14 +1,25 @@
 $(function() {
+
+  //Validate form
     var registerForm = $("#registerForm");
 
     validatePasswordRegisterForm(registerForm);
 
     registerForm.submit(validateSubmitRegisterForm);
 
+
+    //Add cart
+    $("#add-button").click(increaseQuantity);
+    $("#minus-button").click(decreaseQuantity);
+
+
+    // Replace img
+    $(".small-img").click(replaceImg);
 });
 
 
 // Validate Form 
+
 function validateSubmitRegisterForm(event) {
   var registerForm = $("#registerForm");
   var passwordField = registerForm.find($("#password"));
@@ -118,3 +129,27 @@ function validateUsernameField(event) {
 //         }
 //     })
 // }
+
+
+
+// add cart
+function increaseQuantity(){
+  var quantityAdd = $("#quantity-add");
+  var currentValue = parseInt(quantityAdd.val());
+  quantityAdd.val(currentValue + 1);
+}
+
+function decreaseQuantity(){
+  var quantityAdd = $("#quantity-add");
+  var currentValue = parseInt(quantityAdd.val());
+  if(currentValue > 1){
+    quantityAdd.val(currentValue - 1);
+  }
+}
+
+
+// small-picture
+function replaceImg(event){
+  var mainImg = $("#main-img");
+  mainImg.attr("src", $(this).attr("src"));
+}

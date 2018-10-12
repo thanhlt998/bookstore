@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -18,307 +19,20 @@
 </head>
 
 <body>
+
+	<!-- Header -->
+	
+	<jsp:include page="navbar.jsp"></jsp:include>
 	<jsp:include page="header.jsp"></jsp:include>
+	
+	<!-- Best seller section -->
+	<jsp:include page="bestsellerSection.jsp"></jsp:include>
 
-	<section id="best-seller-products" class="bg-light text-dark">
-		<div class="container py-3 my-3">
-			<h2 class="d-inline-block">Best Seller</h2>
-			<hr>
-			<div class="row text-center">
-				<div class="col">
-					<div class="slider responsive">
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-						<div class="card p-4">
-							<div class="card-img">
-								<img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid bounded">
-							</div>
-							<div class="card-body">
-								<span id="card-title">Title</span><br> <span id="price">200.000</span>
-								<button class="btn btn-outline-dark btn-block">Add Cart</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Products -->
-	<section id="products"">
-	<div class=" container my-3">
-		<h2>Products</h2>
-		<hr>
-		<div class="row align-items-center text-center bg-light">
-			<div class="col-md-4 p-5 border-right">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-			<div class="col-md-4 p-5 border-right">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-			<div class="col-md-4 p-5">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-		</div>
-		<hr>
-		<div class="row align-items-center text-center bg-light">
-			<div class="col-md-4 p-5 border-right">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-			<div class="col-md-4 p-5 border-right">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-			<div class="col-md-4 p-5">
-				<a href=""> <img src="${pageContext.request.contextPath }/resources/images/book1.jpg" alt="" class="img-fluid mb-5">
-				</a>
-				<h3>Lorem, ipsum dolor.</h3>
-				<span class="display-4">150.000</span><br>
-				<button class="btn btn-outline-dark">More</button>
-				<button class="btn btn-outline-danger">
-					<i class="fas fa-heart"></i> Add Cart
-				</button>
-			</div>
-		</div>
-
-		</div>
-	</section>
-
-	<!-- Login modal -->
-	<section id="login-modal">
-		<div class="modal fade text-dark" id="loginModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Login</h5>
-						<button class="close" data-dismiss="modal">
-							<span>&times;</span>
-						</button>
-					</div>
-					<form action="${pageContext.request.contextPath }/login" method="post">
-						<div class="modal-body">
-
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" class="form-control" name="username" placeholder="Username">
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-lock"></i></span>
-								</div>
-								<input type="password" class="form-control" name="password" placeholder="Password">
-							</div>
+	<!-- Products -->	
+		<jsp:include page="displayProduct.jsp"></jsp:include>
 
 
-						</div>
-
-						<div class="modal-footer">
-							<p class="text-right small font-italic text-muted">
-								<a href="" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Not have an account? </a>
-							</p>
-							<button class="btn btn-dark" type="submit">Login</button>
-							<br> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-	</section>
-
-	<!-- register modal -->
-	<section id="register-modal">
-		<div class="modal fade text-dark" id="registerModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Register</h5>
-						<button class="close" data-dismiss="modal">
-							<span>&times;</span>
-						</button>
-					</div>
-					<form class="mb-3" action="${pageContext.request.contextPath}/register" id="registerForm" method="post">
-						<div class="modal-body">
-
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
-								</div>
-								<input type="text" class="form-control" name="name" placeholder="Full Name" id="name" required>
-
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="far fa-envelope"></i></span>
-								</div>
-								<input type="email" class="form-control" name="email" placeholder="Email" id="email" required>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" class="form-control" name="username" placeholder="Username" id="username" required><br>
-								<div class="input-group-append">
-									<span class="input-group-text" id="usernameAppend"></span>
-								</div>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-lock"></i></span>
-								</div>
-								<input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
-								<small id="password-feedback" class="form-text text-muted d-block"></small>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-lock"></i></span>
-								</div>
-								<input type="password" class="form-control d-block" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"
-								 required>
-								<div class="input-group-append">
-									<span class="input-group-text" id="confirmPasswordAppend"></span>
-								</div>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-								</div>
-								<br><input type="date" class="form-control" name="birthDate" id="birthDate" required>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-transgender"></i></span>
-								</div>
-								<select type="gender" class="form-control" name="gender" id="gender" required>
-									<option value="MALE" selected>Male</option>
-									<option value="FEMALE">Female</option>
-									<option value="OTHER">Other</option>
-								</select>
-								<br>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="far fa-address-book"></i></span>
-								</div>
-								<input type="text" class="form-control" name="address" placeholder="Address" id="address" required>
-							</div>
-							<br>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
-								</div>
-								<input type="text" class="form-control" name="phone" placeholder="Phone" id="phone" required>
-							</div>
-						</div>
-
-						<div class="modal-footer">
-							<p class="text-right small font-italic text-muted align-middle"> <a href="" data-dismiss="modal" data-toggle="modal"
-								 data-target="#loginModal">Already have an account?</a></p>
-							<button class="btn btn-dark" type="submit">Register</button>
-						</div>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-					</form>
-				</div>
-			</div>
-		</div>
-
-	</section>
+	
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
@@ -333,35 +47,32 @@
 	<script src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-		$('.slider').slick({
-			dots: true,
-			infinite: true,
-			slidesToShow: 4,
-			slidesToScroll: 4,
-			autoplay: true,
-			autoplaySpeed: 2000,
-			responsive: [{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					infinite: true,
-					dots: true
-				}
-			}, {
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
-				}
-			}, {
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			}]
-		});
+	$('.slider').slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
 
 		$("#username").blur({
 			url: "${pageContext.request.contextPath}/checkAvailableUsername"

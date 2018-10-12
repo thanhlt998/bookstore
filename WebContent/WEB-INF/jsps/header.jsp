@@ -2,74 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<nav
-		class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top ">
-	<div class="container">
-		<div class="row w-100 align-items-center">
-			<div class="col-md-3 text-center">
-				<a href="#" class="navbar-brand"> <i
-					class="fas fa-book fa-2x pr-3"></i><span class="display-5">BookStore</span>
-				</a>
-				<button class="navbar-toggler" data-toggle="collapse"
-					data-target="#navbarBar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-			<div class="col-md-5 py-2">
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<button class="btn btn-light input-group-text"><i class="fas fa-search"></i></button>
-					</div>
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="collapse navbar-collapse" id="navbarBar">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item dropdown mr-3"><a href=""
-							class="nav-link dropdown-toggle" data-toggle="dropdown">
-								Categories </a>
-							<div class="dropdown-menu">
-								<a href="" class="dropdown-item"> Lorem, ipsum dolor. </a> <a
-									href="" class="dropdown-item"> Lorem, ipsum dolor. </a>
-							</div></li>
-						<sec:authorize access="isAuthenticated()">
-							<li class="nav-item dropdown mr-3"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"> <i
-									class="fas fa-user"></i>
-							</a>
-								<div class="dropdown-menu">
-									<a href="#" class="dropdown-item"> <i
-										class="fas fa-user-circle"></i> Profile
-									</a> <a href="#" class="dropdown-item"> <i class="fas fa-cog"></i>
-										Setting
-									</a>
-								</div></li>
-						</sec:authorize>
-						<sec:authorize access="!isAuthenticated()">
-							<li class="nav-item"><a href="#" class="nav-link"
-								data-toggle="modal" data-target="#loginModal"> <i
-									class="fas fa-lock"></i> Login
-							</a></li>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<li class="nav-item"><a href="${pageContext.request.contextPath }/logout" class="nav-link""> <i
-									class=" fas
-                                fa-sign-out-alt"></i>
-									Logout
-							</a></li>
-						</sec:authorize>
-						<li class="nav-item d-inline-block"><a href="#"
-							class="nav-link" style="position: relative;"> <i
-								class="fas fa-shopping-cart fa-2x"></i><span id="badge">0</span>
-						</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	</nav>
-
+	
 	<!-- Showcase -->
 	<section id="showcase">
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">

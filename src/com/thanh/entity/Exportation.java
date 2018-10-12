@@ -18,6 +18,10 @@ public class Exportation {
 	private int bookId;
 	private int quantity;
 	private Date exportDate;
+	
+	public Exportation() {
+		
+	}
 
 	public Exportation(int exportationId, int storageId, int bookId, int quantity, Date exportDate) {
 		this.exportationId = exportationId;

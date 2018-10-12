@@ -1,14 +1,17 @@
 package com.thanh.entity;
 
-public class OrderDetailPK {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class OrdersDetailPK implements Serializable{
 	private int orderId;
 	private int bookId;
 
-	public OrderDetailPK() {
+	public OrdersDetailPK() {
 
 	}
 
-	public OrderDetailPK(int orderId, int bookId) {
+	public OrdersDetailPK(int orderId, int bookId) {
 		this.orderId = orderId;
 		this.bookId = bookId;
 	}

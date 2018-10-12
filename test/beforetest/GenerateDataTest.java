@@ -1,4 +1,4 @@
-package BeforeTest;
+package beforetest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ import com.thanh.entity.Image;
 import com.thanh.entity.Importation;
 import com.thanh.entity.Manufacturer;
 import com.thanh.entity.Order;
-import com.thanh.entity.OrderDetail;
+import com.thanh.entity.OrdersDetail;
 import com.thanh.entity.Promotion;
 import com.thanh.entity.PromotionEvent;
 import com.thanh.entity.Storage;
@@ -37,14 +37,30 @@ public class GenerateDataTest {
 	public static List<Exportation> exportations;
 	public static List<Importation> importations;
 	public static List<Image> images;
-	public static List<OrderDetail> orderDetails;
+	public static List<OrdersDetail> orderDetails;
 	public static List<PromotionEvent> promotionEvents;
 
 	public static void generateData(JdbcTemplate jdbc) {
-
+		resetDataTest(jdbc);
+		generateUserList();
+		generateCategoryList();
+		generateManufacturerList();
+		generatePromotionList();
+		generateBookList();
+		generateOrderList();
+		generateStorageList();
+		generateExportationList();
+		generateImportationList();
+		generateImageList();
+		generateOrderDetailList();
+		generatePromotionEventList();
 	}
 
-	private void generateUserList() {
+	private static void resetDataTest(JdbcTemplate jdbc) {
+		jdbc.execute("call resetData()");
+	}
+
+	private static void generateUserList() {
 		users = new ArrayList<>();
 		try {
 			users.add(new User(1, "Abreu2022", "63792i397h8s9", "Abdul551", "DeeannaAbreu59@example.com",
@@ -83,7 +99,7 @@ public class GenerateDataTest {
 
 	}
 
-	private void generateCategoryList() {
+	private static void generateCategoryList() {
 		categories = new ArrayList<>();
 		categories.add(new Category(1, "Tools"));
 		categories.add(new Category(2, "Office"));
@@ -97,7 +113,7 @@ public class GenerateDataTest {
 		categories.add(new Category(10, "Audible"));
 	}
 
-	private void generateManufacturerList() {
+	private static void generateManufacturerList() {
 		manufacturers = new ArrayList<>();
 		manufacturers.add(new Manufacturer(1, "International High-Technologies Co."));
 		manufacturers.add(new Manufacturer(2, "National Software Corp."));
@@ -111,36 +127,36 @@ public class GenerateDataTest {
 		manufacturers.add(new Manufacturer(10, "Canadian Data Inc."));
 	}
 
-	private void generatePromotionList() {
+	private static void generatePromotionList() {
 		promotions = new ArrayList<>();
 		try {
-			promotions.add(new Promotion(1, "Iste accusantium sit laudantium.", dateFormat.parse("2018-05-26"),
-					dateFormat.parse("2017-07-08"), 41));
-			promotions.add(new Promotion(2, "Porro et tempora suscipit magni.", dateFormat.parse("2018-01-18"),
-					dateFormat.parse("2017-02-18"), 76));
-			promotions.add(new Promotion(3, "Ipsa voluptatibus natus officia.", dateFormat.parse("2018-07-26"),
-					dateFormat.parse("2018-07-03"), 1));
+			promotions.add(new Promotion(1, "Iste accusantium sit laudantium.", dateFormat.parse("2018-10-10"),
+					dateFormat.parse("2018-12-31"), 41));
+			promotions.add(new Promotion(2, "Porro et tempora suscipit magni.", dateFormat.parse("2018-01-01"),
+					dateFormat.parse("2018-01-18"), 76));
+			promotions.add(new Promotion(3, "Ipsa voluptatibus natus officia.", dateFormat.parse("2018-10-10"),
+					dateFormat.parse("2018-11-11"), 1));
 			promotions.add(new Promotion(4, "Odio tempore non a et.", dateFormat.parse("2017-01-02"),
 					dateFormat.parse("2017-11-10"), 85));
 			promotions.add(new Promotion(5, "Unde qui iusto molestiae aut.", dateFormat.parse("2017-04-09"),
 					dateFormat.parse("2018-08-31"), 3));
-			promotions.add(new Promotion(6, "Doloremque amet unde amet sunt;", dateFormat.parse("2018-06-01"),
-					dateFormat.parse("2017-03-06"), 70));
-			promotions.add(new Promotion(7, "Veritatis nisi vero perferendis sed.", dateFormat.parse("2018-03-02"),
-					dateFormat.parse("2017-07-08"), 88));
-			promotions.add(new Promotion(8, "Et quod perspiciatis sint error...", dateFormat.parse("2018-05-08"),
-					dateFormat.parse("2017-11-30"), 15));
-			promotions.add(new Promotion(9, "Aliquam maxime dolores omnis ut.", dateFormat.parse("2018-01-20"),
-					dateFormat.parse("2017-10-05"), 34));
+			promotions.add(new Promotion(6, "Doloremque amet unde amet sunt;", dateFormat.parse("2018-10-09"),
+					dateFormat.parse("2018-12-01"), 70));
+			promotions.add(new Promotion(7, "Veritatis nisi vero perferendis sed.", dateFormat.parse("2018-03-01"),
+					dateFormat.parse("2018-03-02"), 88));
+			promotions.add(new Promotion(8, "Et quod perspiciatis sint error...", dateFormat.parse("2018-09-09"),
+					dateFormat.parse("2018-11-08"), 15));
+			promotions.add(new Promotion(9, "Aliquam maxime dolores omnis ut.", dateFormat.parse("2018-09-19"),
+					dateFormat.parse("2018-12-20"), 34));
 			promotions.add(new Promotion(10, "Perspiciatis minima illo iusto;", dateFormat.parse("2018-09-19"),
-					dateFormat.parse("2018-01-28"), 75));
+					dateFormat.parse("2018-10-28"), 75));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private void generateBookList() {
+	private static void generateBookList() {
 		books = new ArrayList<>();
 		books.add(new Book(1, 9, "Letha241", "gaaapjaccsqkwdwyank", 2, "Balduin  Anger", 226300));
 		books.add(new Book(2, 4, "Mollie1975", "vwyhimicaaurtfrsrhqxrbn", 3, "Lisa-Marie Spangenberg", 69861));
@@ -154,7 +170,7 @@ public class GenerateDataTest {
 		books.add(new Book(10, 6, "Aisha2010", "papabpaoqsoscx", 2, "Lewin Loos", 246657));
 	}
 
-	private void generateOrderList() {
+	private static void generateOrderList() {
 		orders = new ArrayList<>();
 		try {
 			orders.add(new Order(1, 10, dateFormat.parse("2017-10-29"), dateFormat.parse("2017-01-02"),
@@ -183,7 +199,7 @@ public class GenerateDataTest {
 		}
 	}
 
-	private void generateStorageList() {
+	private static void generateStorageList() {
 		storages = new ArrayList<>();
 		storages.add(new Storage(1, "Burton92", "2747 Red Town Ct", 5));
 		storages.add(new Storage(2, "Andrade718", "947 Flintwood Ct", 5));
@@ -197,7 +213,7 @@ public class GenerateDataTest {
 		storages.add(new Storage(10, "Aleta1974", "3153 Riverview Hwy", 3));
 	}
 
-	private void generateExportationList() {
+	private static void generateExportationList() {
 		exportations = new ArrayList<>();
 		try {
 			exportations.add(new Exportation(1, 3, 7, 94, dateFormat.parse("2018-09-25")));
@@ -216,7 +232,7 @@ public class GenerateDataTest {
 		}
 	}
 
-	private void generateImportationList() {
+	private static void generateImportationList() {
 		importations = new ArrayList<>();
 		try {
 			importations.add(new Importation(1, 6, 3, 38, dateFormat.parse("2018-05-15"), 199209));
@@ -237,7 +253,7 @@ public class GenerateDataTest {
 		}
 	}
 
-	private void generateImageList() {
+	private static void generateImageList() {
 		images = new ArrayList<>();
 		images.add(new Image(1, 2, "book2"));
 		images.add(new Image(2, 1, "book70"));
@@ -245,12 +261,12 @@ public class GenerateDataTest {
 		images.add(new Image(4, 2, "book67"));
 		images.add(new Image(5, 9, "book20"));
 		images.add(new Image(6, 10, "book3"));
-		images.add(new Image(7, 6, "book95"));
+		images.add(new Image(7, 6, "book96"));
 		images.add(new Image(8, 8, "book83"));
 		images.add(new Image(9, 7, "book43"));
 		images.add(new Image(10, 6, "book40"));
 		images.add(new Image(11, 8, "book52"));
-		images.add(new Image(12, 6, "book95"));
+		images.add(new Image(12, 4, "book95"));
 		images.add(new Image(13, 3, "book0"));
 		images.add(new Image(14, 10, "book28"));
 		images.add(new Image(15, 3, "book93"));
@@ -261,31 +277,31 @@ public class GenerateDataTest {
 		images.add(new Image(20, 5, "book77"));
 	}
 
-	private void generateOrderDetailList() {
+	private static void generateOrderDetailList() {
 		orderDetails = new ArrayList<>();
-		orderDetails.add(new OrderDetail(9, 10, 7, 261027));
-		orderDetails.add(new OrderDetail(2, 3, 9, 94324));
-		orderDetails.add(new OrderDetail(7, 7, 8, 177915));
-		orderDetails.add(new OrderDetail(5, 6, 2, 279337));
-		orderDetails.add(new OrderDetail(10, 10, 5, 175647));
-		orderDetails.add(new OrderDetail(8, 8, 3, 269102));
-		orderDetails.add(new OrderDetail(3, 3, 6, 56942));
-		orderDetails.add(new OrderDetail(1, 1, 8, 116610));
-		orderDetails.add(new OrderDetail(4, 4, 9, 162790));
-		orderDetails.add(new OrderDetail(6, 6, 6, 272101));
-		orderDetails.add(new OrderDetail(2, 2, 7, 161739));
-		orderDetails.add(new OrderDetail(9, 9, 3, 424189));
-		orderDetails.add(new OrderDetail(10, 1, 4, 222750));
-		orderDetails.add(new OrderDetail(6, 7, 4, 159090));
-		orderDetails.add(new OrderDetail(8, 9, 9, 157855));
-		orderDetails.add(new OrderDetail(7, 8, 2, 235397));
-		orderDetails.add(new OrderDetail(3, 4, 6, 179821));
-		orderDetails.add(new OrderDetail(5, 5, 4, 230652));
-		orderDetails.add(new OrderDetail(1, 2, 9, 298582));
-		orderDetails.add(new OrderDetail(4, 5, 8, 214025));
+		orderDetails.add(new OrdersDetail(9, 10, 7, 261027));
+		orderDetails.add(new OrdersDetail(2, 3, 9, 94324));
+		orderDetails.add(new OrdersDetail(7, 7, 8, 177915));
+		orderDetails.add(new OrdersDetail(5, 6, 2, 279337));
+		orderDetails.add(new OrdersDetail(10, 10, 5, 175647));
+		orderDetails.add(new OrdersDetail(8, 8, 3, 269102));
+		orderDetails.add(new OrdersDetail(3, 3, 6, 56942));
+		orderDetails.add(new OrdersDetail(1, 1, 8, 116610));
+		orderDetails.add(new OrdersDetail(4, 4, 9, 162790));
+		orderDetails.add(new OrdersDetail(6, 6, 6, 272101));
+		orderDetails.add(new OrdersDetail(2, 2, 7, 161739));
+		orderDetails.add(new OrdersDetail(9, 9, 3, 424189));
+		orderDetails.add(new OrdersDetail(10, 1, 4, 222750));
+		orderDetails.add(new OrdersDetail(6, 7, 4, 159090));
+		orderDetails.add(new OrdersDetail(8, 9, 9, 157855));
+		orderDetails.add(new OrdersDetail(7, 8, 2, 235397));
+		orderDetails.add(new OrdersDetail(3, 4, 6, 179821));
+		orderDetails.add(new OrdersDetail(5, 5, 4, 230652));
+		orderDetails.add(new OrdersDetail(1, 2, 9, 298582));
+		orderDetails.add(new OrdersDetail(4, 5, 8, 214025));
 	}
-	
-	private void generatePromotionEventList() {
+
+	private static void generatePromotionEventList() {
 		promotionEvents = new ArrayList<>();
 		promotionEvents.add(new PromotionEvent(1, 8, 5, 1));
 		promotionEvents.add(new PromotionEvent(2, 2, 6, 2));

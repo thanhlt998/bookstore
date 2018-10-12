@@ -16,6 +16,10 @@ public class PromotionEvent {
 	private int bookId;
 	private int userId;
 	
+	public PromotionEvent() {
+		
+	}
+	
 	public PromotionEvent(int promotionEventId, int promotionId, int bookId, int userId) {
 		this.promotionEventId = promotionEventId;
 		this.promotionId = promotionId;

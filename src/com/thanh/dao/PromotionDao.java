@@ -1,5 +1,6 @@
 package com.thanh.dao;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,10 +36,23 @@ public class PromotionDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Promotion> getAllCurrentPromotion(List<Integer> promotionIdList){
+		if(promotionIdList.size() != 0) {
+			Date today = Calendar.getInstance().getTime();
+			Criteria criteria = getSession().createCriteria(Promotion.class);
+			criteria.add(Restrictions.le("fromDate", today));
+			criteria.add(Restrictions.ge("toDate", today));
+			criteria.add(Restrictions.in("promotionId", promotionIdList));
+			return criteria.list();
+		}
+		else return new ArrayList<>();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Promotion> getAllCurrentPromotion(){
 		Date today = Calendar.getInstance().getTime();
 		Criteria criteria = getSession().createCriteria(Promotion.class);
-		criteria.add(Restrictions.lt("fromDate", today));
-		criteria.add(Restrictions.gt("toDate", today));
+		criteria.add(Restrictions.le("fromDate", today));
+		criteria.add(Restrictions.ge("toDate", today));
 		return criteria.list();
 	}
 }

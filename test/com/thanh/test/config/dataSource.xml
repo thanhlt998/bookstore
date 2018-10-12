@@ -33,7 +33,18 @@
 
 			<property name="annotatedClasses">
 				<list>
+					<value>com.thanh.entity.Category</value>
+					<value>com.thanh.entity.Manufacturer</value>
+					<value>com.thanh.entity.Promotion</value>
 					<value>com.thanh.entity.User</value>
+					<value>com.thanh.entity.Book</value>
+					<value>com.thanh.entity.Order</value>
+					<value>com.thanh.entity.Storage</value>
+					<value>com.thanh.entity.Exportation</value>
+					<value>com.thanh.entity.Image</value>
+					<value>com.thanh.entity.Importation</value>
+					<value>com.thanh.entity.OrdersDetail</value>
+					<value>com.thanh.entity.PromotionEvent</value>
 				</list>
 			</property>
 

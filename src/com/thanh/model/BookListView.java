@@ -55,4 +55,10 @@ public class BookListView {
 		this.discount = discount;
 	}
 
+	@Override
+	public String toString() {
+		return "BookListView [bookId=" + bookId + ", bookName=" + bookName + ", imageUrl=" + imageUrl + ", price="
+				+ price + ", discount=" + discount + "]";
+	}
+
 }

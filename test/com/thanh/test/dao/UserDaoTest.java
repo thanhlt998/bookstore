@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -25,7 +26,7 @@ import com.thanh.entity.User;
 import com.thanh.enumeration.Authority;
 import com.thanh.enumeration.Gender;
 
-import BeforeTest.GenerateDataTest;
+import beforetest.GenerateDataTest;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(value = { "classpath:com/thanh/config/dao-context.xml",
@@ -34,7 +35,6 @@ import BeforeTest.GenerateDataTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoTest {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private static List<User> users;
 	
 	@Autowired
 	private UserDao userDao;
@@ -50,45 +50,53 @@ public class UserDaoTest {
 
 	@Test
 	public void testGetUserByUserId() {
-		assertEquals(null, userDao.getUserByUserId(2));
-		assertEquals(users.get(0).toString(), userDao.getUserByUserId(1).toString());
+		User user = GenerateDataTest.users.get(new Random().nextInt(10));
+		assertEquals(user, userDao.getUserByUserId(user.getUserId()));
 	}
 	
 	@Test
 	public void testGetAllUsers() {
-		assertEquals(users.toString(), new ArrayList<>(userDao.getAllUsers()).toString());
+		List<User> result = userDao.getAllUsers();
+		
+		Collections.sort(GenerateDataTest.users, new UserComparator());
+		Collections.sort(result, new UserComparator());
+		
+		assertEquals(GenerateDataTest.users.toString(), result.toString());
 	}
 	
 	@Test
 	public void testGetUserIdByUsername() {
-		assertEquals(1, userDao.getUserIdByUsername("tuanthanh98"));
+		User user = GenerateDataTest.users.get(new Random().nextInt(10));
+		assertEquals(user.getUserId(), userDao.getUserIdByUsername(user.getUsername()));
 	}
 	
 	@Test
 	public void testCreateUser() {
 		User newUser = null;
 		try {
-			newUser = new User(4, "abcd", "ajdfja", "ajfjds;adfh", "fakdjfkad", dateFormat.parse("1998-09-19"), Gender.FEMALE, "adjkfjajksdj", "21212131", Authority.ROLE_USER);
+			newUser = new User(101, "abcd", "ajdfja", "ajfjds;adfh", "fakdjfkad", dateFormat.parse("1998-09-19"), Gender.FEMALE, "adjkfjajksdj", "21212131", Authority.ROLE_USER);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		//expected list
+		List<User> users = new ArrayList<>(GenerateDataTest.users);
 		users.add(newUser);
 		userDao.createUser(newUser);
-		//actual list
-		List<User> actualList = new ArrayList<>(userDao.getAllUsers());
-		Collections.sort(users, new UserComparator());
-		Collections.sort(actualList, new UserComparator());
 		
-		assertEquals(users.toString(), actualList.toString());
+		List<User> result = userDao.getAllUsers();
+		
+		Collections.sort(users, new UserComparator());
+		Collections.sort(result, new UserComparator());
+		
+		assertEquals(users.toString(), result.toString());
+		
 	}
 	
 	@Test
 	public void testIsUserNameAvailable() {
-		assertEquals(false, userDao.isUsernameAvailable("tuanthanh98"));
-		assertEquals(true, userDao.isUsernameAvailable("tuanthanh981"));
+		assertEquals(false, userDao.isUsernameAvailable(GenerateDataTest.users.get(new Random().nextInt(10)).getUsername()));
+		assertEquals(true, userDao.isUsernameAvailable("adsfjadjjadkjfj"));
 	}
 	
 	private class UserComparator implements Comparator<User>{

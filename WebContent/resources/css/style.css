@@ -76,11 +76,25 @@ a.footer-link {
     font-size: 150%;
     color: white;
     position: absolute;
-    width: 25%;
-    height: 15%;
+    width: 20%;
+    height: 20%;
     background: red;
     padding-top: 5%;
-    top: 0;
-    right: -10%;
+    top: -10%;
+    right: -5%;
 
+}
+
+/* Book Detail */
+#bookDetail {
+    margin-top: 54px;
+    /* height: 600px; */
+}
+
+#add-button, #minus-button:hover {
+    cursor: pointer;
+}
+
+.small-img:hover{
+    cursor: pointer;
 }

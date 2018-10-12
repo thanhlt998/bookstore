@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.thanh.enumeration.OrderStatus;
@@ -13,6 +16,8 @@ import com.thanh.enumeration.PaymentMethod;
 @Entity
 @Table(name="order")
 public class Order {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int orderId;
 	private int userId;
 	private Date orderDate;
@@ -25,6 +30,10 @@ public class Order {
 	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
+	
+	public Order() {
+		
+	}
 
 	public Order(int orderId, int userId, Date orderDate, Date shipDate, String shipAddress, int totalAmount,
 			PaymentMethod paymentMethod, OrderStatus status) {

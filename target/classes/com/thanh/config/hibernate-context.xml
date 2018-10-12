@@ -27,10 +27,12 @@
 				<value>com.thanh.entity.Image</value>
 				<value>com.thanh.entity.Manufacturer</value>
 				<value>com.thanh.entity.Order</value>
-				<value>com.thanh.entity.OrderDetail</value>
+				<value>com.thanh.entity.OrdersDetail</value>
 				<value>com.thanh.entity.Promotion</value>
 				<value>com.thanh.entity.PromotionEvent</value>
 				<value>com.thanh.entity.Storage</value>
+				<value>com.thanh.entity.Exportation</value>
+				<value>com.thanh.entity.Importation</value>
 			</list>
 		</property>
 
@@ -38,6 +40,8 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop> -->
 			</props>
 		</property>
 	</bean>
