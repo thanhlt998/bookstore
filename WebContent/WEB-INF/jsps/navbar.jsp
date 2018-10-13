@@ -16,14 +16,17 @@
 				</button>
 			</div>
 			<div class="col-md-5 py-2">
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<a class="btn btn-light input-group-text text-dark">
-							<i class="fas fa-search"></i>
-						</a>
-					</div>
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
+				<form action="${pageContext.request.contextPath }/viewSearchResult">
+					<div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-light input-group-text text-dark">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search" name="searchValue">
+                    </div>
+                    <input type="hidden" class="form-control" name="page" value="1">
+                </form>
 			</div>
 			<div class="col-md-4">
 				<div class="collapse navbar-collapse" id="navbarBar">
@@ -34,7 +37,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <c:forEach var="category" items="${categoryList }">
-                                	<a href="" class="dropdown-item">
+                                	<a href="${pageContext.request.contextPath }/viewBookByCategory?categoryId=${category.categoryId}&page=1" class="dropdown-item">
                                     ${category.categoryName }
                                 </a>
                                 </c:forEach>

@@ -22,4 +22,8 @@ public class CategoryService {
 		return categoryDao.getCategoryNameByCategoryId(categoryId);
 	}
 	
+	public Category getCategoryByCategoryId(int categoryId) {
+		return categoryDao.getCategoryByCategoryId(categoryId);
+	}
+	
 }

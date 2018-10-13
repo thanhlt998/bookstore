@@ -24,61 +24,105 @@ import com.thanh.model.BookListView;
 public class BookService {
 	@Autowired
 	private BookDao bookDao;
-	
+
 	@Autowired
 	private ImageDao imageDao;
-	
+
 	@Autowired
 	private PromotionDao promotionDao;
-	
+
 	@Autowired
 	private PromotionEventDao promotionEventDao;
-	
+
 	@Autowired
 	private ManufacturerDao manufacturerDao;
-	
+
 	@Autowired
 	private CategoryDao categoryDao;
-	
-	public List<BookListView> getBookListViewsByOffsetQuantity(int offset, int quantity){
+
+	public List<BookListView> getBookListViewsByOffsetQuantity(int offset, int quantity) {
 		List<Book> books = bookDao.getBookListByOffsetQuantity(offset, quantity);
-		for(Book book: books) {
+		for (Book book : books) {
 			System.out.println(book);
 		}
 		List<BookListView> views = new ArrayList<>();
-		
-		for(Book book: books) {
-			
+
+		for (Book book : books) {
+
 			String imageUrl = imageDao.getAnImageUrlByBookId(book.getBookId());
 			int discount = calculateTotalCurrentDiscountByBookId(book.getBookId());
-			
+
 			views.add(new BookListView(book.getBookId(), book.getBookName(), imageUrl, book.getPrice(), discount));
 		}
-		
+
 		return views;
 	}
-	
+
 	public BookDetail getBookDetailByBookId(int bookId) {
 		Book book = bookDao.getBookByBookId(bookId);
 		String category = categoryDao.getCategoryNameByCategoryId(book.getCategoryId());
 		String manufacturer = manufacturerDao.getManufacturerNameByManufacturerId(book.getManufacturerId());
 		List<String> imageUrls = imageDao.getImageUrlsByBookId(bookId);
 		int discount = calculateTotalCurrentDiscountByBookId(bookId);
-		
+
 		return new BookDetail(book, category, manufacturer, imageUrls, discount);
 	}
-	
+
 	public int calculateTotalCurrentDiscountByBookId(int bookId) {
 		int discount = 0;
 		List<Integer> promotionIdList = promotionEventDao.getAllPromotionIdByBookId(bookId);
 		System.out.println(promotionIdList);
-		
+
 		List<Promotion> currentPromotions = promotionDao.getAllCurrentPromotion(promotionIdList);
 		System.out.println(currentPromotions);
-		
-		for(Promotion promotion: currentPromotions) {
+
+		for (Promotion promotion : currentPromotions) {
 			discount += promotion.getDiscount();
 		}
 		return discount;
+	}
+
+	public List<BookListView> searchBookByCategory(int categoryId, int offset, int quantity) {
+		List<Book> books = bookDao.getBookByCategoryIdOffsetQuantity(categoryId, offset, quantity);
+		for (Book book : books) {
+			System.out.println(book);
+		}
+		List<BookListView> views = new ArrayList<>();
+
+		for (Book book : books) {
+
+			String imageUrl = imageDao.getAnImageUrlByBookId(book.getBookId());
+			int discount = calculateTotalCurrentDiscountByBookId(book.getBookId());
+
+			views.add(new BookListView(book.getBookId(), book.getBookName(), imageUrl, book.getPrice(), discount));
+		}
+
+		return views;
+	}
+
+	public int countNoBookByCategoryId(int categoryId) {
+		return bookDao.countNoBookByCategoryId(categoryId);
+	}
+
+	public List<BookListView> searchBookBySearchValue(String searchValue, int offset, int quantity) {
+		List<Book> books = bookDao.getBookBySearchValueOffsetQuantity(searchValue, offset, quantity);
+		for (Book book : books) {
+			System.out.println(book);
+		}
+		List<BookListView> views = new ArrayList<>();
+
+		for (Book book : books) {
+
+			String imageUrl = imageDao.getAnImageUrlByBookId(book.getBookId());
+			int discount = calculateTotalCurrentDiscountByBookId(book.getBookId());
+
+			views.add(new BookListView(book.getBookId(), book.getBookName(), imageUrl, book.getPrice(), discount));
+		}
+
+		return views;
+	}
+
+	public int countNoBookBySearchValue(String searchValue) {
+		return bookDao.countNoBookBySearchValue(searchValue);
 	}
 }

@@ -52,4 +52,14 @@ public class BookDaoTest {
 		List<Book> books = bookDao.getBookListByOffsetQuantity(1, 5);
 		assertEquals(5, books.size());
 	}
+	
+	@Test
+	public void testCountNoBookBySearchValue() {
+		assertEquals(new Integer(7), new Integer(bookDao.countNoBookBySearchValue("a")));
+	}
+	
+	@Test
+	public void testCountNoBookCategoryId() {
+		assertEquals(new Integer(3), new Integer(bookDao.countNoBookByCategoryId(6)));
+	}
 }

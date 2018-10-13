@@ -28,14 +28,18 @@
                 </button>
             </div>
             <div class="col-md-5 py-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <a href="#" class="input-group-text text-dark" style="text-decoration:none;">
-                            <i class="fas fa-search"></i>
-                        </a>
+                <form>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-light input-group-text text-dark">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search" name="searchValue">
+                        
                     </div>
-                    <input type="text" class="form-control">
-                </div>
+                    <input type="hidden" class="form-control" name="page" value="1">
+                </form>
             </div>
             <div class="col-md-4">
                 <div class="collapse navbar-collapse" id="navbarBar">
@@ -294,8 +298,8 @@
                             <a class="btn btn-danger text-white btn-block"><i class="fas fa-cart-plus"></i> Add Cart</a>
                         </div>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
