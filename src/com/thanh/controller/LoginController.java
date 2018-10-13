@@ -1,10 +1,10 @@
 package com.thanh.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.thanh.entity.Category;
 import com.thanh.entity.User;
 import com.thanh.enumeration.Authority;
 import com.thanh.enumeration.Gender;
+import com.thanh.model.Cart;
+import com.thanh.service.CategoryService;
 import com.thanh.service.UserService;
 
 @Controller
@@ -28,13 +31,19 @@ public class LoginController {
 
 	private static ObjectMapper mapper = new ObjectMapper();
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@Autowired
 	private UserService userService;
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
+		List<Category> categoryList = categoryService.getAllCategory();
+		session.setAttribute("categoryList", categoryList);
+		session.setAttribute("cart", new Cart());
 		return "redirect:/";
 	}
 

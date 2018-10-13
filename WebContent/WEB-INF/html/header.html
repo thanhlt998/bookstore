@@ -5,7 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+
 </head>
 
 <body>
@@ -21,14 +29,18 @@
                     </button>
                 </div>
                 <div class="col-md-5 py-2">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <a class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </a>
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-light input-group-text text-dark">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" name="searchValue">
+    
                         </div>
-                        <input type="text" class="form-control">
-                    </div>
+                        <input type="hidden" class="form-control" name="page" value="1">
+                    </form>
                 </div>
                 <div class="col-md-4">
                     <div class="collapse navbar-collapse" id="navbarBar">
@@ -45,7 +57,7 @@
                                         Lorem, ipsum dolor.
                                     </a>
                                 </div>
-
+    
                             </li>
                             <li class="nav-item dropdown mr-3">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -59,17 +71,57 @@
                                         <i class="fas fa-cog"></i> Setting
                                     </a>
                                 </div>
-
+    
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">
-                                    <i class="fas fa-lock"></i> Login
+                                    <i class="fas fa-sign-in-alt"></i> Login
                                 </a>
                             </li>
-                            <li class="nav-item d-inline-block">
-                                <a href="#" class="nav-link" style="position: relative;">
-                                    <i class="fas fa-shopping-cart fa-2x"></i><span id="badge">0</span>
+                            <!-- <li class="nav-item">
+                                <a href="#" class="nav-link"">
+                                    <i class=" fas
+                                    fa-sign-out-alt"></i> Logout
                                 </a>
+                            </li> -->
+                            <li class="nav-item d-inline-block dropdown" id="shopCart">
+                                <a href="#" class="nav-link" style="position: relative;">
+                                    <i class="fas fa-shopping-cart fa-2x"></i><span id="badge" class="badge badge-danger rounded-circle">0</span>
+                                </a>
+                                <div class="dropdown-menu p-3" id="cartDetail" style="width: 280px;">
+                                    <table class="table table-striped small">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>No.</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sum</td>
+                                                <td>500000</td>
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
+                                    <a href="" class="btn btn-danger btn-sm mr-1">View Cart</a>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -166,6 +218,48 @@
             </div>
         </div>
     </section>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="../../resources/javascript/script.js"></script>
+
+    <script>
+        $('.slider').slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        $("#registerForm").find($("#username")).blur({
+            url: "${pageContext.request.contextPath}/checkAvailableUsername"
+        }, validateUsernameField);
+    </script>
 </body>
 
 </html>

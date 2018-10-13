@@ -47,7 +47,7 @@
 							<c:if test="${book.discount > 0 }">
 								<del>${book.price }</del>
 							</c:if> &nbsp;
-						</span><br> <span class="display-4">${book.price * (100 - book.discount) / 100 }</span><br>
+						</span><br> <span class="display-4">${book.currentPrice }</span><br>
 						<a class="btn btn-dark text-white" href="">More</a> <a class="btn btn-danger text-white"><i class="fas fa-cart-plus"></i>
 							Add Cart</a>
 						<hr>
@@ -122,6 +122,10 @@
 		$("#registerForm").find($("#username")).blur({
 			url: "${pageContext.request.contextPath}/checkAvailableUsername"
 		}, validateUsernameField);
+		
+		$(".add-cart").click({
+            url: "${pageContext.request.contextPath }/addCart"
+        }, addCart);
 	</script>
 </body>
 

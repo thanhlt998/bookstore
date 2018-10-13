@@ -6,6 +6,7 @@ public class BookListView {
 	private String imageUrl;
 	private int price;
 	private int discount;
+	private int currentPrice;
 
 	public BookListView(int bookId, String bookName, String imageUrl, int price, int discount) {
 		this.bookId = bookId;
@@ -13,6 +14,7 @@ public class BookListView {
 		this.imageUrl = imageUrl;
 		this.price = price;
 		this.discount = discount;
+		this.currentPrice = price * (100 - discount) / 100;
 	}
 
 	public int getBookId() {
@@ -53,6 +55,10 @@ public class BookListView {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
+	}
+	
+	public int getCurrentPrice() {
+		return this.currentPrice;
 	}
 
 	@Override

@@ -46,7 +46,7 @@
                     Old price: <span class="h4 text-danger font-italic"><del>${bookDetail.price }đ</del></span><br>
                     On sale: 
                     </c:if>
-                    <span class="h3 text-danger">${bookDetail.price * (100 - bookDetail.discount)/100 }đ</span>
+                    <span class="h3 text-danger">${bookDetail.currentPrice }đ</span>
                 </p>
                 <hr>
                 <span class="small text-muted">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="" class="btn btn-danger btn-lg add-cart text-white"><i class="fas fa-cart-plus"></i> Add Cart</a>
+                    <button class="btn btn-outline-danger btn-lg add-cart" bookid="${bookDetail.bookId }" quantity="1" id="add-cart-button"><i class="fas fa-cart-plus"></i> Add Cart</button>
                 </div>
 
             </div>
@@ -155,7 +155,11 @@
 
 		$("#username").blur({
 			url: "${pageContext.request.contextPath}/checkAvailableUsername"
-		}, validateUsernameField);
+        }, validateUsernameField);
+        
+        $(".add-cart").click({
+            url: "${pageContext.request.contextPath }/addCart"
+        }, addCart);
 	</script>
 </body>
 

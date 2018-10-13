@@ -14,6 +14,7 @@ public class BookDetail {
 	private int price;
 	private List<String> imageUrls;
 	private int discount;
+	private int currentPrice;
 
 	public BookDetail(Book book, String category, String manufacturer, List<String> imageUrls, int discount) {
 		this.bookId = book.getBookId();
@@ -25,6 +26,7 @@ public class BookDetail {
 		this.price = book.getPrice();
 		this.imageUrls = imageUrls;
 		this.discount = discount;
+		this.currentPrice = price * (100 - discount) / 100;
 	}
 
 	public int getBookId() {
@@ -97,6 +99,14 @@ public class BookDetail {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
+	}
+
+	public int getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(int currentPrice) {
+		this.currentPrice = currentPrice;
 	}
 
 	@Override

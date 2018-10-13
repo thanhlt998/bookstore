@@ -77,6 +77,9 @@
 		$("#username").blur({
 			url: "${pageContext.request.contextPath}/checkAvailableUsername"
 		}, validateUsernameField);
+		$(".add-cart").click({
+            url: "${pageContext.request.contextPath }/addCart"
+        }, addCart);
 	</script>
 </body>
 

@@ -57,6 +57,13 @@ public class BookService {
 
 		return views;
 	}
+	
+	public BookListView getBookListViewByBookId(int bookId) {
+		Book book = bookDao.getBookByBookId(bookId);
+		String imageUrl = imageDao.getAnImageUrlByBookId(bookId);
+		int discount = calculateTotalCurrentDiscountByBookId(bookId);
+		return new BookListView(bookId, book.getBookName(), imageUrl, book.getPrice(), discount);
+	}
 
 	public BookDetail getBookDetailByBookId(int bookId) {
 		Book book = bookDao.getBookByBookId(bookId);

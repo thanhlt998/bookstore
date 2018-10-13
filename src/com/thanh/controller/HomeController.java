@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thanh.entity.Category;
 import com.thanh.model.BookListView;
+import com.thanh.model.Cart;
 import com.thanh.service.BookService;
 import com.thanh.service.CategoryService;
 import com.thanh.service.UserService;
@@ -36,6 +37,9 @@ public class HomeController {
 		// Category list
 		List<Category> categoryList = categoryService.getAllCategory();
 		session.setAttribute("categoryList", categoryList);
+		if(session.getAttribute("cart") == null) {
+			session.setAttribute("cart", new Cart());
+		}
 
 		return "home";
 	}

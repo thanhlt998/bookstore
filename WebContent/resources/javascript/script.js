@@ -1,6 +1,6 @@
 $(function() {
 
-  //Validate form
+  //Validate form ------------------------------------------------------------
     var registerForm = $("#registerForm");
 
     validatePasswordRegisterForm(registerForm);
@@ -8,16 +8,27 @@ $(function() {
     registerForm.submit(validateSubmitRegisterForm);
 
 
-    //Add cart
+    //Add cart ------------------------------------------------------------
     $("#add-button").click(increaseQuantity);
     $("#minus-button").click(decreaseQuantity);
 
 
-    // Replace img
+    // Replace img ---------------------------------------------------------
     $(".small-img").click(replaceImg);
+
+
+    // Add cart -----------------------------------------------------------
+
+    $("#shopCart").hover(function(){
+      $("#cartDetail").stop().slideDown();
+    }, function(){
+      $("#cartDetail").stop().slideUp();
+    })
+
+
 });
 
-
+// --------------------------------------------------------------------------------------------
 // Validate Form 
 
 function validateSubmitRegisterForm(event) {
@@ -130,13 +141,14 @@ function validateUsernameField(event) {
 //     })
 // }
 
-
+// ------------------------------------------------------------------------------------------------------------------------
 
 // add cart
 function increaseQuantity(){
   var quantityAdd = $("#quantity-add");
   var currentValue = parseInt(quantityAdd.val());
   quantityAdd.val(currentValue + 1);
+  $("#add-cart-button").attr("quantity", quantityAdd.val());
 }
 
 function decreaseQuantity(){
@@ -145,11 +157,50 @@ function decreaseQuantity(){
   if(currentValue > 1){
     quantityAdd.val(currentValue - 1);
   }
+  $("#add-cart-button").attr("quantity", quantityAdd.val());
+}
+
+function addCart(event){
+  var bookId = $(this).attr("bookid");
+  var quantity = $(this).attr("quantity");
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: event.data.url,
+    data: {
+      bookId: bookId,
+      quantity: quantity
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data){
+      console.log(data);
+      if(data === false){
+        alert("Cannot add more this book.");
+      }
+      else {
+        console.log(data.cart);
+        var cart = data.cart;
+        $("#badge").text(data.totalQuantity);
+
+        var tableBody = $("#cartDetail").find("tbody");
+        tableBody.empty();
+        for(var i = 0; i < cart.length; i++){
+          $("<tr>").append($("<td>").text(cart[i].book.bookName)).append($("<td>").text(cart[i].quantity)).appendTo(tableBody);
+        }
+        $("<tr>").append($("<td>").text("Total Price")).append($("<td>").text(data.totalPrice)).appendTo(tableBody);
+      }
+    },
+    error: function(error){
+      console.log(error);
+    }
+  });
 }
 
 
-// small-picture
+// small-picture --------------------------------------------------------------------------------------------
 function replaceImg(event){
   var mainImg = $("#main-img");
   mainImg.attr("src", $(this).attr("src"));
 }
+
