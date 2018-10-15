@@ -89,33 +89,39 @@
                                     <i class="fas fa-shopping-cart fa-2x"></i><span id="badge" class="badge badge-danger rounded-circle">0</span>
                                 </a>
                                 <div class="dropdown-menu p-3" id="cartDetail" style="width: 280px;">
-                                    <table class="table table-striped small">
+                                    <table class="table table-striped small align-middle">
                                         <thead>
                                             <tr>
                                                 <td>Name</td>
                                                 <td>No.</td>
+                                                <td style="width: 40px"></td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Lorem ipsum dolor sit amet.</td>
                                                 <td>1</td>
+                                                <td class="text-danger align-middle"><i class="far fa-times-circle remove-cart-item" book-id="12"></i></td>
                                             </tr>
                                             <tr>
                                                 <td>Lorem ipsum dolor sit amet.</td>
                                                 <td>1</td>
+                                                <td class="text-danger align-middle"><i class="far fa-times-circle remove-cart-item"></i></td>
                                             </tr>
                                             <tr>
                                                 <td>Lorem ipsum dolor sit amet.</td>
                                                 <td>1</td>
+                                                <td class="text-danger align-middle"><i class="far fa-times-circle remove-cart-item"></i></td>
                                             </tr>
                                             <tr>
                                                 <td>Lorem ipsum dolor sit amet.</td>
                                                 <td>1</td>
+                                                <td class="text-danger align-middle"><i class="far fa-times-circle remove-cart-item"></i></td>
                                             </tr>
                                             <tr>
                                                 <td>Sum</td>
-                                                <td>500000</td>
+                                                <td colspan="2">500000</td>
+                                                
                                             </tr>
                                         </tbody>
                                         
@@ -259,6 +265,14 @@
         $("#registerForm").find($("#username")).blur({
             url: "${pageContext.request.contextPath}/checkAvailableUsername"
         }, validateUsernameField);
+
+        // $(".remove-cart-item").click({
+        //     url: "${pageContext.request.contextPath}/"
+        // },removeCartItem);
+
+        $("#cartDetail").on('click', '.remove-cart-item', {
+            url: "${pageContext.request.contextPath}/"
+        }, removeCartItem);
     </script>
 </body>
 

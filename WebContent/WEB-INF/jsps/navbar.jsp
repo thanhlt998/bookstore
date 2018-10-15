@@ -82,7 +82,8 @@
 									<thead>
 										<tr>
 											<td>Name</td>
-											<td>No.</td>
+                                                <td>No.</td>
+                                                <td style="width: 40px"></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -90,11 +91,12 @@
 											<tr>
 												<td>${cartItem.book.bookName }</td>
 												<td>${cartItem.quantity }</td>
+												<td class="text-danger align-middle"><i class="far fa-times-circle remove-cart-item" book-id="${cartItem.book.bookId }"></i></td>
 											</tr>
 										</c:forEach>
 										<tr>
 											<td>Total Price</td>
-											<td>${cart.totalPrice }</td>
+											<td colspan="2">${cart.totalPrice }</td>
 										</tr>
 									</tbody>
 

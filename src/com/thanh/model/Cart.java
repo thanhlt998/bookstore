@@ -34,6 +34,16 @@ public class Cart {
 		this.totalQuantity += addQuantity;
 		this.totalPrice += this.cart.get(index).getBook().getCurrentPrice() * addQuantity;
 	}
+	
+	public void removeCartItemByBookId(int bookId) {
+		int index = isItemExisted(bookId);
+		if(index != -1) {
+			CartItem cartItem = cart.get(index);
+			this.totalQuantity -= cartItem.getQuantity();
+			this.totalPrice -= cartItem.getQuantity() * cartItem.getBook().getCurrentPrice();
+			cart.remove(index);
+		}
+	}
 
 	public List<CartItem> getCart() {
 		return cart;

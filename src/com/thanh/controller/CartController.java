@@ -77,4 +77,22 @@ public class CartController {
 	public String showCart() {
 		return "viewCart";
 	}
+	
+	@RequestMapping("/removeCartItem")
+	public @ResponseBody String removeCartItem(HttpSession session, HttpServletRequest request) {
+		String ajaxResponse = "";
+		Cart cart = (Cart) session.getAttribute("cart");
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+		cart.removeCartItemByBookId(bookId);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			ajaxResponse = mapper.writeValueAsString(cart);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ajaxResponse;
+	}
 }

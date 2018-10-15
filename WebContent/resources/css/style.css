@@ -104,3 +104,8 @@ a.footer-link {
 table .inputChange {
     display: none;
 }
+
+/* remove cart item */
+.remove-cart-item:hover {
+    cursor: pointer;
+}

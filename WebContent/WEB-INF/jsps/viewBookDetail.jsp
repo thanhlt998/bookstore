@@ -160,6 +160,9 @@
         $(".add-cart").click({
             url: "${pageContext.request.contextPath }/addCart"
         }, addCart);
+        $("#cartDetail").on('click', '.remove-cart-item', {
+            url: "${pageContext.request.contextPath}/"
+        }, removeCartItem);
 	</script>
 </body>
 

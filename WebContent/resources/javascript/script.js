@@ -198,11 +198,24 @@ function addCart(event) {
           $("<tr>")
             .append($("<td>").text(cart[i].book.bookName))
             .append($("<td>").text(cart[i].quantity))
+            .append(
+              $("<td>")
+                .addClass("text-danger align-middle")
+                .append(
+                  $("<i>")
+                    .addClass("far fa-times-circle remove-cart-item")
+                    .attr("book-id", cart[i].book.bookId)
+                )
+            )
             .appendTo(tableBody);
         }
         $("<tr>")
           .append($("<td>").text("Total Price"))
-          .append($("<td>").text(data.totalPrice))
+          .append(
+            $("<td>")
+              .attr("colspan", "2")
+              .text(data.totalPrice)
+          )
           .appendTo(tableBody);
       }
     },
@@ -211,6 +224,59 @@ function addCart(event) {
     }
   });
 }
+
+$(".remove-cart-item").hover(
+  function(event) {
+    $(this)
+      .stop()
+      .animate(
+        {
+          "font-size": "120%"
+        },
+        300,
+        "swing"
+      );
+  },
+  function(event) {
+    $(this)
+      .stop()
+      .animate({
+        "font-size": "100%"
+      });
+  }
+);
+
+function removeCartItem(event) {
+  var bookId = $(this).attr("book-id");
+  var removeIcon = $(this);
+  $.ajax({
+    type: "GET",
+    async: false,
+    contentType: "application/json",
+    url: event.data.url + "removeCartItem",
+    data: {
+      bookId: bookId
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      removeIcon
+        .parent()
+        .parent()
+        .remove();
+      $("#shopCart")
+        .find("td")
+        .last()
+        .text(data.totalPrice);
+      $("#badge").text(data.totalQuantity);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+// confirm order
 
 $("#order-info-button").click(function(event) {
   $(this)
@@ -246,8 +312,8 @@ function createOrder(event) {
   console.log(shipAddress + " " + paymentMethod);
   if (isValidOrderInfo(shipAddress, paymentMethod)) {
     $.ajax({
-	  type: "GET",
-	  async: false,
+      type: "GET",
+      async: false,
       contentType: "application/json",
       url: event.data.url + "createOrder",
       data: {
@@ -259,13 +325,14 @@ function createOrder(event) {
       success: function(data) {
         console.log(data);
         if (data === false) {
-          message = "Your order is not completed! Please add Cart and order again!";
+          message =
+            "Your order is not completed! Please add Cart and order again!";
         } else {
           message = "Your order is ordered successfully!";
         }
       },
       error: function(error) {
-		  message = "Some errors occured!"
+        message = "Some errors occured!";
         console.log(error);
       }
     });

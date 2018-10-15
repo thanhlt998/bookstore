@@ -114,6 +114,10 @@
 		$("#confirm-order-button").click({
 			url: "${pageContext.request.contextPath }/"
 		}, createOrder);
+		
+		$("#cartDetail").on('click', '.remove-cart-item', {
+            url: "${pageContext.request.contextPath}/"
+        }, removeCartItem);
 	</script>
 </body>
 
