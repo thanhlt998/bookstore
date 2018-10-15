@@ -14,7 +14,7 @@ import com.thanh.enumeration.OrderStatus;
 import com.thanh.enumeration.PaymentMethod;
 
 @Entity
-@Table(name="order")
+@Table(name="`order`")
 public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

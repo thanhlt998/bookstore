@@ -1,5 +1,7 @@
 package com.thanh.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,11 +25,39 @@ public class ExportationDao {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Exportation> getAllExportationList() {
+		Criteria criteria = getSession().createCriteria(Exportation.class);
+		return criteria.list();
+	}
+	
 	public int countNoBookExportedByBookId(int bookId) {
 		Criteria criteria = getSession().createCriteria(Exportation.class);
-		criteria.add(Restrictions.eqOrIsNull("bookId", bookId));
+		criteria.add(Restrictions.eq("bookId", bookId));
 		criteria.setProjection(Projections.sum("quantity"));
 		if(criteria.uniqueResult() == null) return 0;
 		return Integer.parseInt(criteria.uniqueResult().toString());
 	}
+	
+	public void addExportationList(List<Exportation> exportationList) {
+		Session session = getSession();
+		for(Exportation exportation: exportationList) {
+			session.save(exportation);
+		}
+	}
+	
+	public boolean addExportation(Exportation exportation) {
+		getSession().save(exportation);
+		return getSession().getTransaction().wasRolledBack();
+	}
+	
+	public int countExportedBookQuantityByBookIdStorageId(int bookId, int storageId) {
+		Criteria criteria = getSession().createCriteria(Exportation.class);
+		criteria.add(Restrictions.eq("storageId", storageId));
+		criteria.add(Restrictions.eq("bookId", bookId));
+		criteria.setProjection(Projections.sum("quantity"));
+		if(criteria.uniqueResult() == null) return 0;
+		return Integer.parseInt(criteria.uniqueResult().toString());
+	}
+	
 }

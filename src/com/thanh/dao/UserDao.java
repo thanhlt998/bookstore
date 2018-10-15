@@ -41,6 +41,7 @@ public class UserDao {
 
 	public void createUser(User user) {
 		getSession().save(user);
+		System.out.println("The id is generated: " + user.getUserId());
 	}
 
 	@SuppressWarnings("unchecked")

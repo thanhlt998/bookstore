@@ -97,3 +97,10 @@ a.footer-link {
 .small-img:hover{
     cursor: pointer;
 }
+
+
+/* profile table */
+
+table .inputChange {
+    display: none;
+}

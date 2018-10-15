@@ -40,4 +40,10 @@ public class ImportationDaoTest {
 		assertEquals(48, importationDao.countNoBookImportedByBookId(4));
 		assertEquals(61, importationDao.countNoBookImportedByBookId(2));
 	}
+	
+	@Test
+	public void testCountImportedBookQuantityByBookIdStorageId() {
+		assertEquals(0, importationDao.countImportedBookQuantityByBookIdStorageId(3, 1));
+		assertEquals(38, importationDao.countImportedBookQuantityByBookIdStorageId(3, 6));
+	}
 }

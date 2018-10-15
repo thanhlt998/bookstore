@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.thanh.entity.Exportation;
 import com.thanh.entity.Importation;
 
 @Repository
@@ -30,4 +31,18 @@ public class ImportationDao {
 		if(criteria.uniqueResult() == null) return 0;
 		return Integer.parseInt(criteria.uniqueResult().toString());
 	}
+	
+	public int countImportedBookQuantityByBookIdStorageId(int bookId, int storageId) {
+		Criteria criteria = getSession().createCriteria(Importation.class);
+		criteria.add(Restrictions.eq("bookId", bookId));
+		criteria.add(Restrictions.eq("storageId", storageId));
+		criteria.setProjection(Projections.sum("quantity"));
+		if(criteria.uniqueResult() == null) return 0;
+		return Integer.parseInt(criteria.uniqueResult().toString());
+	}
+	
+	public void addImportation(Importation importation) {
+		getSession().save(importation);
+	}
+	
 }

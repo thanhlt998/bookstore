@@ -78,4 +78,47 @@ public class Exportation {
 		this.exportDate = exportDate;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + bookId;
+		result = prime * result + ((exportDate == null) ? 0 : exportDate.hashCode());
+		result = prime * result + exportationId;
+		result = prime * result + quantity;
+		result = prime * result + storageId;
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Exportation [exportationId=" + exportationId + ", storageId=" + storageId + ", bookId=" + bookId
+				+ ", quantity=" + quantity + ", exportDate=" + exportDate + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Exportation other = (Exportation) obj;
+		if (bookId != other.bookId)
+			return false;
+		if (exportDate == null) {
+			if (other.exportDate != null)
+				return false;
+		} else if (!exportDate.equals(other.exportDate))
+			return false;
+		if (exportationId != other.exportationId)
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		if (storageId != other.storageId)
+			return false;
+		return true;
+	}
+
 }

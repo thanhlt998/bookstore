@@ -13,10 +13,7 @@ import com.thanh.dao.ManufacturerDao;
 import com.thanh.dao.PromotionDao;
 import com.thanh.dao.PromotionEventDao;
 import com.thanh.entity.Book;
-import com.thanh.entity.Category;
-import com.thanh.entity.Manufacturer;
 import com.thanh.entity.Promotion;
-import com.thanh.entity.PromotionEvent;
 import com.thanh.model.BookDetail;
 import com.thanh.model.BookListView;
 

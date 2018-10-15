@@ -9,19 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="importation")
+@Table(name = "importation")
 public class Importation {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int importationId;
 	private int storageId;
 	private int bookId;
 	private int quantity;
 	private Date importDate;
 	private int importPrice;
-	
+
 	public Importation() {
-		
+
 	}
 
 	public Importation(int importationId, int storageId, int bookId, int quantity, Date importDate, int importPrice) {
@@ -87,6 +87,52 @@ public class Importation {
 
 	public void setImportPrice(int importPrice) {
 		this.importPrice = importPrice;
+	}
+
+	@Override
+	public String toString() {
+		return "Importation [importationId=" + importationId + ", storageId=" + storageId + ", bookId=" + bookId
+				+ ", quantity=" + quantity + ", importDate=" + importDate + ", importPrice=" + importPrice + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + bookId;
+		result = prime * result + ((importDate == null) ? 0 : importDate.hashCode());
+		result = prime * result + importPrice;
+		result = prime * result + importationId;
+		result = prime * result + quantity;
+		result = prime * result + storageId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Importation other = (Importation) obj;
+		if (bookId != other.bookId)
+			return false;
+		if (importDate == null) {
+			if (other.importDate != null)
+				return false;
+		} else if (!importDate.equals(other.importDate))
+			return false;
+		if (importPrice != other.importPrice)
+			return false;
+		if (importationId != other.importationId)
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		if (storageId != other.storageId)
+			return false;
+		return true;
 	}
 
 }

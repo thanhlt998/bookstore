@@ -1,6 +1,5 @@
 package com.thanh.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,8 +34,10 @@ public class HomeController {
 		List<BookListView> bookList = bookService.getBookListViewsByOffsetQuantity(0, 6);
 		model.addAttribute("bookList", bookList);
 		// Category list
-		List<Category> categoryList = categoryService.getAllCategory();
-		session.setAttribute("categoryList", categoryList);
+		if(session.getAttribute("categoryList") == null) {
+			List<Category> categoryList = categoryService.getAllCategory();
+			session.setAttribute("categoryList", categoryList);
+		}
 		if(session.getAttribute("cart") == null) {
 			session.setAttribute("cart", new Cart());
 		}

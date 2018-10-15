@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top ">
+        <div class="container">
+            <div class="row w-100 align-items-center">
+                <div class="col-md-3 text-center">
+                    <a href="#" class="navbar-brand">
+                        <i class="fas fa-book fa-2x pr-3"></i><span class="display-5">BookStore</span>
+                    </a>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarBar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="col-md-5 py-2">
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-light input-group-text text-dark">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" name="searchValue">
+
+                        </div>
+                        <input type="hidden" class="form-control" name="page" value="1">
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="collapse navbar-collapse" id="navbarBar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown mr-3">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    Categories
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="" class="dropdown-item">
+                                        Lorem, ipsum dolor.
+                                    </a>
+                                    <a href="" class="dropdown-item">
+                                        Lorem, ipsum dolor.
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item dropdown mr-3">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-user-circle"></i> Profile
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-cog"></i> Setting
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="#" class="nav-link"">
+                                    <i class=" fas
+                                    fa-sign-out-alt"></i> Logout
+                                </a>
+                            </li> -->
+                            <li class="nav-item d-inline-block dropdown" id="shopCart">
+                                <a href="#" class="nav-link" style="position: relative;">
+                                    <i class="fas fa-shopping-cart fa-2x"></i><span id="badge" class="badge badge-danger rounded-circle">0</span>
+                                </a>
+                                <div class="dropdown-menu p-3" id="cartDetail" style="width: 280px;">
+                                    <table class="table table-striped small">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>No.</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sum</td>
+                                                <td>500000</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <a href="" class="btn btn-danger btn-sm mr-1">View Cart</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section id="loginForm" style="height: 60vh;">
+        <div class="container h-100">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6" style="margin-top: 15%;">
+                    <form action="">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg" name="username" placeholder="Username">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
+                        </div>
+                        <p class="text-right small font-italic text-muted">
+                            <a href="" id="login-toggle-button">Not have an account? </a>
+                        </p>
+                        <div class="text-right"><button class="btn btn-dark btn-lg" type="submit">Login</button></div>
+                        <br> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="registerForm" style="height: 100vh; display: none;">
+        <div class="container h-100">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-5" style="margin-top: 10%;">
+                    <form action="">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="name" placeholder="Full Name" id="name" required>
+                
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-envelope"></i></span>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="Email" id="email" required>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="username" placeholder="Username" id="username" required><br>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="usernameAppend"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Password" id="password" required> <small id="password-feedback"
+                             class="form-text text-muted d-block"></small>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control d-block" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"
+                             required>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="confirmPasswordAppend"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <br>
+                            <input type="date" class="form-control" name="birthDate" id="birthDate" required>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-transgender"></i></span>
+                            </div>
+                            <select type="gender" class="form-control" name="gender" id="gender" required>
+                                <option value="MALE" selected>Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                            </select> <br>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="address" placeholder="Address" id="address" required>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="phone" placeholder="Phone" id="phone" required>
+                        </div>
+                        <p class="text-right small font-italic text-muted align-middle">
+                            <a href="" id="register-toggle-button">Already have an account?</a>
+                        </p>
+                        <button class="btn btn-dark" type="submit">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- footer -->
+    <footer class="main-footer bg-dark text-white text-muted small">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-md-3 col-sm-6 text-center px-5">
+                    <i class="fas fa-book fa-2x"></i>
+                    <h3 class="d-inline-block"> Bookstore</h3>
+                    <hr style="color: white">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, tempore porro illo esse
+                        labore ipsum?</p>
+                </div>
+                <div class="col-md-3 col-sm-6 text-center px-5">
+                    <i class="fas fa-building fa-2x"></i>
+                    <h3 class="d-inline-block"> Contact Us</h3>
+                    <hr style="color: white">
+                    <p class="text-left">
+                        Address: Lorem ipsum dolor, sit amet consectetur adipisicing elit <br>
+                        Phone: +84111111111 <br>
+                        admin@bookstore.com
+                    </p>
+
+                </div>
+                <div class="col-md-3 col-sm-6 text-center px-4">
+                    <i class="fas fa-share-alt fa-2x"></i>
+                    <h3 class="d-inline-block"> Connect with us</h3>
+                    <hr style="color: white">
+                    <p class="text-left">
+                        <a href="" class="footer-link text-white text-muted"><i class="fab fa-facebook fa-2x"></i>
+                            bookstore</a><br>
+                        <a href="" class="footer-link text-white text-muted"><i class="fab fa-instagram fa-2x"></i>
+                            @bookstore</a><br>
+                        <a href="" class="footer-link text-white text-muted"><i class="fab fa-google fa-2x"></i>
+                            bookstore</a><br>
+                    </p>
+                </div>
+                <div class="col-md-3 col-sm-6 text-center">
+                    <i class="fas fa-info fa-2x"></i>
+                    <h3 class="d-inline-block"> Information</h3>
+                    <hr style="color: white">
+                    <p>
+                        Lorem. <br>
+                        Lorem. <br>
+                        Lorem. <br>
+                        Lorem. <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="../../resources/javascript/script.js"></script>
+
+    <script>
+        $('.slider').slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        $("#registerForm").find($("#username")).blur({
+            url: "${pageContext.request.contextPath}/checkAvailableUsername"
+        }, validateUsernameField);
+
+        $("#login-toggle-button").click(function(event){
+            event.preventDefault();
+            $("#loginForm").slideUp(function(){
+                $("#registerForm").slideDown();
+            });
+        });
+
+        $("#register-toggle-button").click(function(event){
+            event.preventDefault();
+            $("#registerForm").slideUp(function(){
+                $("#loginForm").slideDown();
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,35 +1,37 @@
 $(function() {
+  // Validate form
+  // ------------------------------------------------------------
+  var registerForm = $("#registerForm");
 
-  //Validate form ------------------------------------------------------------
-    var registerForm = $("#registerForm");
+  validatePasswordRegisterForm(registerForm);
 
-    validatePasswordRegisterForm(registerForm);
+  registerForm.submit(validateSubmitRegisterForm);
 
-    registerForm.submit(validateSubmitRegisterForm);
+  // Add cart ------------------------------------------------------------
+  $("#add-button").click(increaseQuantity);
+  $("#minus-button").click(decreaseQuantity);
 
+  // Replace img ---------------------------------------------------------
+  $(".small-img").click(replaceImg);
 
-    //Add cart ------------------------------------------------------------
-    $("#add-button").click(increaseQuantity);
-    $("#minus-button").click(decreaseQuantity);
+  // Add cart -----------------------------------------------------------
 
-
-    // Replace img ---------------------------------------------------------
-    $(".small-img").click(replaceImg);
-
-
-    // Add cart -----------------------------------------------------------
-
-    $("#shopCart").hover(function(){
-      $("#cartDetail").stop().slideDown();
-    }, function(){
-      $("#cartDetail").stop().slideUp();
-    })
-
-
+  $("#shopCart").hover(
+    function() {
+      $("#cartDetail")
+        .stop()
+        .slideDown();
+    },
+    function() {
+      $("#cartDetail")
+        .stop()
+        .slideUp();
+    }
+  );
 });
 
 // --------------------------------------------------------------------------------------------
-// Validate Form 
+// Validate Form
 
 function validateSubmitRegisterForm(event) {
   var registerForm = $("#registerForm");
@@ -73,33 +75,41 @@ function validateConfirmPasswordField(
   var password = passwordField.val();
   var confirmPassword = confirmPasswordField.val();
   if (password !== confirmPassword) {
-    $("#confirmPasswordAppend").html("<i class='far fa-times-circle text-danger'></i>")
+    $("#confirmPasswordAppend").html(
+      "<i class='far fa-times-circle text-danger'></i>"
+    );
     event.preventDefault();
   } else {
-    $("#confirmPasswordAppend").html("<i class='far fa-check-circle text-success'></i>");
+    $("#confirmPasswordAppend").html(
+      "<i class='far fa-check-circle text-success'></i>"
+    );
   }
 }
 
 function validateUsernameField(event) {
-    event.preventDefault();
-    var username = $(this).val();
-    $.ajax({
-    	type: "GET",
-    	contentType: "application/json",
-    	url: event.data.url,
-    	data: {
-    		username: username
-    	},
-    	dataType: "json",
-    	timeout: 10000,
-    	success: function(data) {
-        console.log(data);
-        if (data === true) {
-            $("#usernameAppend").html("<i class='far fa-check-circle text-success'></i>");
-            event.preventDefault();
-        } else {
-            $("#usernameAppend").html("<i class='far fa-times-circle text-danger'></i>");
-        }
+  event.preventDefault();
+  var username = $(this).val();
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: event.data.url,
+    data: {
+      username: username
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      console.log(data);
+      if (data === true) {
+        $("#usernameAppend").html(
+          "<i class='far fa-check-circle text-success'></i>"
+        );
+        event.preventDefault();
+      } else {
+        $("#usernameAppend").html(
+          "<i class='far fa-times-circle text-danger'></i>"
+        );
+      }
     },
     error: function(e) {
       console.log(e);
@@ -109,58 +119,58 @@ function validateUsernameField(event) {
 
 // // Register
 // function register(event){
-//     $.ajax({
-//         type: "GET",
-//         contentType: "application/json",
-//         url: event.data.url,
-//         data: {
-//             name: $("#name").val(),
-//             email: $("#email").val(),
-//             username: $("#username").val(),
-//             password: $("#password").val(),
-//             birthDate: $("#birthDate").val(),
-//             gender: $("#gender").val(),
-//             address: $("#address").val(),
-//             phone: $("#phone").val()
-//         },
-//         dataType: "json",
-//         timeout: 10000,
-//         success: function(data){
-//             if(data === true){
-//                 $("#dismissRegisterButton").click();
-//                 alert("Register successfully! Please login.");
-//             }
-//             else {
-//                 alert("Failed to register.");
-//             }
-//             event.preventDefault();
-//         },
-//         error: function(error){
-//             console.log(error);
-//         }
-//     })
+// $.ajax({
+// type: "GET",
+// contentType: "application/json",
+// url: event.data.url,
+// data: {
+// name: $("#name").val(),
+// email: $("#email").val(),
+// username: $("#username").val(),
+// password: $("#password").val(),
+// birthDate: $("#birthDate").val(),
+// gender: $("#gender").val(),
+// address: $("#address").val(),
+// phone: $("#phone").val()
+// },
+// dataType: "json",
+// timeout: 10000,
+// success: function(data){
+// if(data === true){
+// $("#dismissRegisterButton").click();
+// alert("Register successfully! Please login.");
+// }
+// else {
+// alert("Failed to register.");
+// }
+// event.preventDefault();
+// },
+// error: function(error){
+// console.log(error);
+// }
+// })
 // }
 
 // ------------------------------------------------------------------------------------------------------------------------
 
 // add cart
-function increaseQuantity(){
+function increaseQuantity() {
   var quantityAdd = $("#quantity-add");
   var currentValue = parseInt(quantityAdd.val());
   quantityAdd.val(currentValue + 1);
   $("#add-cart-button").attr("quantity", quantityAdd.val());
 }
 
-function decreaseQuantity(){
+function decreaseQuantity() {
   var quantityAdd = $("#quantity-add");
   var currentValue = parseInt(quantityAdd.val());
-  if(currentValue > 1){
+  if (currentValue > 1) {
     quantityAdd.val(currentValue - 1);
   }
   $("#add-cart-button").attr("quantity", quantityAdd.val());
 }
 
-function addCart(event){
+function addCart(event) {
   var bookId = $(this).attr("bookid");
   var quantity = $(this).attr("quantity");
   $.ajax({
@@ -173,34 +183,147 @@ function addCart(event){
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data){
+    success: function(data) {
       console.log(data);
-      if(data === false){
+      if (data === false) {
         alert("Cannot add more this book.");
-      }
-      else {
+      } else {
         console.log(data.cart);
         var cart = data.cart;
         $("#badge").text(data.totalQuantity);
 
         var tableBody = $("#cartDetail").find("tbody");
         tableBody.empty();
-        for(var i = 0; i < cart.length; i++){
-          $("<tr>").append($("<td>").text(cart[i].book.bookName)).append($("<td>").text(cart[i].quantity)).appendTo(tableBody);
+        for (var i = 0; i < cart.length; i++) {
+          $("<tr>")
+            .append($("<td>").text(cart[i].book.bookName))
+            .append($("<td>").text(cart[i].quantity))
+            .appendTo(tableBody);
         }
-        $("<tr>").append($("<td>").text("Total Price")).append($("<td>").text(data.totalPrice)).appendTo(tableBody);
+        $("<tr>")
+          .append($("<td>").text("Total Price"))
+          .append($("<td>").text(data.totalPrice))
+          .appendTo(tableBody);
       }
     },
-    error: function(error){
+    error: function(error) {
       console.log(error);
     }
   });
 }
 
+$("#order-info-button").click(function(event) {
+  $(this)
+    .parent()
+    .parent()
+    .find("td")
+    .first()
+    .text("Additional Information");
+  $(this).css("display", "none");
+  $(this)
+    .parent()
+    .find(".info-form")
+    .slideDown();
+});
 
-// small-picture --------------------------------------------------------------------------------------------
-function replaceImg(event){
+function isValidOrderInfo(shipAddress, paymentMethod) {
+  var flag = true;
+  if (shipAddress === "") {
+    $("#ship-address-feedback").text("Please fill in this field");
+    flag = false;
+  }
+  if (paymentMethod === "") {
+    $("#payment-method-feedback").text("Please fill in this field");
+    flag = false;
+  }
+  return flag;
+}
+
+function createOrder(event) {
+  var shipAddress = $("#shipAddress").val();
+  var paymentMethod = $("#paymentMethod").val();
+  var message = "";
+  console.log(shipAddress + " " + paymentMethod);
+  if (isValidOrderInfo(shipAddress, paymentMethod)) {
+    $.ajax({
+	  type: "GET",
+	  async: false,
+      contentType: "application/json",
+      url: event.data.url + "createOrder",
+      data: {
+        shipAddress: shipAddress,
+        paymentMethod: paymentMethod
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        console.log(data);
+        if (data === false) {
+          message = "Your order is not completed! Please add Cart and order again!";
+        } else {
+          message = "Your order is ordered successfully!";
+        }
+      },
+      error: function(error) {
+		  message = "Some errors occured!"
+        console.log(error);
+      }
+    });
+  } else {
+    console.log("blank content");
+  }
+  alert(message);
+  $(this).prop("disabled", true);
+  $(location).attr("href", event.data.url);
+}
+
+// small-picture
+// --------------------------------------------------------------------------------------------
+function replaceImg(event) {
   var mainImg = $("#main-img");
   mainImg.attr("src", $(this).attr("src"));
 }
 
+// Profile
+// -------------------------------------------------------------------------------------------------
+
+$(".list-group-item").click(function(event) {
+  var listItem = [
+    $("#view-profile"),
+    $("#change-password"),
+    $("#order-history"),
+    $("#order-detail")
+  ];
+  $(this)
+    .parent()
+    .find(".active")
+    .toggleClass("active");
+  for (var i = 0; i < listItem.length; i++) {
+    listItem[i].css("display", "none");
+  }
+  $(this).addClass("active");
+
+  console.log($(this).attr("data-target"));
+  $($(this).attr("data-target"))
+    .stop()
+    .slideDown(400, "swing");
+});
+
+$(".fa-edit").click(function(event) {
+  $(this)
+    .parent()
+    .parent()
+    .find(".inputChange")
+    .slideToggle(400, "linear");
+});
+
+$("#profile")
+  .find(".changeField")
+  .change(function(event) {
+    $("#save-changes-button").prop("disabled", false);
+    $(this)
+      .parent()
+      .parent()
+      .find("span")
+      .text($(this).val());
+  });

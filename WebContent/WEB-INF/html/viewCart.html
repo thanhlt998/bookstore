@@ -17,23 +17,207 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top ">
+        <div class="container">
+            <div class="row w-100 align-items-center">
+                <div class="col-md-3 text-center">
+                    <a href="#" class="navbar-brand">
+                        <i class="fas fa-book fa-2x pr-3"></i><span class="display-5">BookStore</span>
+                    </a>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarBar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="col-md-5 py-2">
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-light input-group-text text-dark">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" name="searchValue">
 
+                        </div>
+                        <input type="hidden" class="form-control" name="page" value="1">
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="collapse navbar-collapse" id="navbarBar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown mr-3">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    Categories
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="" class="dropdown-item">
+                                        Lorem, ipsum dolor.
+                                    </a>
+                                    <a href="" class="dropdown-item">
+                                        Lorem, ipsum dolor.
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item dropdown mr-3">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-user-circle"></i> Profile
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-cog"></i> Setting
+                                    </a>
+                                </div>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="#" class="nav-link"">
+                                    <i class=" fas
+                                    fa-sign-out-alt"></i> Logout
+                                </a>
+                            </li> -->
+                            <li class="nav-item d-inline-block dropdown" id="shopCart">
+                                <a href="#" class="nav-link" style="position: relative;">
+                                    <i class="fas fa-shopping-cart fa-2x"></i><span id="badge" class="badge badge-danger rounded-circle">0</span>
+                                </a>
+                                <div class="dropdown-menu p-3" id="cartDetail" style="width: 280px;">
+                                    <table class="table table-striped small">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>No.</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lorem ipsum dolor sit amet.</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sum</td>
+                                                <td>500000</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <a href="" class="btn btn-danger btn-sm mr-1">View Cart</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <section id="viewCart">
-        <div class="container">
-            <div class="row">
-
-                <table class="table table-hover">
-                    <thead>
+        <div class="container my-5 p-5">
+            <div class="row p-1">
+                <h3 class="display-4 mb-3">Your cart detail</h3>
+                <table class="table">
+                    <thead class="text-center">
                         <tr>
                             <td>#</td>
-                            <td></td>
+                            <td style="width: 100px;">Image</td>
+                            <td>Book Name</td>
+                            <td>Price per Unit</td>
+                            <td>Quantity</td>
+                            <td>Amount</td>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td class="align-middle">Lorem ipsum dolor sit.</td>
+                            <td class="text-center  align-middle">
+                                <img src="../../resources/images/book28.jpg" alt="" class="img-fluid">
+                            </td>
+                            <td class="align-middle">Quibusdam odit at architecto.</td>
+                            <td class="align-middle">Optio odit iusto nostrum?</td>
+                            <td class="align-middle">Non aperiam ut perspiciatis!</td>
+                            <td class="align-middle">Quaerat qui non veritatis.</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="5" class="text-center"> Lorem ipsum dolor sit amet.</td>
+                            <td>1000000</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="5" class="text-right">
+                                <button href="" class="btn btn-outline-danger" id="order-info-button">Order</button>
+                                <p>Please login to order <a href="" data-dismiss="modal" data-toggle="modal"
+                                        data-target="#registerModal">Not have an account? </a></p>
+                                <div class="info-form text-left mb-5" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="shipAddress">Ship address</label>
+                                        <input type="text" class="form-control" name="shipAddress" id="shipAddress"
+                                            placeholder="Ship Address">
+                                        <small class="form-group-text text-muted" id="ship-address-feedback">adfadk;f</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paymentMethod">Payment Method</label>
+                                        <select name="paymentMethod" id="paymentMethod" class="form-control" required>
+                                            <option value=""></option>
+                                            <option value="COD">Cash on delivery</option>
+                                            <option value="INTERNET_BANKING">Internet Banking</option>
+                                        </select>
+                                        <small class="form-group-text text-muted" id="payment-method-feedback">adfadk;f</small>
+                                        <br>
+                                    </div>
+                                    <div class="text-right">
+                                        <button class="btn btn-outline-danger" id="confirm-order-button">Order</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </section>
+
+    <div class="info-form text-left" style="display: none;">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="ship-address">Ship address</label>
+                    <input type="text" class="form-control" name="ship-address" id="ship-address" placeholder="Ship Address">
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Payment Method</label>
+                    <select name="" id="" class="form-control" required>
+                        <option value=""></option>
+                        <option value="COD">Cash on delivery</option>
+                        <option value="INTERNET_BANKING">Internet Banking</option>
+                    </select>
+                    <br>
+                    <p class="text-right">
+                        <button class="btn btn-outline-danger" id="confirm-order-button">Order</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -76,6 +260,10 @@
         $("#registerForm").find($("#username")).blur({
             url: "${pageContext.request.contextPath}/checkAvailableUsername"
         }, validateUsernameField);
+
+        $("#confirm-order-button").click({
+			url: "${pageContext.request.contextPath}/createOrder"
+		}, createOrder);
     </script>
 </body>
 

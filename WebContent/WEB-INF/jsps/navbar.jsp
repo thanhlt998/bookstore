@@ -99,7 +99,7 @@
 									</tbody>
 
 								</table>
-								<a href="${pageContext.request.contextPath }/viewCartDetail" class="btn btn-danger btn-sm mr-1">View Cart</a>
+								<a href="${pageContext.request.contextPath }/viewCart" class="btn btn-danger btn-sm mr-1">View Cart</a>
 							</div></li>
 					</ul>
 				</div>

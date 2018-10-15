@@ -72,4 +72,9 @@ public class CartController {
 		}
 		return ajaxResponse;
 	}
+	
+	@RequestMapping("/viewCart")
+	public String showCart() {
+		return "viewCart";
+	}
 }
