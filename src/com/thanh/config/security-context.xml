@@ -18,7 +18,7 @@
 	<security:http request-matcher="ant" use-expressions="true">
 		<security:csrf disabled="false" />
 		<security:form-login login-processing-url="/login"
-			authentication-failure-url="/login?error=true"
+			authentication-failure-url="/loginFailed"
 			password-parameter="password" username-parameter="username" />
 		<security:logout logout-url="/logout" logout-success-url="/" />
 	</security:http>

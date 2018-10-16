@@ -129,40 +129,34 @@
             </div>
         </div>
     </nav>
-    <section id="loginForm" style="height: 60vh;">
-        <div class="container h-100">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-6" style="margin-top: 15%;">
-                    <form action="">
+
+    <section style="height: 100vh;">
+        <div class="container h-100 p-4">
+            <div class="row">
+                <div class="col-md-5" style="margin-top: 20%">
+                    <h2 class="mb-4">Login Form</h2>
+                    <form action="${pageContext.request.contextPath }/login" method="post">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control form-control-lg" name="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
                         <br>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
                             </div>
-                            <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
-                        <p class="text-right small font-italic text-muted">
-                            <a href="" id="login-toggle-button">Not have an account? </a>
-                        </p>
-                        <div class="text-right"><button class="btn btn-dark btn-lg" type="submit">Login</button></div>
+                        <br>
+                        <div class="text-right"><button class="btn btn-dark" type="submit">Login</button></div>
                         <br> <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="registerForm" style="height: 100vh; display: none;">
-        <div class="container h-100">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-5" style="margin-top: 10%;">
-                    <form action="">
+                <div class="col-md-5 offset-md-1 p-4 mt-3">
+                    <h3>Register Form</h3>
+                    <form action="" id="registerForm" method="POST">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
@@ -239,16 +233,14 @@
                             </div>
                             <input type="text" class="form-control" name="phone" placeholder="Phone" id="phone" required>
                         </div>
-                        <p class="text-right small font-italic text-muted align-middle">
-                            <a href="" id="register-toggle-button">Already have an account?</a>
-                        </p>
+                        <br>
                         <button class="btn btn-dark" type="submit">Register</button>
                     </form>
                 </div>
             </div>
         </div>
-
     </section>
+
 
     <!-- footer -->
     <footer class="main-footer bg-dark text-white text-muted small">
@@ -341,20 +333,6 @@
         $("#registerForm").find($("#username")).blur({
             url: "${pageContext.request.contextPath}/checkAvailableUsername"
         }, validateUsernameField);
-
-        $("#login-toggle-button").click(function(event){
-            event.preventDefault();
-            $("#loginForm").slideUp(function(){
-                $("#registerForm").slideDown();
-            });
-        });
-
-        $("#register-toggle-button").click(function(event){
-            event.preventDefault();
-            $("#registerForm").slideUp(function(){
-                $("#loginForm").slideDown();
-            });
-        });
     </script>
 </body>
 

@@ -49,7 +49,7 @@
 									class="fas fa-user"></i>
 							</a>
 								<div class="dropdown-menu">
-									<a href="#" class="dropdown-item"> <i
+									<a href="${pageContext.request.contextPath }/viewProfile" class="dropdown-item"> <i
 										class="fas fa-user-circle"></i> Profile
 									</a> <a href="#" class="dropdown-item"> <i class="fas fa-cog"></i>
 										Setting

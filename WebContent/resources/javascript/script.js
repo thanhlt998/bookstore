@@ -28,6 +28,15 @@ $(function() {
         .slideUp();
     }
   );
+
+  $("#save-changes-button").click(updateUser);
+
+  $("#profile").on("change", ".changeField", changeInformation).change();
+
+  $("#view-order-history-button").click(viewOrderHistory);
+
+  enableChangePasswordValidate($("#change-password"));
+
 });
 
 // --------------------------------------------------------------------------------------------
@@ -59,7 +68,7 @@ function validatePasswordField(passwordField, event) {
   var password = passwordField.val();
   if (!password.length >= 8 || !/.*[0-9].*/.test(password)) {
     $("#password-feedback").text(
-      "Must not contain any whitespace characters and contain at least 8 characters."
+      "Must not contain any whitespace characters and contain at least 8 characters include at least a number."
     );
     event.preventDefault();
   } else {
@@ -384,13 +393,180 @@ $(".fa-edit").click(function(event) {
     .slideToggle(400, "linear");
 });
 
-$("#profile")
-  .find(".changeField")
-  .change(function(event) {
-    $("#save-changes-button").prop("disabled", false);
-    $(this)
-      .parent()
-      .parent()
-      .find("span")
-      .text($(this).val());
-  });
+function changeInformation(event){
+  var changeField = $(this);
+  $("#save-changes-button").prop("disabled", false);
+  changeField
+    .parent()
+    .parent()
+    .find("span")
+    .text(changeField.val());
+}
+  
+
+
+  //profile
+  function updateUser(event){
+    var contextPath = $(this).attr("context-path");
+    var tableProfile = $("#table-profile");
+    var name = tableProfile.find("#name").val();
+    var email = tableProfile.find("#email").val();
+    var birthDate = tableProfile.find("#birthDate").val();
+    var gender = tableProfile.find("#gender").val();
+    var address = tableProfile.find("#address").val();
+    var phone = tableProfile.find("#phone").val();
+    $.ajax({
+      type: "GET",
+      async: false,
+      contentType: "application/json",
+      url: contextPath + "/updateProfile",
+      data: {
+        name: name,
+        email: email,
+        birthDate: birthDate,
+        gender: gender,
+        address: address,
+        phone: phone
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data){
+        if(data === true){
+          tableProfile.find("#table-profile-feedback").text("Your profile is updated!");
+          $(this).attr("disabled", true);
+        }
+      },
+      error: function(error){
+        tableProfile.find("#table-profile-feedback").text("Your profile cannot be changed!");
+      }
+    });
+  }
+
+  function viewOrderHistory(event){
+    var historyTableBody = $("#order-history").find("tbody");
+    var contextPath = $(this).attr("context-path");
+    var page = $(this).attr("page");
+    $.ajax({
+      type: "GET",
+      async: false,
+      contentType: "application/json",
+      url: contextPath + "/viewOrderHistory",
+      data: {
+        page: page
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data){
+        for(var i = 0; i < data.length; i++){
+          $("<tr>").append($("<td>").text(data[i].orderId))
+          .append($("<td>").text(dateFormat(data[i].orderDate)))
+          .append($("<td>").text(dateFormat(data[i].shipDate)))
+          .append($("<td>").text(data[i].shipAddress))
+          .append($("<td>").text(data[i].totalAmount))
+          .append($("<td>").text(data[i].paymentMethod))
+          .append($("<td>").text(data[i].status))
+          .appendTo(historyTableBody);
+        }
+        
+        if(data.length < 10){
+          $(this).attr("disabled", true);
+        } else {
+          $(this).text("View More");
+          $(this).attr("page", page + 1);
+        }
+      },
+      error: function(error){
+        console.log(error);
+      }
+    });
+    
+  }
+
+function dateFormat(milliseconds){
+  var date = new Date(milliseconds);
+  return date.getFullYear() + '-' + (date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth) + "-" + date.getDate();
+}
+
+
+// validate change password
+
+
+
+function validateNewPassword(event){
+  var password = $(this).val();
+  if(validNewPassword(password)){
+    $("#new-password-feedback").text("");
+  }else {
+    $("#new-password-feedback").text("Password must not contain any whitespace and at least 8 characters (include number)");
+  }
+}
+
+function validNewPassword(password){
+  return password.length >= 8 && /.*[0-9].*/.test(password);
+}
+
+function validConfirmNewPassword(event){
+  var confirmNewPassword = $(this).val();
+  var newPassword = event.data.newPassword.val();
+  if(confirmNewPassword === newPassword){
+    $("#confirm-new-password-feedback").text("");
+  }
+  else {
+    $("#confirm-new-password-feedback").text("This field must match new password field.");
+  }
+}
+
+function changePasswordFunction(event){
+  var oldPassword = event.data.oldPassword.val();
+  var newPassword = event.data.newPassword.val();
+  var confirmNewPassword = event.data.confirmNewPassword.val();
+  var url = $(this).attr("context-path");
+  if(newPassword !== confirmNewPassword){
+    event.preventDefault();
+  }
+  else {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: url + "/changePassword",
+      data: {
+        newPassword: newPassword,
+        oldPassword: oldPassword
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data){
+        if(data === true){
+          $("#change-password-feedback").text("Your password is updated!");
+        }
+        else {
+          $("#old-password-feedback").text("Old password isn't correct!");
+          $("#new-password").empty();
+          $("confirm-new-password").empty();
+          $("#change-password-feedback").text("Fail to update your password!");
+        }
+      },
+      error: function(error){
+        console.log(error);
+        $("#change-password-feedback").text("Fail to update your password!");
+      }
+    });
+  }
+}
+
+function enableChangePasswordValidate(changePassword){
+  var oldPassword = changePassword.find("#old-password");
+  var newPassword = changePassword.find("#new-password");
+  var confirmNewPassword = changePassword.find("#confirm-new-password");
+  var button = changePassword.find("#change-password-button");
+
+  newPassword.blur(validateNewPassword);
+  confirmNewPassword.blur({
+    newPassword
+  }, validConfirmNewPassword);
+  button.click({
+    oldPassword: oldPassword,
+    newPassword: newPassword,
+    confirmNewPassword: confirmNewPassword
+  }, changePasswordFunction);
+}

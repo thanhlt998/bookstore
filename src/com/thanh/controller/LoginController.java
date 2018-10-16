@@ -37,6 +37,11 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping("/loginFailed")
+	public String loginFailed() {
+		return "loginFailedPage";
+	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

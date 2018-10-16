@@ -23,4 +23,12 @@ public class UserService {
 	public int getUserIdByUsername(String username) {
 		return userDao.getUserIdByUsername(username);
 	}
+	
+	public User getUserByUsername(String username) {
+		return userDao.getUserByUsername(username);
+	}
+	
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
 }

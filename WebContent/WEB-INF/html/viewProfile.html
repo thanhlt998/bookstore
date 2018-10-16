@@ -91,12 +91,12 @@
     </div>
 </nav>
 
-<!-- View book detail -->
+<!-- View profile -->
 <section id="profile" style=" margin-top: 54px; min-height: 100vh;">
     <div class="container h-100 w-100">
         <div class="row h-100">
-            <div class="col-md-3 py-5 mt-3">
-                <div class="list-group">
+            <div class="col-md-3 py-5 mt-5">
+                <div class="list-group align-middle mt-5">
                     <li class="list-group-item active" data-target="#view-profile">View profile</li>
                     <li class="list-group-item" data-target="#change-password">Change Password</li>
                     <li class="list-group-item" data-target="#order-history">View Order History</li>
@@ -105,8 +105,11 @@
                 </div>
             </div>
             <div class="col-md-9 py-5">
-                <div class="row" id="view-profile">
-                    <h3 class="display-4">View Your Profile</h3>
+                <div class="row" id="view-profile" style="display: none">
+                    <div class="ml-5">
+                        <i class="fas fa-user-circle fa-7x text-secondary"></i>
+                        <span class="display-4 ml-3">Your Profile</span>
+                    </div>
                     <table class="table table-hover mx-5">
                         <thead>
                             <td style="width: 60px;"></td>
@@ -159,7 +162,8 @@
                                 <td>
                                     <span>Lorem, ipsum dolor.</span>
                                     <div class="inputChange mt-2">
-                                        <select type="gender" class="form-control changeField" name="gender" id="gender" required>
+                                        <select type="gender" class="form-control changeField" name="gender" id="gender"
+                                            required>
                                             <option value="MALE" selected>Male</option>
                                             <option value="FEMALE">Female</option>
                                             <option value="OTHER">Other</option>
@@ -190,39 +194,74 @@
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <button class="btn btn-outline-dark" id="save-changes-button" disabled>Save changes</button>
+                                    <button class="btn btn-outline-dark" id="save-changes-button" context-path="${pageContext.request.contextPath}"
+                                        disabled>Save changes</button><br>
+                                    <small id="table-profile-feedback" class="text-muted">adfadf</small>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="row" id="change-password" style="display: none;">
+                <div class="row mb-3" id="change-password" style="display: none;">
                     <div class="col-md-8 offset-md-2">
-                        <form action="">
-                            <div class="form-group">
-                                <label class="h3" for="old-password">Old Password</label>
-                                <input type="text" class="form-control form-control-lg" name="old-password" id="old-password">
-                                <small class="input-form-text text-muted" id="old-password-feedback">Old Password</small>
-                            </div>
-                            <div class="form-group">
-                                <label class="h3" for="new-password">New Password</label>
-                                <input type="text" class="form-control form-control-lg" name="new-password" id="new-password">
-                                <small class="input-form-text text-muted" id="new-password-feedback">New Password</small>
-                            </div>
-                            <div class="form-group">
-                                <label class="h3" for="confirm-new-password">New Password</label>
-                                <input type="text" class="form-control form-control-lg" name="confirm-new-password" id="confirm-new-password">
-                                <small class="input-form-text text-muted" id="confirm-new-password-feedback">New Password</small>
-                            </div>
-                            <div class="text-right">
-                                <button class="btn btn-outline-dark">Change password</button>
-                            </div>
-                        </form>
+                        <div class="mb-3">
+                            <i class="fas fa-unlock-alt fa-7x text-secondary"></i><span class="display-4 ml-3">Change password</span>
+                            <hr>
+                        </div>
+                        <div class="form-group">
+                            <label for="old-password">Old Password</label>
+                            <input type="text" class="form-control" name="old-password" id="old-password">
+                            <small class="input-form-text text-muted" id="old-password-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="text" class="form-control" name="new-password" id="new-password">
+                            <small class="input-form-text text-muted" id="new-password-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">New Password</label>
+                            <input type="text" class="form-control" name="confirm-new-password" id="confirm-new-password">
+                            <small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-outline-dark" id="change-password-button" context-path="${pageContext.request.contextPath }">Change
+                                password</button>
+                            <br><span id="change-password-feedback"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="row" id="order-history" style="display: none;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, error.</div>
-                <div class="row" id="order-detail" style="display: none;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, atque.</div>
+                <div class="row" id="order-history">
+                    <div class="col">
+                        <i class="fas fa-history fa-5x text-secondary ml-3"></i><span class="display-4 ml-3">Order
+                            History</span>
+                        <table class="table table-striped my-3">
+                            <thead>
+                                <td>Order Id</td>
+                                <td>Order Date</td>
+                                <td>Ship Date</td>
+                                <td>Ship Address</td>
+                                <td>Total amount</td>
+                                <td>Payment Method</td>
+                                <td>Order Status</td>
+                            </thead>
+                            <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tbody>
+
+                        </table>
+                        <div class="text-right"><button class="btn btn-dark" id="view-order-history-button" page="0"
+                                context-path="${pageContext.request.contextPath}">View More</button></div>
+                    </div>
+                </div>
+                <div class="row" id="order-detail" style="display: none;">Lorem, ipsum dolor sit amet consectetur
+                    adipisicing elit. Quos, atque.</div>
             </div>
         </div>
     </div>
