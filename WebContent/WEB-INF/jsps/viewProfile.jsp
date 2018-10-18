@@ -82,7 +82,7 @@
 									<td><span>
 											<fmt:formatDate value="${user.birthDate }" pattern="yyyy-MM-dd" /></span>
 										<div class="inputChange mt-2">
-											<input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="${user.birthDate }">
+											<input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="<fmt:formatDate value="${user.birthDate }" pattern="yyyy-MM-dd" />">
 										</div>
 									</td>
 									<td><i class="far fa-edit"></i></td>
@@ -130,28 +130,32 @@
 					</div>
 
 					<div class="row" id="change-password" style="display: none;">
-						<div class="col-md-8 offset-md-2 p-5 mt-5">
-                        <div class="form-group">
-                            <label for="old-password">Old Password</label>
-                            <input type="text" class="form-control" name="old-password" id="old-password">
-                            <small class="input-form-text text-muted" id="old-password-feedback"></small>
-                        </div>
-                        <div class="form-group">
-                            <label for="new-password">New Password</label>
-                            <input type="text" class="form-control" name="new-password" id="new-password">
-                            <small class="input-form-text text-muted" id="new-password-feedback"></small>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-new-password">New Password</label>
-                            <input type="text" class="form-control" name="confirm-new-password" id="confirm-new-password">
-                            <small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
-                        </div>
-                        <div class="text-right">
-                            <button class="btn btn-outline-dark" id="change-password-button" context-path="${pageContext.request.contextPath }">Change
-                                password</button>
-                            <br><span id="change-password-feedback"></span>
-                        </div>
-                    </div>
+						<div class="col-md-8 offset-md-2">
+							<div class="mb-3">
+								<i class="fas fa-unlock-alt fa-7x text-secondary"></i><span class="display-4 ml-3">Change password</span>
+								<hr>
+							</div>
+							<div class="form-group">
+								<label for="old-password">Old Password</label>
+								<input type="text" class="form-control" name="old-password" id="old-password">
+								<small class="input-form-text text-muted" id="old-password-feedback"></small>
+							</div>
+							<div class="form-group">
+								<label for="new-password">New Password</label>
+								<input type="text" class="form-control" name="new-password" id="new-password">
+								<small class="input-form-text text-muted" id="new-password-feedback"></small>
+							</div>
+							<div class="form-group">
+								<label for="confirm-new-password">New Password</label>
+								<input type="text" class="form-control" name="confirm-new-password" id="confirm-new-password">
+								<small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
+							</div>
+							<div class="text-right">
+								<button class="btn btn-outline-dark" id="change-password-button" context-path="${pageContext.request.contextPath }">Change
+									password</button>
+								<br><span id="change-password-feedback"></span>
+							</div>
+						</div>
 					</div>
 					<div class="row" id="order-history" style="display: none">
 						<div class="col">
@@ -176,8 +180,56 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" id="order-detail" style="display: none;">Lorem,
-						ipsum dolor sit amet consectetur adipisicing elit. Quos, atque.</div>
+					<div class="row" id="order-detail" style="display: none;">
+						<div class="col">
+							<i class="fas fa-info-circle fa-5x text-secondary mr-3"></i><span class="display-4">View Order Detail</span>
+							<hr>
+							<div class="form-inline mb-3">
+								<input type="number" class="form-control mr-4 ml-auto" id="order-id-input">
+								<button class="btn btn-secondary" context-path="${pageContext.request.contextPath}" id="view-order-button">View
+									Order</button>
+							</div>
+							<div id="order-detail-view" style="display: none;">
+								<div class="row mb-3">
+									<div class="col-md-6">
+										<h4>Thông tin thanh toán</h4>
+										<p>
+											<span class="name">Lorem ipsum dolor sit.</span><br>
+											<span class="email">abcd@gmail.com</span><br>
+											<span class="phone">0123456789</span>
+										</p>
+									</div>
+									<div class="col-md-6">
+										<h4>Địa chỉ giao hàng</h4>
+										<p>
+											<span class="name">Lorem ipsum dolor sit.</span><br>
+											<span class="email">abcd@gmail.com</span><br>
+											<span class="address">1231 Ha Noi</span>
+											<span class="phone">0123456789</span>
+										</p>
+									</div>
+								</div>
+								<p>
+									Phương thức thanh toán: <span class="paymentMethod"></span><br>
+									Thời gian giao hàng: <span class="shipDate"></span>
+								</p>
+								<h3>Chi tiết đơn hàng</h3>
+								<table class="table table-striped">
+									<thead>
+										<td>No.</td>
+										<td>Book</td>
+										<td>Quantity</td>
+										<td>Price Per Unit</td>
+										<td>Amount</td>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</div>
+							<span class="display-4" id="order-detail-feedback"></span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -196,40 +248,7 @@
 	<script src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-		$('.slider').slick({
-			dots: true,
-			infinite: true,
-			slidesToShow: 3,
-			slidesToScroll: 3,
-			autoplay: true,
-			autoplaySpeed: 2000,
-			responsive: [{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					infinite: true,
-					dots: true
-				}
-			}, {
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			}]
-		});
 
-		$("#username").blur({
-			url: "${pageContext.request.contextPath}/checkAvailableUsername"
-		}, validateUsernameField);
-
-		$(".add-cart").click({
-			url: "${pageContext.request.contextPath }/addCart"
-		}, addCart);
-		$("#cartDetail").on('click', '.remove-cart-item', {
-			url: "${pageContext.request.contextPath}/"
-		}, removeCartItem);
 	</script>
 </body>
 

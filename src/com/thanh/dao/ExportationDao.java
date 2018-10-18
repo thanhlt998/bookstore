@@ -5,8 +5,12 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanConstructorResultTransformer;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -58,6 +62,32 @@ public class ExportationDao {
 		criteria.setProjection(Projections.sum("quantity"));
 		if(criteria.uniqueResult() == null) return 0;
 		return Integer.parseInt(criteria.uniqueResult().toString());
+	}
+
+	@SuppressWarnings({ "unchecked", "serial" })
+	public List<Integer> getBookIdListBestSeller(int limit){
+		Criteria criteria = getSession().createCriteria(Exportation.class);
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.groupProperty("bookId"));
+		projectionList.add(Projections.sum("quantity").as("exportedQuantity"));
+		projectionList.add(Projections.property("bookId"));
+		criteria.setProjection(projectionList);
+		criteria.addOrder(Order.desc("exportedQuantity"));
+		criteria.setMaxResults(limit);
+		criteria.setResultTransformer(new ResultTransformer() {
+			
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				return tuple[0];
+			}
+			
+			@SuppressWarnings("rawtypes")
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return criteria.list();
 	}
 	
 }

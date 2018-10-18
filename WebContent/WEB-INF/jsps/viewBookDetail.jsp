@@ -50,8 +50,7 @@
                 </p>
                 <hr>
                 <span class="small text-muted">
-                    Giao hàng tiêu chuẩn Dự kiến giao Thứ bảy - Chủ nhật, 13/10 - 14/10 chi phí 14.000 ₫, miễn phí giao
-                    hàng tiêu chuẩn cho đơn hàng từ 150.000 đ</span>
+                    Giao hàng tiêu chuẩn Dự kiến giao 2 ngày kể từ ngày đặt hàng.</span>
                 <hr>
                 <div>
                     <div class="form-group">
@@ -70,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-outline-danger btn-lg add-cart" bookid="${bookDetail.bookId }" quantity="1" id="add-cart-button"><i class="fas fa-cart-plus"></i> Add Cart</button>
+                    <button class="btn btn-outline-danger btn-lg add-cart" bookid="${bookDetail.bookId }" quantity="1" id="add-cart-button" context-path="${pageContext.request.contextPath}"><i class="fas fa-cart-plus"></i> Add Cart</button>
                 </div>
 
             </div>
@@ -126,43 +125,6 @@
 	<script src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-	$('.slider').slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    });
-
-		$("#username").blur({
-			url: "${pageContext.request.contextPath}/checkAvailableUsername"
-        }, validateUsernameField);
-        
-        $(".add-cart").click({
-            url: "${pageContext.request.contextPath }/addCart"
-        }, addCart);
-        $("#cartDetail").on('click', '.remove-cart-item', {
-            url: "${pageContext.request.contextPath}/"
-        }, removeCartItem);
 	</script>
 </body>
 

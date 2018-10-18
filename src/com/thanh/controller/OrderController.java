@@ -59,14 +59,9 @@ public class OrderController {
 
 		boolean isOrderCreated = orderService.createOrder(order, cart.getCart(), storageIdList);
 		ObjectMapper mapper = new ObjectMapper();
+		FullOrder fullOrder = orderService.getFullOrderByOrderId(userId, order.getOrderId());
 		try {
-			if (isOrderCreated) {
-
-				ajaxResponse = mapper.writeValueAsString(Boolean.FALSE);
-			}
-			else {
-				ajaxResponse = mapper.writeValueAsString(new FullOrder(order, cart.getCart()));
-			}
+			ajaxResponse = mapper.writeValueAsString(fullOrder);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

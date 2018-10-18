@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thanh.entity.User;
+import com.thanh.enumeration.Authority;
 
 @Repository
 @Transactional
@@ -58,11 +59,39 @@ public class UserDao {
 	public void updateUser(User user) {
 		getSession().update(user);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> getUserListByOffsetQuantity(int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(User.class);
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
+	}
 
 	public boolean isUsernameAvailable(String username) {
 		Criteria criteria = getSession().createCriteria(User.class);
 		criteria.add(Restrictions.eq("username", username));
 		User user = (User) criteria.uniqueResult();
 		return user == null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> searchUsers(String userId, String username, String name, String authority, int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(User.class);
+		if(!userId.equals("")) {
+			criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		}
+		if(!username.equals("")) {
+			criteria.add(Restrictions.ilike("username", "%" + username + "%"));
+		}
+		if(!name.equals("")) {
+			criteria.add(Restrictions.ilike("name", "%" + name + "%"));
+		}
+		if(!authority.equals("")) {
+			criteria.add(Restrictions.eq("authority", Authority.valueOf(authority)));
+		}
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
 	}
 }

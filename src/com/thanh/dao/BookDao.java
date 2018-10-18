@@ -72,6 +72,4 @@ public class BookDao {
 		return Integer.parseInt(criteria.uniqueResult().toString());
 	}
 	
-	
-	
 }

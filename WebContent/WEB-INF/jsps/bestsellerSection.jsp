@@ -10,7 +10,7 @@
 		<div class="row text-center">
 			<div class="col">
 				<div class="slider responsive">
-					<c:forEach var="book" items="${bookList }">
+					<c:forEach var="book" items="${bestSellerBookList }">
 						<div class="card p-4">
 							<div class="card-img p-3">
 								<div class="book-list-view w-100 mt-4">
@@ -30,7 +30,7 @@
 										<del>${book.price }</del>
 									</c:if> &nbsp;
 								</span><br> <span id="price" class="display-4">${book.currentPrice }</span><br>
-								<button class="btn btn-outline-danger add-cart" bookid="${book.bookId}" quantity="1">
+								<button class="btn btn-outline-danger add-cart" bookid="${book.bookId}" quantity="1" context-path="${pageContext.request.contextPath}">
 									<i class="fas fa-cart-plus"></i> Add Cart
 								</button>
 							</div>

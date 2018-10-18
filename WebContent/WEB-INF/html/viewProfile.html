@@ -231,7 +231,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="order-history">
+                <div class="row" id="order-history"  style="display: none;">
                     <div class="col">
                         <i class="fas fa-history fa-5x text-secondary ml-3"></i><span class="display-4 ml-3">Order
                             History</span>
@@ -260,8 +260,48 @@
                                 context-path="${pageContext.request.contextPath}">View More</button></div>
                     </div>
                 </div>
-                <div class="row" id="order-detail" style="display: none;">Lorem, ipsum dolor sit amet consectetur
-                    adipisicing elit. Quos, atque.</div>
+                <div class="row" id="order-detail">
+                    <div class="col">
+                        <i class="fas fa-info-circle fa-5x text-secondary mr-3"></i><span class="display-4">View Order Detail</span>
+                        <hr>
+                        <div class="form-inline mb-3">
+                            <input type="number" class="form-control mr-4 ml-auto" id="orderId">
+                            <button class="btn btn-secondary" context-path="${pageContext.request.contextPath}">View Order</button>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h4>Thông tin thanh toán</h4>
+                                <p>
+                                    <span class="name">Lorem ipsum dolor sit.</span><br>
+                                    <span class="email">abcd@gmail.com</span><br>
+                                    <span class="phone">0123456789</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Địa chỉ giao hàng</h4>
+                                <p>
+                                    <span class="name">Lorem ipsum dolor sit.</span><br>
+                                    <span class="email">abcd@gmail.com</span><br>
+                                    <span class="address">1231 Ha Noi</span>
+                                    <span class="phone">0123456789</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            Phương thức thanh toán: <span class="paymentMethod"></span><br>
+                            Thời gian giao hàng: <span class="shipDate"></span>
+                        </p>
+                        <h3>Chi tiết đơn hàng</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <td>Book</td>
+                                <td>Quantity</td>
+                                <td>Price Per Unit</td>
+                                <td>Amount</td>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -29,7 +29,7 @@
 				<a class="btn btn-dark text-white" href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
 					More
 				</a>
-				<button class="btn btn-outline-danger add-cart" bookid="${book.bookId}" quantity="1"><i class="fas fa-cart-plus"></i>
+				<button class="btn btn-outline-danger add-cart" bookid="${book.bookId}" quantity="1"  context-path="${pageContext.request.contextPath}"><i class="fas fa-cart-plus"></i>
 					Add Cart</button>
 				<hr>
 			</div>

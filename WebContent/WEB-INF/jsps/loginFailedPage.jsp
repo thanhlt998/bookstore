@@ -144,9 +144,6 @@
     <script src="../../resources/javascript/script.js"></script>
 
     <script>
-        $("#registerForm").find($("#username")).blur({
-            url: "${pageContext.request.contextPath}/checkAvailableUsername"
-        }, validateUsernameField);
     </script>
 </body>
 

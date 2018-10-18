@@ -262,17 +262,6 @@
             ]
         });
 
-        $("#registerForm").find($("#username")).blur({
-            url: "${pageContext.request.contextPath}/checkAvailableUsername"
-        }, validateUsernameField);
-
-        // $(".remove-cart-item").click({
-        //     url: "${pageContext.request.contextPath}/"
-        // },removeCartItem);
-
-        $("#cartDetail").on('click', '.remove-cart-item', {
-            url: "${pageContext.request.contextPath}/"
-        }, removeCartItem);
     </script>
 </body>
 

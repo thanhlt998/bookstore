@@ -80,7 +80,7 @@
 										</select> <br>
 									</div>
 									<div class="text-right">
-										<button class="btn btn-outline-danger" id="confirm-order-button">Order</button>
+										<button class="btn btn-outline-danger" id="confirm-order-button" context-path="$(pageContext.request.contextPath}">Order</button>
 									</div>
 								</div>
 							</td>
@@ -103,21 +103,7 @@
 	<script src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-		$("#username").blur({
-			url: "${pageContext.request.contextPath}/checkAvailableUsername"
-		}, validateUsernameField);
 
-		$(".add-cart").click({
-			url: "${pageContext.request.contextPath }/addCart"
-		}, addCart);
-
-		$("#confirm-order-button").click({
-			url: "${pageContext.request.contextPath }/"
-		}, createOrder);
-		
-		$("#cartDetail").on('click', '.remove-cart-item', {
-            url: "${pageContext.request.contextPath}/"
-        }, removeCartItem);
 	</script>
 </body>
 

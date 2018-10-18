@@ -2,9 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-	
-	<!-- Showcase -->
-	<section id="showcase">
+
+<!-- Showcase -->
+<section id="showcase">
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li class="active" data-target="#myCarousel" data-slide-to="0"></li>
@@ -15,10 +15,11 @@
 			<div class="carousel-item carousel-image-1 active">
 				<div class="container">
 					<div class="carousel-caption d-none d-sm-block text-right mb-5">
-						<h1 class="display-3">Heading Two</h1>
-						<p class="lead">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sed, error?</p>
-						<a href="#" class="btn btn-primary btn-lg">Learn More</a>
+						<blockquote class="blockquote text-right">
+							<p class="mb-0 display-4">A person who won'€™t read has no advantage over one who can'€™t read.</p>
+							<p class="display-5"></p>
+							<footer class="blockquote-footer"><cite title="Source Title">Mark Twain</cite></footer>
+						</blockquote>
 					</div>
 				</div>
 			</div>
@@ -26,10 +27,12 @@
 			<div class="carousel-item carousel-image-2">
 				<div class="container">
 					<div class="carousel-caption d-none d-sm-block mb-5">
-						<h1 class="display-3">Heading Two</h1>
-						<p class="lead">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sed, error?</p>
-						<a href="#" class="btn btn-primary btn-lg">Learn More</a>
+						<blockquote class="blockquote text-right">
+							<p class="mb-0 display-4">Any man who reads too much and uses his own brain too little
+								falls into lazy habits of thinking.</p>
+							<p class="display-5"></p>
+							<footer class="blockquote-footer"><cite title="Source Title">Albert Einstein</cite></footer>
+						</blockquote>
 					</div>
 				</div>
 			</div>
@@ -37,24 +40,27 @@
 			<div class="carousel-item carousel-image-3">
 				<div class="container">
 					<div class="carousel-caption d-none d-sm-block text-right mb-5">
-						<h1 class="display-3">Heading Three</h1>
-						<p class="lead">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sed, error?</p>
-						<a href="#" class="btn btn-success btn-lg">Sign Up Now</a>
+						<blockquote class="blockquote text-right">
+							<p class="mb-0 display-4">Good books, like good friends, are few and chosen; the more
+								select, the more enjoyable.</p>
+							<p class="display-5"></p>
+							<footer class="blockquote-footer"><cite title="Source Title">Louisa May Alcott</cite></footer>
+						</blockquote>
 					</div>
 				</div>
 			</div>
 		</div>
 		<a href="#myCarousel" data-slide="prev" class="carousel-control-prev">
 			<span class="carousel-control-prev-icon"></span>
-		</a> <a href="#myCarousel" data-slide="next" class="carousel-control-next">
+		</a>
+		<a href="#myCarousel" data-slide="next" class="carousel-control-next">
 			<span class="carousel-control-next-icon"></span>
 		</a>
 	</div>
-	</section>
+</section>
 
-	<!-- Introduction -->
-	<section id="introduction">
+<!-- Introduction -->
+<section id="introduction">
 	<div class="container mb-3 py-3">
 		<div class="row">
 			<div class="col-md-3">
@@ -95,4 +101,4 @@
 			</div>
 		</div>
 	</div>
-	</section>
+</section>

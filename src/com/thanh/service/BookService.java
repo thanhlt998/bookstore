@@ -61,6 +61,14 @@ public class BookService {
 		int discount = calculateTotalCurrentDiscountByBookId(bookId);
 		return new BookListView(bookId, book.getBookName(), imageUrl, book.getPrice(), discount);
 	}
+	
+	public List<BookListView> getBookListViewListByBookIdList(List<Integer> bookIdList){
+		List<BookListView> bookListViewList = new ArrayList<>();
+		for(int bookId: bookIdList) {
+			bookListViewList.add(getBookListViewByBookId(bookId));
+		}
+		return bookListViewList;
+	}
 
 	public BookDetail getBookDetailByBookId(int bookId) {
 		Book book = bookDao.getBookByBookId(bookId);

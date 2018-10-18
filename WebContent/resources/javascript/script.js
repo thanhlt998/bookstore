@@ -1,11 +1,16 @@
-$(function() {
+$(document).ready(function() {
   // Validate form
   // ------------------------------------------------------------
+  // var contextPath = $("#context-path").attr("context-path");
   var registerForm = $("#registerForm");
 
   validatePasswordRegisterForm(registerForm);
 
   registerForm.submit(validateSubmitRegisterForm);
+
+  $("#registerForm")
+    .find($("#username"))
+    .blur(validateUsernameField);
 
   // Add cart ------------------------------------------------------------
   $("#add-button").click(increaseQuantity);
@@ -13,8 +18,6 @@ $(function() {
 
   // Replace img ---------------------------------------------------------
   $(".small-img").click(replaceImg);
-
-  // Add cart -----------------------------------------------------------
 
   $("#shopCart").hover(
     function() {
@@ -29,14 +32,67 @@ $(function() {
     }
   );
 
+  $("#cartDetail")
+    .on(
+      "hover",
+      ".remove-cart-item",
+      function(event) {
+        $(this)
+          .stop()
+          .animate(
+            {
+              "font-size": "120%"
+            },
+            300,
+            "swing"
+          );
+      },
+      function(event) {
+        $(this)
+          .stop()
+          .animate({
+            "font-size": "100%"
+          });
+      }
+    )
+    .on("click", ".remove-cart-item", removeCartItem);
+
+  //cart
+  $(".add-cart").click(addCart);
+
+  $(".fa-edit").click(editChange);
+
+  //Order
+  $("#order-info-button").click(clickOrderInfoButton);
+
+  $("#confirm-order-button").click(createOrder);
+
+  //Profile
+  $(".list-group-item").click(changeUserFunction);
+
   $("#save-changes-button").click(updateUser);
 
-  $("#profile").on("change", ".changeField", changeInformation).change();
+  $("#profile")
+    .on("change", ".changeField", changeInformation)
+    .change();
 
   $("#view-order-history-button").click(viewOrderHistory);
 
   enableChangePasswordValidate($("#change-password"));
 
+  $("#view-order-button").click(viewOrderDetail);
+
+  $("#view-all-users").on("click", ".fa-user-edit", editUserButtonClick);
+
+  $("#view-all-users").on("click", ".fa-save", saveRoleChange);
+
+  $("#view-all-users").on(
+    "click",
+    "#previous-button, #next-button",
+    viewUsersButtonClick
+  );
+
+  $("#search-fields").on("change", "#user-id, #username, #name, #authority", searchFieldsOnChange);
 });
 
 // --------------------------------------------------------------------------------------------
@@ -97,11 +153,12 @@ function validateConfirmPasswordField(
 
 function validateUsernameField(event) {
   event.preventDefault();
+  var contextPath = $(this).attr("context-path");
   var username = $(this).val();
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    url: event.data.url,
+    url: contextPath + "/checkAvailableUsername",
     data: {
       username: username
     },
@@ -126,40 +183,6 @@ function validateUsernameField(event) {
   });
 }
 
-// // Register
-// function register(event){
-// $.ajax({
-// type: "GET",
-// contentType: "application/json",
-// url: event.data.url,
-// data: {
-// name: $("#name").val(),
-// email: $("#email").val(),
-// username: $("#username").val(),
-// password: $("#password").val(),
-// birthDate: $("#birthDate").val(),
-// gender: $("#gender").val(),
-// address: $("#address").val(),
-// phone: $("#phone").val()
-// },
-// dataType: "json",
-// timeout: 10000,
-// success: function(data){
-// if(data === true){
-// $("#dismissRegisterButton").click();
-// alert("Register successfully! Please login.");
-// }
-// else {
-// alert("Failed to register.");
-// }
-// event.preventDefault();
-// },
-// error: function(error){
-// console.log(error);
-// }
-// })
-// }
-
 // ------------------------------------------------------------------------------------------------------------------------
 
 // add cart
@@ -182,10 +205,11 @@ function decreaseQuantity() {
 function addCart(event) {
   var bookId = $(this).attr("bookid");
   var quantity = $(this).attr("quantity");
+  var contextPath = $(this).attr("context-path");
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    url: event.data.url,
+    url: contextPath + "/addCart",
     data: {
       bookId: bookId,
       quantity: quantity
@@ -202,6 +226,7 @@ function addCart(event) {
         $("#badge").text(data.totalQuantity);
 
         var tableBody = $("#cartDetail").find("tbody");
+        $("#cartDetail").css("height", "");
         tableBody.empty();
         for (var i = 0; i < cart.length; i++) {
           $("<tr>")
@@ -214,6 +239,7 @@ function addCart(event) {
                   $("<i>")
                     .addClass("far fa-times-circle remove-cart-item")
                     .attr("book-id", cart[i].book.bookId)
+                    .attr("context-path", contextPath)
                 )
             )
             .appendTo(tableBody);
@@ -234,35 +260,15 @@ function addCart(event) {
   });
 }
 
-$(".remove-cart-item").hover(
-  function(event) {
-    $(this)
-      .stop()
-      .animate(
-        {
-          "font-size": "120%"
-        },
-        300,
-        "swing"
-      );
-  },
-  function(event) {
-    $(this)
-      .stop()
-      .animate({
-        "font-size": "100%"
-      });
-  }
-);
-
 function removeCartItem(event) {
   var bookId = $(this).attr("book-id");
   var removeIcon = $(this);
+  var contextPath = $(this).attr("context-path");
   $.ajax({
     type: "GET",
     async: false,
     contentType: "application/json",
-    url: event.data.url + "removeCartItem",
+    url: contextPath + "/removeCartItem",
     data: {
       bookId: bookId
     },
@@ -278,6 +284,7 @@ function removeCartItem(event) {
         .last()
         .text(data.totalPrice);
       $("#badge").text(data.totalQuantity);
+      $("#cartDetail").css("height", "");
     },
     error: function(error) {
       console.log(error);
@@ -287,7 +294,7 @@ function removeCartItem(event) {
 
 // confirm order
 
-$("#order-info-button").click(function(event) {
+function clickOrderInfoButton(event) {
   $(this)
     .parent()
     .parent()
@@ -299,7 +306,7 @@ $("#order-info-button").click(function(event) {
     .parent()
     .find(".info-form")
     .slideDown();
-});
+}
 
 function isValidOrderInfo(shipAddress, paymentMethod) {
   var flag = true;
@@ -317,6 +324,7 @@ function isValidOrderInfo(shipAddress, paymentMethod) {
 function createOrder(event) {
   var shipAddress = $("#shipAddress").val();
   var paymentMethod = $("#paymentMethod").val();
+  var contextPath = $(this).attr("context-path");
   var message = "";
   console.log(shipAddress + " " + paymentMethod);
   if (isValidOrderInfo(shipAddress, paymentMethod)) {
@@ -324,7 +332,7 @@ function createOrder(event) {
       type: "GET",
       async: false,
       contentType: "application/json",
-      url: event.data.url + "createOrder",
+      url: contextPath + "/createOrder",
       data: {
         shipAddress: shipAddress,
         paymentMethod: paymentMethod
@@ -363,37 +371,28 @@ function replaceImg(event) {
 // Profile
 // -------------------------------------------------------------------------------------------------
 
-$(".list-group-item").click(function(event) {
-  var listItem = [
-    $("#view-profile"),
-    $("#change-password"),
-    $("#order-history"),
-    $("#order-detail")
-  ];
-  $(this)
-    .parent()
-    .find(".active")
-    .toggleClass("active");
-  for (var i = 0; i < listItem.length; i++) {
-    listItem[i].css("display", "none");
-  }
+function changeUserFunction(event) {
+  var sibling = $(this).siblings(".active");
+  sibling.removeClass("active");
+  $(sibling.attr("data-target")).css("display", "none");
+
   $(this).addClass("active");
 
   console.log($(this).attr("data-target"));
   $($(this).attr("data-target"))
     .stop()
     .slideDown(400, "swing");
-});
+}
 
-$(".fa-edit").click(function(event) {
+function editChange(event) {
   $(this)
     .parent()
     .parent()
     .find(".inputChange")
     .slideToggle(400, "linear");
-});
+}
 
-function changeInformation(event){
+function changeInformation(event) {
   var changeField = $(this);
   $("#save-changes-button").prop("disabled", false);
   changeField
@@ -402,63 +401,66 @@ function changeInformation(event){
     .find("span")
     .text(changeField.val());
 }
-  
 
-
-  //profile
-  function updateUser(event){
-    var contextPath = $(this).attr("context-path");
-    var tableProfile = $("#table-profile");
-    var name = tableProfile.find("#name").val();
-    var email = tableProfile.find("#email").val();
-    var birthDate = tableProfile.find("#birthDate").val();
-    var gender = tableProfile.find("#gender").val();
-    var address = tableProfile.find("#address").val();
-    var phone = tableProfile.find("#phone").val();
-    $.ajax({
-      type: "GET",
-      async: false,
-      contentType: "application/json",
-      url: contextPath + "/updateProfile",
-      data: {
-        name: name,
-        email: email,
-        birthDate: birthDate,
-        gender: gender,
-        address: address,
-        phone: phone
-      },
-      dataType: "json",
-      timeout: 10000,
-      success: function(data){
-        if(data === true){
-          tableProfile.find("#table-profile-feedback").text("Your profile is updated!");
-          $(this).attr("disabled", true);
-        }
-      },
-      error: function(error){
-        tableProfile.find("#table-profile-feedback").text("Your profile cannot be changed!");
+//profile
+function updateUser(event) {
+  var contextPath = $(this).attr("context-path");
+  var tableProfile = $("#table-profile");
+  var name = tableProfile.find("#name").val();
+  var email = tableProfile.find("#email").val();
+  var birthDate = tableProfile.find("#birthDate").val();
+  var gender = tableProfile.find("#gender").val();
+  var address = tableProfile.find("#address").val();
+  var phone = tableProfile.find("#phone").val();
+  $.ajax({
+    type: "GET",
+    async: false,
+    contentType: "application/json",
+    url: contextPath + "/updateProfile",
+    data: {
+      name: name,
+      email: email,
+      birthDate: birthDate,
+      gender: gender,
+      address: address,
+      phone: phone
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      if (data === true) {
+        tableProfile
+          .find("#table-profile-feedback")
+          .text("Your profile is updated!");
+        $(this).attr("disabled", true);
       }
-    });
-  }
+    },
+    error: function(error) {
+      tableProfile
+        .find("#table-profile-feedback")
+        .text("Your profile cannot be changed!");
+    }
+  });
+}
 
-  function viewOrderHistory(event){
-    var historyTableBody = $("#order-history").find("tbody");
-    var contextPath = $(this).attr("context-path");
-    var page = $(this).attr("page");
-    $.ajax({
-      type: "GET",
-      async: false,
-      contentType: "application/json",
-      url: contextPath + "/viewOrderHistory",
-      data: {
-        page: page
-      },
-      dataType: "json",
-      timeout: 10000,
-      success: function(data){
-        for(var i = 0; i < data.length; i++){
-          $("<tr>").append($("<td>").text(data[i].orderId))
+function viewOrderHistory(event) {
+  var historyTableBody = $("#order-history").find("tbody");
+  var contextPath = $(this).attr("context-path");
+  var page = $(this).attr("page");
+  $.ajax({
+    type: "GET",
+    async: false,
+    contentType: "application/json",
+    url: contextPath + "/viewOrderHistory",
+    data: {
+      page: page
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append($("<td>").text(data[i].orderId))
           .append($("<td>").text(dateFormat(data[i].orderDate)))
           .append($("<td>").text(dateFormat(data[i].shipDate)))
           .append($("<td>").text(data[i].shipAddress))
@@ -466,65 +468,69 @@ function changeInformation(event){
           .append($("<td>").text(data[i].paymentMethod))
           .append($("<td>").text(data[i].status))
           .appendTo(historyTableBody);
-        }
-        
-        if(data.length < 10){
-          $(this).attr("disabled", true);
-        } else {
-          $(this).text("View More");
-          $(this).attr("page", page + 1);
-        }
-      },
-      error: function(error){
-        console.log(error);
       }
-    });
-    
-  }
 
-function dateFormat(milliseconds){
-  var date = new Date(milliseconds);
-  return date.getFullYear() + '-' + (date.getMonth() < 10 ? '0' + date.getMonth(): date.getMonth) + "-" + date.getDate();
+      if (data.length < 10) {
+        $(this).attr("disabled", true);
+      } else {
+        $(this).text("View More");
+        $(this).attr("page", page + 1);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
 }
 
+function dateFormat(milliseconds) {
+  var date = new Date(milliseconds);
+  return (
+    date.getFullYear() +
+    "-" +
+    (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
+    "-" +
+    date.getDate()
+  );
+}
 
 // validate change password
 
-
-
-function validateNewPassword(event){
+function validateNewPassword(event) {
   var password = $(this).val();
-  if(validNewPassword(password)){
+  if (validNewPassword(password)) {
     $("#new-password-feedback").text("");
-  }else {
-    $("#new-password-feedback").text("Password must not contain any whitespace and at least 8 characters (include number)");
+  } else {
+    $("#new-password-feedback").text(
+      "Password must not contain any whitespace and at least 8 characters (include number)"
+    );
   }
 }
 
-function validNewPassword(password){
+function validNewPassword(password) {
   return password.length >= 8 && /.*[0-9].*/.test(password);
 }
 
-function validConfirmNewPassword(event){
+function validConfirmNewPassword(event) {
   var confirmNewPassword = $(this).val();
   var newPassword = event.data.newPassword.val();
-  if(confirmNewPassword === newPassword){
+  if (confirmNewPassword === newPassword) {
     $("#confirm-new-password-feedback").text("");
-  }
-  else {
-    $("#confirm-new-password-feedback").text("This field must match new password field.");
+  } else {
+    $("#confirm-new-password-feedback").text(
+      "This field must match new password field."
+    );
   }
 }
 
-function changePasswordFunction(event){
+function changePasswordFunction(event) {
   var oldPassword = event.data.oldPassword.val();
   var newPassword = event.data.newPassword.val();
   var confirmNewPassword = event.data.confirmNewPassword.val();
   var url = $(this).attr("context-path");
-  if(newPassword !== confirmNewPassword){
+  if (newPassword !== confirmNewPassword) {
     event.preventDefault();
-  }
-  else {
+  } else {
     $.ajax({
       type: "GET",
       contentType: "application/json",
@@ -535,18 +541,17 @@ function changePasswordFunction(event){
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data){
-        if(data === true){
+      success: function(data) {
+        if (data === true) {
           $("#change-password-feedback").text("Your password is updated!");
-        }
-        else {
+        } else {
           $("#old-password-feedback").text("Old password isn't correct!");
           $("#new-password").empty();
           $("confirm-new-password").empty();
           $("#change-password-feedback").text("Fail to update your password!");
         }
       },
-      error: function(error){
+      error: function(error) {
         console.log(error);
         $("#change-password-feedback").text("Fail to update your password!");
       }
@@ -554,19 +559,296 @@ function changePasswordFunction(event){
   }
 }
 
-function enableChangePasswordValidate(changePassword){
+function enableChangePasswordValidate(changePassword) {
   var oldPassword = changePassword.find("#old-password");
   var newPassword = changePassword.find("#new-password");
   var confirmNewPassword = changePassword.find("#confirm-new-password");
   var button = changePassword.find("#change-password-button");
 
   newPassword.blur(validateNewPassword);
-  confirmNewPassword.blur({
-    newPassword
-  }, validConfirmNewPassword);
-  button.click({
-    oldPassword: oldPassword,
-    newPassword: newPassword,
-    confirmNewPassword: confirmNewPassword
-  }, changePasswordFunction);
+  confirmNewPassword.blur(
+    {
+      newPassword
+    },
+    validConfirmNewPassword
+  );
+  button.click(
+    {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+      confirmNewPassword: confirmNewPassword
+    },
+    changePasswordFunction
+  );
+}
+
+function viewOrderDetail(event) {
+  var orderDetail = $("#order-detail");
+  var orderId = orderDetail.find("#order-id-input").val();
+  var contextPath = $(this).attr("context-path");
+  var orderDetailView = orderDetail.find("#order-detail-view");
+  var tableBody = orderDetail.find("tbody");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/viewOrderDetail",
+    data: {
+      orderId: orderId
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      if (data === false) {
+        orderDetailView.css("display", "none");
+        orderDetail
+          .find("#order-detail-feedback")
+          .text(`No Order with orderId = ${orderId} found.`);
+      } else {
+        var user = data.user;
+        var order = data.order;
+        var ordersDetailItemList = data.ordersDetailItemList;
+        orderDetailView.find(".name").text(user.name);
+        orderDetailView.find(".email").text(user.email);
+        orderDetailView.find(".phone").text(user.phone);
+        orderDetailView.find(".address").text(order.shipAddress);
+        orderDetailView.find(".paymentMethod").text(order.paymentMethod);
+        orderDetailView.find(".shipDate").text(dateFormat(order.shipDate));
+
+        tableBody.empty();
+        for (var i = 0; i < ordersDetailItemList.length; i++) {
+          $("<tr>")
+            .append($("<td>").text(i + 1))
+            .append($("<td>").text(ordersDetailItemList[i].bookName))
+            .append(
+              $("<td>").text(ordersDetailItemList[i].ordersDetail.quantity)
+            )
+            .append(
+              $("<td>").text(ordersDetailItemList[i].ordersDetail.pricePerUnit)
+            )
+            .append(
+              $("<td>").text(
+                ordersDetailItemList[i].ordersDetail.quantity *
+                  ordersDetailItemList[i].ordersDetail.pricePerUnit
+              )
+            )
+            .appendTo(tableBody);
+        }
+        $("<tr>")
+          .append(
+            $("<td>")
+              .attr("colspan", 4)
+              .text("Total Price")
+          )
+          .append($("<td>").text(order.totalAmount))
+          .appendTo(tableBody);
+        orderDetailView.fadeIn();
+      }
+    }
+  });
+}
+
+function editUserButtonClick(event) {
+  var contextPath = $(this).attr("context-path");
+  $(this)
+    .parent()
+    .parent()
+    .find(".authority")
+    .attr("disabled", false);
+  $(this).replaceWith(
+    $("<i>")
+      .addClass("far fa-save")
+      .attr("context-path", contextPath)
+  );
+}
+
+function saveRoleChange(event) {
+  var editIcon = $(this);
+  var trParent = $(this)
+    .parent()
+    .parent();
+  var newRole = trParent.find(".authority").val();
+  var contextPath = $(this).attr("context-path");
+  var userId = trParent
+    .find("td")
+    .first()
+    .text();
+
+  $.ajax({
+    type: "GET",
+    async: false,
+    contentType: "application/json",
+    url: contextPath + "/changeUserRole",
+    data: {
+      userId: userId,
+      newRole: newRole
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      if (data === true) {
+        editIcon.replaceWith(
+          $("<i>")
+            .addClass("fas fa-user-edit")
+            .attr("context-path", contextPath)
+        );
+        trParent.find(".authority").attr("disabled", true);
+        alert(`Change the role of user with userId = ${userId} successfully!`);
+      } else {
+        alert("Can't change the role of this user!");
+      }
+    },
+    error: function(error) {
+      console.log(error);
+      alert("Can't change the role of this user!");
+    }
+  });
+}
+
+function viewUsersButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+  var tableBody = $("#view-all-users").find("tbody");
+  var userId = $("#user-id").val();
+  var username = $("#username").val();
+  var name = $("#name").val();
+  var authority = $("#authority").val();
+  $.ajax({
+    type: "GET",
+    async: false,
+    contentType: "application/json",
+    url: contextPath + "/searchUsers",
+    data: {
+      page: page,
+      userId: userId,
+      username: username,
+      name: name,
+      authority: authority
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      console.log(data);
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].userId)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].username)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].name)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].email)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(dateFormat(data[i].birthDate))
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].gender)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].address)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].phone)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(createRoleSelect(data[i].authority))
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(
+                $("<i>")
+                  .addClass("fas fa-user-edit align-middle")
+                  .attr("context-path", contextPath)
+                  .attr("disabled", true)
+              )
+          )
+          .appendTo(tableBody);
+      }
+
+      var previousButton = $("#previous-button");
+      var nextButton = $("#next-button");
+      nextButton.text("Next");
+      if (typeButton === "next") {
+        console.log(page + 1);
+
+        if (data.length < 10) {
+          nextButton.attr("disabled", true);
+        } else {
+          nextButton.attr("page", page + 1);
+          previousButton.attr("page", page);
+        }
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("disabled", false);
+        }
+      } else {
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("page", page - 1);
+          nextButton.attr("page", page);
+        }
+        nextButton.attr("disabled", false);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function createRoleSelect(authority) {
+  var select = $("<select>")
+    .val(authority)
+    .addClass("form-control authority")
+    .append(
+      $("<option>")
+        .val("ROLE_USER")
+        .text("USER")
+    )
+    .append(
+      $("<option>")
+        .val("ROLE_ADMIN")
+        .text("ADMIN")
+    )
+    .append(
+      $("<option>")
+        .val("ROLE_STOCKKEEPER")
+        .text("STOCKKEEPER")
+    )
+    .attr("disabled", true);
+  select.find(`option[value=${authority}]`).attr("selected", "selected");
+  return select;
+}
+
+function searchFieldsOnChange(event){
+  $("#next-button").text("Search").attr("page", 0).attr("disabled", false);
+  $("#previous-button").attr("page", 0).attr("disabled", true);
 }

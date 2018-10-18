@@ -38,4 +38,17 @@ public class OrderDao {
 		criteria.setMaxResults(quantity);
 		return criteria.list();
 	}
+	
+	public Order getOrderByOrderId(int orderId) {
+		Criteria criteria = getSession().createCriteria(Order.class);
+		criteria.add(Restrictions.idEq(orderId));
+		return (Order) criteria.uniqueResult();
+	}
+	
+	public boolean checkExistOrderByUserIdOrderId(int userId, int orderId) {
+		Criteria criteria = getSession().createCriteria(Order.class);
+		criteria.add(Restrictions.idEq(orderId));
+		criteria.add(Restrictions.eq("userId", userId));
+		return criteria.uniqueResult() != null;
+	}
 }

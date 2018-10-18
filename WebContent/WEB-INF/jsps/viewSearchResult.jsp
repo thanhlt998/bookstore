@@ -62,7 +62,7 @@
 						href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
 						More </a>
 					<button class="btn btn-outline-danger add-cart"
-						bookid="${book.bookId}" quantity="1">
+						bookid="${book.bookId}" quantity="1" context-path="${pageContext.request.contextPath}">
 						<i class="fas fa-cart-plus"></i> Add Cart
 					</button>
 					<hr>
@@ -149,15 +149,7 @@
 		src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-		$("#registerForm").find($("#username")).blur({
-			url : "${pageContext.request.contextPath}/checkAvailableUsername"
-		}, validateUsernameField);
-		$(".add-cart").click({
-			url : "${pageContext.request.contextPath }/addCart"
-		}, addCart);
-		$("#cartDetail").on('click', '.remove-cart-item', {
-            url: "${pageContext.request.contextPath}/"
-        }, removeCartItem);
+
 	</script>
 </body>
 

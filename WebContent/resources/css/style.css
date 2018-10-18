@@ -1,111 +1,118 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 .navbar {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .navbar-nav {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 #nav-2 {
-    position: absolute;
-    top: 54.6px;
-    height: 50px;
+  position: absolute;
+  top: 54.6px;
+  height: 50px;
 }
 
 #badge {
-    position: absolute;
-    top: -2px;
-    font-size: 12px;
+  position: absolute;
+  top: -2px;
+  font-size: 12px;
 }
 
 .carousel-item {
-    height: 600px;
+  height: 600px;
 }
 
 .carousel-image-1 {
-    background: url(../images/beverage-book-caffeine-261820.jpg);
-    background-size: cover;
+  background: url(../images/beverage-book-caffeine-261820.jpg);
+  background-size: cover;
 }
 .carousel-image-2 {
-    background: url(../images/bible-biblia-book-1112048.jpg);
-    background-size: cover;
+  background: url(../images/bible-biblia-book-1112048.jpg);
+  background-size: cover;
 }
 .carousel-image-3 {
-    background: url(../images/book-book-pages-bookcase-415071.jpg);
-    background-size: cover;
+  background: url(../images/book-book-pages-bookcase-415071.jpg);
+  background-size: cover;
 }
 
 .book-promotion-img {
-    position: relative;
+  position: relative;
 }
 
 .promotion-label {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    top: -10px;
-    right: 0;
-    font-size: 20px;
-    padding-top: 10px;
-    padding-left: 0px;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: -10px;
+  right: 0;
+  font-size: 20px;
+  padding-top: 10px;
+  padding-left: 0px;
 }
 
 #introduction {
-    box-shadow: 0 10px 4px #a0a0a054;
+  box-shadow: 0 10px 4px #a0a0a054;
 }
 
 a.footer-link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* Book list view */
 
 .book-list-view {
-    position: relative;
+  position: relative;
 }
 
 .book-list-view .promotion-badge {
-    position: absolute;
-    top: -10%;
-    font-size: 140%;
-    height: 70px;
-    width: 70px;
-    right: -10%;
+  position: absolute;
+  top: -10%;
+  font-size: 140%;
+  height: 70px;
+  width: 70px;
+  right: -10%;
 }
 
 /* Book Detail */
 #bookDetail {
-    margin-top: 54px;
-    /* height: 600px; */
+  margin-top: 54px;
+  /* height: 600px; */
 }
 
-#add-button, #minus-button:hover {
-    cursor: pointer;
+#add-button,
+#minus-button:hover {
+  cursor: pointer;
 }
 
-.small-img:hover{
-    cursor: pointer;
+.small-img:hover {
+  cursor: pointer;
 }
-
 
 /* profile table */
 
 table .inputChange {
-    display: none;
+  display: none;
 }
 
 /* remove cart item */
-.remove-cart-item:hover {
-    cursor: pointer;
+.remove-cart-item:hover,
+.fa-user-edit:hover,
+.fa-save:hover {
+  cursor: pointer;
+}
+
+.list-group-item[aria-expanded="true"] {
+  background-color: black !important;
+  border-color: #aed248;
 }

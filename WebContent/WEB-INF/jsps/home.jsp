@@ -29,7 +29,7 @@
 	<jsp:include page="bestsellerSection.jsp"></jsp:include>
 
 	<!-- Products -->	
-		<jsp:include page="displayProduct.jsp"></jsp:include>
+	<jsp:include page="displayProduct.jsp"></jsp:include>
 
 
 	
@@ -73,17 +73,7 @@
             }
         ]
     });
-
-		$("#username").blur({
-			url: "${pageContext.request.contextPath}/checkAvailableUsername"
-		}, validateUsernameField);
-		$(".add-cart").click({
-            url: "${pageContext.request.contextPath }/addCart"
-        }, addCart);
 		
-		$("#cartDetail").on('click', '.remove-cart-item', {
-            url: "${pageContext.request.contextPath}/"
-        }, removeCartItem);
 	</script>
 </body>
 

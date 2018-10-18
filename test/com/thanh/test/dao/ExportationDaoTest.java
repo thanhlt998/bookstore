@@ -2,6 +2,7 @@ package com.thanh.test.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -68,6 +69,19 @@ public class ExportationDaoTest {
 		Collections.sort(GenerateDataTest.exportations, new ExportationComparator());
 		
 		assertEquals(GenerateDataTest.exportations, result);
+	}
+	
+	@Test
+	public void testGetBookIdListBestSeller() {
+		ArrayList<Integer> expected = new ArrayList<>();
+		expected.add(7);
+		expected.add(1);
+		expected.add(2);
+		expected.add(8);
+		expected.add(5);
+		expected.add(3);
+		
+		assertEquals(expected.toString(), new ArrayList<>(exportationDao.getBookIdListBestSeller(10)).toString());
 	}
 	
 	private class ExportationComparator implements Comparator<Exportation>{

@@ -99,6 +99,15 @@ public class UserDaoTest {
 		assertEquals(true, userDao.isUsernameAvailable("adsfjadjjadkjfj"));
 	}
 	
+	@Test
+	public void testGetUsersByOffsetQuantity() {
+		List<User> userList = userDao.getUserListByOffsetQuantity(0, 10);
+		assertEquals(10, userList.size());
+		for(User user: userList) {
+			System.out.println(user);
+		}
+	}
+	
 	private class UserComparator implements Comparator<User>{
 
 		@Override

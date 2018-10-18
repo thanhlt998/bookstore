@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.thanh.entity.Order;
 import com.thanh.entity.User;
 import com.thanh.enumeration.Gender;
+import com.thanh.model.FullOrder;
 import com.thanh.service.OrderService;
 import com.thanh.service.UserService;
 
 @Controller
 public class UserController {
-	private static final int NO_ORDER_HISTORY_PER_TABLE = 10;
-	
+
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	@RequestMapping("/viewProfile")
 	public String showProfile(HttpServletRequest request, Principal principal) {
 		String username = principal.getName();
@@ -42,8 +42,8 @@ public class UserController {
 		request.setAttribute("user", user);
 		return "viewProfile";
 	}
-	
-	@RequestMapping(value="/updateProfile", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
 	public @ResponseBody String updateProfile(HttpServletRequest request, Principal principal) {
 		String username = principal.getName();
 		User user = userService.getUserByUsername(username);
@@ -59,7 +59,7 @@ public class UserController {
 		Gender gender = Gender.valueOf(request.getParameter("gender"));
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
-		
+
 		user.setName(name);
 		user.setEmail(email);
 		user.setBirthDate(birthDate);
@@ -67,7 +67,7 @@ public class UserController {
 		user.setAddress(address);
 		user.setPhone(phone);
 		userService.updateUser(user);
-		
+
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -78,39 +78,40 @@ public class UserController {
 		}
 		return ajaxResponse;
 	}
-	
-	@RequestMapping(value="/viewOrderHistory", method=RequestMethod.GET)
-	public @ResponseBody String viewOrderHistory(HttpSession session, Principal principal) {
+
+	@RequestMapping(value = "/viewOrderHistory", method = RequestMethod.GET)
+	public @ResponseBody String viewOrderHistory(HttpSession session, HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		String username = principal.getName();
+		int page = Integer.parseInt(request.getParameter("page"));
 		int userId = userService.getUserIdByUsername(username);
-		
-		List<Order> orderList = orderService.getOrderListByUserIdOffsetQuantity(userId, 0, NO_ORDER_HISTORY_PER_TABLE);
-		
+
+		List<Order> orderList = orderService.getOrderListByUserIdPageNum(userId, page);
+
 		try {
 			ajaxResponse = mapper.writeValueAsString(orderList);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return ajaxResponse;
-		
+
 	}
-	
-	@RequestMapping(value="/changePassword", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
 	public @ResponseBody String changePassword(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		String username = principal.getName();
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
 		User user = userService.getUserByUsername(username);
-		
-		if(user.getPassword() == oldPassword) {
+
+		if (user.getPassword() == oldPassword) {
 			user.setPassword(newPassword);
 			userService.updateUser(user);
 			try {
@@ -119,8 +120,7 @@ public class UserController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			try {
 				ajaxResponse = mapper.writeValueAsString(Boolean.FALSE);
 			} catch (IOException e) {
@@ -128,7 +128,29 @@ public class UserController {
 				e.printStackTrace();
 			}
 		}
-		
+
+		return ajaxResponse;
+	}
+
+	@RequestMapping(value = "/viewOrderDetail", method = RequestMethod.GET)
+	public @ResponseBody String viewOrderDetail(HttpServletRequest request, Principal principal) {
+		String ajaxResponse = "";
+		ObjectMapper mapper = new ObjectMapper();
+
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		String username = principal.getName();
+		int userId = userService.getUserIdByUsername(username);
+		try {
+			if (orderService.checkExistOrderByUserIdOrderId(userId, orderId)) {
+				FullOrder fullOrder = orderService.getFullOrderByOrderId(userId, orderId);
+				ajaxResponse = mapper.writeValueAsString(fullOrder);
+			}
+			else {
+				ajaxResponse = mapper.writeValueAsString(Boolean.FALSE);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return ajaxResponse;
 	}
 }
