@@ -46,9 +46,6 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		List<Category> categoryList = categoryService.getAllCategory();
-		session.setAttribute("categoryList", categoryList);
-		session.setAttribute("cart", new Cart());
 		return "redirect:/";
 	}
 

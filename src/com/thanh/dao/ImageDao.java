@@ -47,4 +47,8 @@ public class ImageDao {
 		}
 		return results.get(0).getImageUrl();
 	}
+	
+	public void saveImage(Image image) {
+		getSession().save(image);
+	}
 }

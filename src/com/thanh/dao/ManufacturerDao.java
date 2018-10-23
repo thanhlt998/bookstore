@@ -1,5 +1,7 @@
 package com.thanh.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,5 +37,27 @@ public class ManufacturerDao {
 		criteria.add(Restrictions.idEq(manufacturerId));
 		criteria.setProjection(Projections.property("manufacturerName"));
 		return (String) criteria.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Manufacturer> searchManufacturerListByIdName(String manufacturerId, String manufacturerName){
+		Criteria criteria = getSession().createCriteria(Manufacturer.class);
+		if(!manufacturerId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(manufacturerId)));
+		}
+		if(!manufacturerName.equals("")) {
+			criteria.add(Restrictions.ilike("manufacturerName", "%" + manufacturerName + "%"));
+		}
+		return criteria.list();
+	}
+	
+	public void addManufacturer(Manufacturer manufacturer) {
+		getSession().save(manufacturer);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Manufacturer> getAllManufacturerList() {
+		Criteria criteria = getSession().createCriteria(Manufacturer.class);
+		return criteria.list();
 	}
 }

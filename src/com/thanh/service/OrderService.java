@@ -42,6 +42,14 @@ public class OrderService {
 		return orderCreationDao.order(order, cartItemList, storageIdList);
 	}
 	
+	public Order getOrderByOrderId(int orderId) {
+		return orderDao.getOrderByOrderId(orderId);
+	}
+	
+	public void saveOrder(Order order) {
+		orderDao.addOrder(order);
+	}
+	
 	public List<Order> getOrderListByUserIdPageNum(int userId, int page){
 		return orderDao.getOrderListByUserIdOffsetQuantity(userId, page * NO_ORDER_HISTORY_PER_TABLE, NO_ORDER_HISTORY_PER_TABLE);
 	}
@@ -65,5 +73,9 @@ public class OrderService {
 		List<OrdersDetail> ordersDetailList = ordersDetailDao.getOrdersDetailListByOrderId(orderId);
 		List<OrdersDetailItem> ordersDetailItemList = getOrdersDetailItemListByOrdersDetailList(ordersDetailList);
 		return new FullOrder(user, order, ordersDetailItemList);
+	}
+	
+	public List<Order> searchOrderListByPage(String orderId, String userId, String orderStatus, int page){
+		return orderDao.searchOrderList(orderId, userId, orderStatus, NO_ORDER_HISTORY_PER_TABLE * page, NO_ORDER_HISTORY_PER_TABLE);
 	}
 }

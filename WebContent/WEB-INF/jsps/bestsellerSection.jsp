@@ -15,7 +15,7 @@
 							<div class="card-img p-3">
 								<div class="book-list-view w-100 mt-4">
 									<a href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
-										<img src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}.jpg" alt="" class="img-fluid">
+										<img src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}" alt="" class="img-fluid">
 									</a>
 									<c:if test="${book.discount > 0 }">
 										<span class="promotion-badge badge badge-danger rounded-circle py-4">

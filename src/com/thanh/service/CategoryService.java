@@ -26,4 +26,11 @@ public class CategoryService {
 		return categoryDao.getCategoryByCategoryId(categoryId);
 	}
 	
+	public List<Category> searchCategoryListByIdName(String categoryId, String categoryName){
+		return categoryDao.searchCategoryListByIdName(categoryId, categoryName);
+	}
+	
+	public void addCategory(Category category) {
+		categoryDao.addCategory(category);
+	}
 }

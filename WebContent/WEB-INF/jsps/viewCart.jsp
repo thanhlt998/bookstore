@@ -39,7 +39,7 @@
 					<tbody>
 						<c:forEach var="cartItem" items="${cart.cart }">
 							<tr>
-								<td class="text-center align-middle"><img src="${pageContext.request.contextPath }/resources/images/${cartItem.book.imageUrl}.jpg"
+								<td class="text-center align-middle"><img src="${pageContext.request.contextPath }/resources/images/${cartItem.book.imageUrl}"
 									 alt="" class="img-fluid"></td>
 								<td class="align-middle text-center">${cartItem.book.bookName }</td>
 								<td class="align-middle text-center">${cartItem.book.currentPrice }</td>

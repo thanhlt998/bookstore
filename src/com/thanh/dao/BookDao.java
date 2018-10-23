@@ -65,6 +65,10 @@ public class BookDao {
 		return criteria.list();
 	}
 	
+	public void saveBook(Book book) {
+		getSession().save(book);
+	}
+	
 	public Integer countNoBookByCategoryId(int categoryId) {
 		Criteria criteria = getSession().createCriteria(Book.class);
 		criteria.add(Restrictions.eq("categoryId", categoryId));

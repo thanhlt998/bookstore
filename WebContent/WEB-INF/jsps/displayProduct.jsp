@@ -10,7 +10,7 @@
 			<div class="col-md-4 p-5 border-right">
 				<div class="book-list-view w-100">
 					<a href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
-						<img src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}.jpg" alt="" class="img-fluid mb-5">
+						<img src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}" alt="" class="img-fluid mb-5">
 					</a>
 					<c:if test="${book.discount > 0 }">
 						<span class="promotion-badge badge badge-danger rounded-circle py-4">

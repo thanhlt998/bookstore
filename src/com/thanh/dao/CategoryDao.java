@@ -46,4 +46,20 @@ public class CategoryDao {
 		return (String) criteria.uniqueResult();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Category> searchCategoryListByIdName(String categoryId, String categoryName){
+		Criteria criteria = getSession().createCriteria(Category.class);
+		if(!categoryId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(categoryId)));
+		}
+		if(!categoryName.equals("")) {
+			criteria.add(Restrictions.ilike("categoryName", "%" + categoryName + "%"));
+		}
+		return criteria.list();
+	}
+	
+	
+	public void addCategory(Category category) {
+		getSession().save(category);
+	}
 }

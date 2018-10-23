@@ -29,13 +29,13 @@
             	<c:forEach var="imageUrl" items="${bookDetail.imageUrls }">
             		<div class="row">
                     <div class="col">
-                        <img src="${pageContext.request.contextPath }/resources/images/${imageUrl}.jpg" class="img-fluid small-img" alt="">
+                        <img src="${pageContext.request.contextPath }/resources/images/${imageUrl}" class="img-fluid small-img" alt="">
                     </div>
                 </div>
             	</c:forEach>                
             </div>
             <div class="col-sm-8 col-md-4">
-                <img src="${pageContext.request.contextPath }/resources/images/${bookDetail.imageUrls[0]}.jpg" class="img-fluid" id="main-img" alt="">
+                <img src="${pageContext.request.contextPath }/resources/images/${bookDetail.imageUrls[0]}" class="img-fluid" id="main-img" alt="">
             </div>
             <div class="col-sm-12 col-md-6">
                 <h2 class="text-secondary">${bookDetail.bookName }</h2>

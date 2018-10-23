@@ -137,4 +137,8 @@ public class BookService {
 	public int countNoBookBySearchValue(String searchValue) {
 		return bookDao.countNoBookBySearchValue(searchValue);
 	}
+	
+	public void addBook(Book book) {
+		bookDao.saveBook(book);
+	}
 }

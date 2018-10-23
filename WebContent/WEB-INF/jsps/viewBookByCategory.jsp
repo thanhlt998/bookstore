@@ -43,7 +43,7 @@
 						<a
 							href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
 							<img
-							src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}.jpg"
+							src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}"
 							alt="" class="img-fluid mb-5">
 						</a>
 						<c:if test="${book.discount > 0 }">

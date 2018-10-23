@@ -20,7 +20,6 @@ public class Image {
 	}
 
 	public Image(int imageId, int bookId, String imageUrl) {
-		super();
 		this.imageId = imageId;
 		this.bookId = bookId;
 		this.imageUrl = imageUrl;

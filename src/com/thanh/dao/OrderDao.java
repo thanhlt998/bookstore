@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thanh.entity.Order;
+import com.thanh.enumeration.OrderStatus;
 
 @Repository
 @Transactional
@@ -50,5 +51,23 @@ public class OrderDao {
 		criteria.add(Restrictions.idEq(orderId));
 		criteria.add(Restrictions.eq("userId", userId));
 		return criteria.uniqueResult() != null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Order> searchOrderList(String orderId, String userId, String orderStatus, int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(Order.class);
+		if(!orderId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(orderId)));
+		}
+		if(!userId.equals("")) {
+			criteria.add(Restrictions.eq("userId", Integer.parseInt(userId)));
+		}
+		if(!orderStatus.equals("")) {
+			criteria.add(Restrictions.eq("status", OrderStatus.valueOf(orderStatus)));
+		}
+		criteria.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
 	}
 }
