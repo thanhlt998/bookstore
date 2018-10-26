@@ -303,15 +303,15 @@ public class GenerateDataTest {
 
 	private static void generatePromotionEventList() {
 		promotionEvents = new ArrayList<>();
-		promotionEvents.add(new PromotionEvent(1, 8, 5, 1));
-		promotionEvents.add(new PromotionEvent(2, 2, 6, 2));
-		promotionEvents.add(new PromotionEvent(3, 7, 5, 3));
-		promotionEvents.add(new PromotionEvent(4, 1, 10, 4));
-		promotionEvents.add(new PromotionEvent(5, 3, 10, 5));
-		promotionEvents.add(new PromotionEvent(6, 7, 9, 6));
-		promotionEvents.add(new PromotionEvent(7, 3, 4, 7));
-		promotionEvents.add(new PromotionEvent(8, 7, 4, 8));
-		promotionEvents.add(new PromotionEvent(9, 1, 2, 9));
-		promotionEvents.add(new PromotionEvent(10, 2, 7, 10));
+		promotionEvents.add(new PromotionEvent(1, 8, 5));
+		promotionEvents.add(new PromotionEvent(2, 2, 6));
+		promotionEvents.add(new PromotionEvent(3, 7, 5));
+		promotionEvents.add(new PromotionEvent(4, 1, 10));
+		promotionEvents.add(new PromotionEvent(5, 3, 10));
+		promotionEvents.add(new PromotionEvent(6, 7, 9));
+		promotionEvents.add(new PromotionEvent(7, 3, 4));
+		promotionEvents.add(new PromotionEvent(8, 7, 4));
+		promotionEvents.add(new PromotionEvent(9, 1, 2));
+		promotionEvents.add(new PromotionEvent(10, 2, 7));
 	}
 }

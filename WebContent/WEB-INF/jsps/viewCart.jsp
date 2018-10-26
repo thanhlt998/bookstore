@@ -80,7 +80,7 @@
 										</select> <br>
 									</div>
 									<div class="text-right">
-										<button class="btn btn-outline-danger" id="confirm-order-button" context-path="$(pageContext.request.contextPath}">Order</button>
+										<button class="btn btn-outline-danger" id="confirm-order-button" context-path="${pageContext.request.contextPath}">Order</button>
 									</div>
 								</div>
 							</td>

@@ -46,4 +46,8 @@ public class UserService {
 	public List<User> searchUserListByPage(String userId, String username, String name, String authority, int page){
 		return userDao.searchUsers(userId, username, name, authority, page * NO_PEOPLE_IN_PAGE, NO_PEOPLE_IN_PAGE);
 	}
+	
+	public List<Integer> getStockKeeperIdList(){
+		return userDao.getStockKeeperIdList();
+	}
 }

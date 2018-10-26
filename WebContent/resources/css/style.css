@@ -108,7 +108,8 @@ table .inputChange {
 /* remove cart item */
 .remove-cart-item:hover,
 .fa-user-edit:hover,
-.fa-save:hover {
+.fa-save:hover,
+.fa-edit:hover {
   cursor: pointer;
 }
 

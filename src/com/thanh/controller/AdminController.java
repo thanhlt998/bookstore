@@ -333,4 +333,22 @@ public class AdminController {
 		return ajaxResponse;
 
 	}
+
+	@RequestMapping(value = "/getStockKeeperIdList", method = RequestMethod.GET)
+	public @ResponseBody String getStockKeeperIdList() {
+		String ajaxResponse = "";
+		ObjectMapper mapper = new ObjectMapper();
+
+		List<Integer> stockKeeperIdList = userService.getStockKeeperIdList();
+
+		try {
+			ajaxResponse = mapper.writeValueAsString(stockKeeperIdList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ajaxResponse;
+	}
+
 }

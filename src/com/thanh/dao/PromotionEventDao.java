@@ -32,4 +32,18 @@ public class PromotionEventDao {
 		criteria.setProjection(Projections.property("promotionId"));
 		return criteria.list();
 	}
+	
+	public void savePromotionEvent(PromotionEvent promotionEvent) {
+		getSession().save(promotionEvent);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Integer> getBookIdListByPromotionIdOffsetQuantity(int promotionId, int offset, int quantity) {
+		Criteria criteria = getSession().createCriteria(PromotionEvent.class);
+		criteria.add(Restrictions.eq("promotionId", promotionId));
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		criteria.setProjection(Projections.property("bookId"));
+		return criteria.list();
+	}
 }

@@ -138,6 +138,113 @@ $(document).ready(function() {
   // $("#add-book-management").on("click", "#add-book-button", addBook);
 
   $("#upload-images-form").submit(addBook);
+
+  // promotion management
+  $(".tab").on("click", "button", tabButtonClick);
+
+  $("#add-promotion-button").click(addPromotionButtonClick);
+
+  $("#view-promotion").on(
+    "change",
+    "#search-by-id, #search-by-description",
+    searchPromotionFieldOnChange
+  );
+
+  $("#view-promotion").on(
+    "click",
+    "#previous-button, #next-button",
+    viewPromotionButtonClick
+  );
+
+  $("#add-promotion-event").on("blur", "#promotion-id", promotionIdFieldOnBlur);
+
+  $("#add-promotion-event").on(
+    "change",
+    "#book-id, #book-name",
+    bookSearchFieldOnChange
+  );
+
+  $("#add-promotion-event").on(
+    "click",
+    "#previous-button, #next-button",
+    viewBookButtonClick
+  );
+
+  $("#add-promotion-event").on(
+    "click",
+    ".add-promotion-event-button",
+    addPromotionEventButtonClick
+  );
+
+  $("#view-promotion-event").on(
+    "change",
+    "#promotion-id",
+    viewPromotionEventSearchFieldChange
+  );
+
+  $("#view-promotion-event").on(
+    "click",
+    "#previous-button, #next-button",
+    viewPromotionEventButtonClick
+  );
+
+  // storage management
+  $("#view-storage").on(
+    "click",
+    "#view-storage-button",
+    viewStorageButtonClick
+  );
+
+  $("#view-storage").on("click", ".fa-edit", editStorageButtonClick);
+
+  $("#view-storage").on("click", ".fa-save", saveStorageButtonClick);
+
+  $("#add-storage").on("click", "#stock-keeper-id", stockKeeperIdFieldHover);
+
+  $("#add-storage").on("click", "#add-storage-button", addStorageButtonClick);
+
+  $("#import-book").on("click", "#storage-id", storageIdFieldClick);
+
+  $("#import-book").on("click", "#import-book-button", importBookButtonClick);
+
+  // view importation
+  $("#view-importation").on(
+    "change",
+    "#importation-id, #storage-id, #book-id, #import-date",
+    viewImportationSearchFieldChange
+  );
+
+  $("#view-importation").on(
+    "click",
+    "#next-button, #previous-button",
+    viewImportationButtonClick
+  );
+
+  // view-exportation
+  $("#view-exportation").on(
+    "change",
+    "#exportation-id, #storage-id, #book-id, #export-date",
+    viewExportationSearchFieldChange
+  );
+
+  $("#view-exportation").on(
+    "click",
+    "#next-button, #previous-button",
+    viewExportationButtonClick
+  );
+
+  //revenue management
+  $("#revenue-per-day").on(
+    "click",
+    "#view-revenue-per-day-button",
+    viewRevenuePerDayButtonClick
+  );
+
+  $("#revenue-per-month").on(
+    "click",
+    "#view-revenue-per-month-button",
+    viewRevenuePerMonthButtonClick
+  );
 });
 
 // --------------------------------------------------------------------------------------------
@@ -367,6 +474,7 @@ function isValidOrderInfo(shipAddress, paymentMethod) {
 }
 
 function createOrder(event) {
+  var button = $(this);
   var shipAddress = $("#shipAddress").val();
   var paymentMethod = $("#paymentMethod").val();
   var contextPath = $(this).attr("context-path");
@@ -391,6 +499,10 @@ function createOrder(event) {
             "Your order is not completed! Please add Cart and order again!";
         } else {
           message = "Your order is ordered successfully!";
+          button.prop("disabled", true);
+          alert(message);
+          // $(this).prop("disabled", true);
+          $(location).attr("href", contextPath);
         }
       },
       error: function(error) {
@@ -399,11 +511,8 @@ function createOrder(event) {
       }
     });
   } else {
-    console.log("blank content");
+    message = "Please fill the information!";
   }
-  alert(message);
-  $(this).prop("disabled", true);
-  $(location).attr("href", event.data.url);
 }
 
 // small-picture
@@ -533,7 +642,9 @@ function dateFormat(milliseconds) {
   return (
     date.getFullYear() +
     "-" +
-    (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
   );
@@ -1459,7 +1570,7 @@ function addBook(event) {
   var author = addBookManagement.find("#author").val();
   var price = addBookManagement.find("#price").val();
   var size = $("#file").prop("files").length;
-  if(size == 3){
+  if (size == 3) {
     $.ajax({
       type: "GET",
       contentType: "application/json",
@@ -1482,9 +1593,8 @@ function addBook(event) {
         $("#add-book-management-feedback").text("Cannot add this book!");
       }
     });
-  }
-  else {
-    alert("You must uploa 3 images.");
+  } else {
+    alert("You must upload 3 images.");
   }
 }
 
@@ -1498,7 +1608,7 @@ function uploadImages(bookId) {
     formData.append("file" + i, fileField[i]);
   }
 
-  for(var i = fileField.length; i < 3; i++){
+  for (var i = fileField.length; i < 3; i++) {
     formData.append("file" + i, null);
   }
 
@@ -1525,4 +1635,1095 @@ function uploadImages(bookId) {
       $("#upload-images-feedback").text("Fail to upload images!");
     }
   });
+}
+
+// promotion management
+
+function tabButtonClick(event) {
+  var active = $(this)
+    .parent()
+    .find(".active");
+  $(active.attr("data-target")).css("display", "none");
+  active.removeClass("active");
+  $(this).addClass("active");
+  $($(this).attr("data-target")).slideDown(400);
+}
+
+function validateAddPromotionForm(
+  promotionDescription,
+  fromDate,
+  toDate,
+  discount
+) {
+  var flag = true;
+
+  var date = new Date();
+  today =
+    date.getFullYear().toString() +
+    "-" +
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) +
+    "-" +
+    (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+
+  if (promotionDescription === "") {
+    $("#promotion-description-feedback").text(
+      "Please not leave this field blank!!"
+    );
+    flag = false;
+  } else {
+    $("#promotion-description-feedback").text("");
+  }
+
+  if (fromDate === "") {
+    $("#from-date-feedback").text("Please not leave this field blank!!y");
+    flag = false;
+  } else if (fromDate < today) {
+    $("#from-date-feedback").text("From Date should be not before today");
+    flag = false;
+  } else {
+    $("#from-date-feedback").text("");
+  }
+
+  if (toDate === "") {
+    $("#to-date-feedback").text("Please not leave this field blank!!");
+    flag = false;
+  } else if (fromDate >= toDate) {
+    $("#to-date-feedback").text("'To Date' should be after 'From Date'");
+    flag = false;
+  } else {
+    $("#to-date-feedback").text("");
+  }
+
+  if (discount === "") {
+    $("#discount-feedback").text("Please not leave this field blank!!");
+    flag = false;
+  } else {
+    $("#discount-feedback").text("");
+  }
+  return flag;
+}
+
+function addPromotionButtonClick(event) {
+  var addPromotionForm = $("#add-promotion");
+  var promotionDescription = addPromotionForm
+    .find("#promotion-description")
+    .val();
+  var fromDate = addPromotionForm.find("#from-date").val();
+  var toDate = addPromotionForm.find("#to-date").val();
+  var discount = addPromotionForm.find("#discount").val();
+  var contextPath = $(this).attr("context-path");
+
+  if (
+    validateAddPromotionForm(promotionDescription, fromDate, toDate, discount)
+  ) {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/addPromotion",
+      data: {
+        promotionDescription: promotionDescription,
+        fromDate: fromDate,
+        toDate: toDate,
+        discount: discount
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        $("#add-promotion-feedback").text("Add promotion successfully!");
+      },
+      error: function(error) {
+        console.log(error);
+        $("#add-promotion-feedback").text("Fail to add promotion!");
+      }
+    });
+  }
+}
+
+function searchPromotionFieldOnChange(event) {
+  $("#view-promotion")
+    .find("#next-button")
+    .text("Search")
+    .attr("disabled", false)
+    .attr("page", 0);
+  $("#view-promotion")
+    .find("#previous-button")
+    .attr("disabled", true)
+    .attr("page", 0);
+}
+
+function viewPromotionButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+  var viewPromotion = $("#view-promotion");
+  var idSearchValue = viewPromotion.find("#search-by-id").val();
+
+  var descriptionSearchValue = viewPromotion
+    .find("#search-by-description")
+    .val();
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/viewPromotion",
+    data: {
+      promotionId: idSearchValue,
+      promotionDescription: descriptionSearchValue,
+      page: page
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      var tableBody = viewPromotion.find("tbody");
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].promotionId)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .text(data[i].promotionDescription)
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(dateFormat(data[i].fromDate))
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(dateFormat(data[i].toDate))
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(data[i].discount)
+          )
+          .appendTo(tableBody);
+      }
+      var previousButton = viewPromotion.find("#previous-button");
+      var nextButton = viewPromotion.find("#next-button");
+      nextButton.text("Next");
+      if (typeButton === "next") {
+        console.log(page + 1);
+
+        if (data.length < 10) {
+          nextButton.attr("disabled", true);
+        } else {
+          nextButton.attr("page", page + 1);
+          previousButton.attr("page", page);
+        }
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("disabled", false);
+        }
+      } else {
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("page", page - 1);
+          nextButton.attr("page", page);
+        }
+        nextButton.attr("disabled", false);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function promotionIdFieldOnBlur(event) {
+  var promotionId = $(this).val();
+  var addPromotionEvent = $("#add-promotion-event");
+
+  if (promotionId === "") {
+    addPromotionEvent
+      .find(".add-promotion-event-button")
+      .attr("disabled", true);
+  } else {
+    var contextPath = $(this).attr("context-path");
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/checkPromotionAvailable",
+      data: {
+        promotionId: promotionId
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        if (data === false) {
+          addPromotionEvent
+            .find(".add-promotion-event-button")
+            .attr("disabled", true);
+          addPromotionEvent
+            .find("#promotion-id-check")
+            .empty()
+            .append($("<i>").addClass("far fa-times-circle text-danger"));
+        } else {
+          addPromotionEvent
+            .find(".add-promotion-event-button")
+            .attr("disabled", false);
+          addPromotionEvent
+            .find("#promotion-id-check")
+            .empty()
+            .append($("<i>").addClass("far fa-check-circle text-success"));
+        }
+      },
+      error: function(error) {
+        addPromotionEvent
+          .find(".add-promotion-event-button")
+          .attr("disabled", true);
+        addPromotionEvent
+          .find("#promotion-id-check")
+          .empty()
+          .append($("<i>").addClass("far fa-times-circle text-danger"));
+        console.log(error);
+      }
+    });
+  }
+}
+
+function bookSearchFieldOnChange(event) {
+  $("#add-promotion-event")
+    .find("#next-button")
+    .text("Search")
+    .attr("disabled", false)
+    .attr("page", 0);
+  $("#add-promotion-event")
+    .find("#previous-button")
+    .attr("disabled", true)
+    .attr("page", 0);
+}
+
+function viewBookButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+  var parentTag = $(this).parent();
+  var bookId = parentTag.find("#book-id").val();
+  var bookName = parentTag.find("#book-name").val();
+  var tableBody = parentTag.find("tbody");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/searchBookByIdName",
+    data: {
+      bookId: bookId,
+      bookName: bookName,
+      page: page
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append($("<td>").text(data[i].bookId))
+          .append($("<td>").text(data[i].bookName))
+          .append($("<td>").text(data[i].author))
+          .append(
+            $("<td>").append(
+              $("<button>")
+                .addClass("btn btn-outline-dark add-promotion-event-button")
+                .attr("context-path", contextPath)
+                .text("Add")
+            )
+          )
+          .appendTo(tableBody);
+
+        if ($("#add-promotion-event").has(".fa-times-circle")) {
+          tableBody.find(".add-promotion-event-button").attr("disabled", true);
+        }
+      }
+
+      var previousButton = parentTag.find("#previous-button");
+      var nextButton = parentTag.find("#next-button");
+      nextButton.text("Next");
+      if (typeButton === "next") {
+        console.log(page + 1);
+
+        if (data.length < 10) {
+          nextButton.attr("disabled", true);
+        } else {
+          nextButton.attr("page", page + 1);
+          previousButton.attr("page", page);
+        }
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("disabled", false);
+        }
+      } else {
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("page", page - 1);
+          nextButton.attr("page", page);
+        }
+        nextButton.attr("disabled", false);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function addPromotionEventButtonClick(event) {
+  var contextPath = $(this).attr("context-path");
+  var bookId = $(this)
+    .parent()
+    .siblings()
+    .first()
+    .text();
+  var promotionId = $("#add-promotion-event")
+    .find("#promotion-id")
+    .val();
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/addPromotionEvent",
+    data: {
+      bookId: bookId,
+      promotionId: promotionId
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      $("#add-promotion-event-feedback").text(
+        "Add promotion event successfully!"
+      );
+    },
+    error: function(error) {
+      console.log(error);
+      $("#add-promotion-event-feedback").text("Fail to add promotion event!");
+    }
+  });
+}
+
+function viewPromotionEventSearchFieldChange(event) {
+  $("#view-promotion-event")
+    .find("#next-button")
+    .text("Search")
+    .attr("disabled", false)
+    .attr("page", 0);
+  $("#view-promotion-event")
+    .find("#previous-button")
+    .attr("disabled", true)
+    .attr("page", 0);
+}
+
+function viewPromotionEventButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+
+  var parentTag = $(this).parent();
+  var promotionId = parentTag.find("#promotion-id").val();
+  var tableBody = parentTag.find("tbody");
+
+  if (promotionId !== "") {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/viewPromotionEvent",
+      data: {
+        promotionId: promotionId,
+        page: page
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        tableBody.empty();
+        for (var i = 0; i < data.length; i++) {
+          $("<tr>")
+            .append($("<td>").text(data[i].bookId))
+            .append($("<td>").text(data[i].bookName))
+            .append($("<td>").text(data[i].author))
+            .appendTo(tableBody);
+        }
+
+        var previousButton = parentTag.find("#previous-button");
+        var nextButton = parentTag.find("#next-button");
+        nextButton.text("Next");
+        if (typeButton === "next") {
+          console.log(page + 1);
+
+          if (data.length < 10) {
+            nextButton.attr("disabled", true);
+          } else {
+            nextButton.attr("page", page + 1);
+            previousButton.attr("page", page);
+          }
+          if (page === 0) {
+            previousButton.attr("disabled", true);
+          } else {
+            previousButton.attr("disabled", false);
+          }
+        } else {
+          if (page === 0) {
+            previousButton.attr("disabled", true);
+          } else {
+            previousButton.attr("page", page - 1);
+            nextButton.attr("page", page);
+          }
+          nextButton.attr("disabled", false);
+        }
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+// storage management
+
+function createSelectStockKeeper(stockKeeperIdList, stockKeeperId) {
+  var select = $("<select>")
+    .addClass("form-control")
+    .attr("id", "stock-keeper-id")
+    .attr("disabled", true);
+  for (var i = 0; i < stockKeeperIdList.length; i++) {
+    $("<option>")
+      .val(stockKeeperIdList[i])
+      .text(stockKeeperIdList[i])
+      .appendTo(select);
+  }
+  select.find(`option[value=${stockKeeperId}]`).attr("selected", "selected");
+  return select;
+}
+
+function viewStorage(stockKeeperIdList, tableBody, contextPath) {
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/viewStorage",
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append(
+            $("<td>")
+              .text(data[i].storageId)
+              .attr("id", "storage-id")
+          )
+          .append(
+            $("<td>").append(
+              $("<input>")
+                .addClass("form-control")
+                .attr("id", "storage-name")
+                .val(data[i].storageName)
+                .attr("disabled", true)
+            )
+          )
+          .append(
+            $("<td>").append(
+              $("<input>")
+                .addClass("form-control")
+                .attr("id", "storage-address")
+                .val(data[i].storageAddress)
+                .attr("disabled", true)
+            )
+          )
+          .append(
+            $("<td>").append(
+              createSelectStockKeeper(stockKeeperIdList, data[i].stockKeeperId)
+            )
+          )
+          .append(
+            $("<td>")
+              .addClass("align-middle")
+              .append(
+                $("<i>")
+                  .addClass("far fa-edit")
+                  .attr("context-path", contextPath)
+              )
+          )
+          .appendTo(tableBody);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function editStorageButtonClick(event) {
+  var contextPath = $(this).attr("context-path");
+  $(this)
+    .parent()
+    .parent()
+    .find("input, select")
+    .attr("disabled", false);
+  $(this).replaceWith(
+    $("<i>")
+      .addClass("far fa-save")
+      .attr("context-path", contextPath)
+  );
+}
+
+function viewStorageButtonClick(contextPath, event) {
+  var contextPath = $(this).attr("context-path");
+  var tableBody = $(this)
+    .parent()
+    .find("tbody");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/getStockKeeperIdList",
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      viewStorage(data, tableBody, contextPath);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function saveStorageButtonClick(event) {
+  var tdParent = $(this)
+    .parent()
+    .parent();
+  var storageId = tdParent.find("#storage-id").text();
+  var storageName = tdParent.find("#storage-name").val();
+  var storageAddress = tdParent.find("#storage-address").val();
+  var stockKeeperId = tdParent.find("#stock-keeper-id").val();
+  var contextPath = $(this).attr("context-path");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/saveStorage",
+    data: {
+      storageId: storageId,
+      storageName: storageName,
+      storageAddress: storageAddress,
+      stockKeeperId: stockKeeperId
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      $("#view-storage-feedback").text("Save changes successfully!");
+      tdParent.find(".fa-save").replaceWith(
+        $("<i>")
+          .addClass("far fa-edit")
+          .attr("context-path", contextPath)
+      );
+      tdParent.find("input, select").attr("disabled", true);
+    },
+    error: function(error) {
+      console.log(error);
+      $("#view-storage-feedback").text("Fail to save changes!");
+    }
+  });
+}
+
+function stockKeeperIdFieldHover(event) {
+  var selectTag = $(this);
+  var contextPath = selectTag.attr("context-path");
+
+  if (selectTag.find("option").length === 0) {
+    selectTag.empty();
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/getStockKeeperIdList",
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        for (var i = 0; i < data.length; i++) {
+          $("<option>")
+            .val(data[i])
+            .text(data[i])
+            .appendTo(selectTag);
+        }
+      },
+      error: function(error) {
+        selectTag
+          .siblings("#stock-keeper-id-feedback")
+          .text("Can'load Stock Keeper Id List.");
+        console.log(error);
+      }
+    });
+  }
+}
+
+function validateStorageInfo(storageName, storageAddress, stockKeeperId) {
+  var flag = true;
+
+  if (storageName === "" || storageName.length >= 45) {
+    $("#storage-name-feedback").text(
+      "This field must not be blank and contains less than 45 characters!"
+    );
+    flag = false;
+  } else {
+    $("#storage-name-feedback").text("");
+  }
+
+  if (storageAddress === "" || storageAddress.length >= 45) {
+    $("#storage-address-feedback").text(
+      "This field must not be blank and contains less than 45 characters!"
+    );
+    flag = false;
+  } else {
+    $("#storage-address-feedback").text("");
+  }
+
+  if (stockKeeperId === "") {
+    $("#stock-keeper-id-feedback").text("This field must not be blank!");
+    flag = false;
+  } else {
+    $("#stock-keeper-id-feedback").text("");
+  }
+
+  return flag;
+}
+
+function addStorageButtonClick(event) {
+  var contextPath = $(this).attr("context-path");
+  var addStorage = $("#add-storage");
+  var storageName = addStorage.find("#storage-name").val();
+  var storageAddress = addStorage.find("#storage-address").val();
+  var stockKeeperId = addStorage.find("#stock-keeper-id").val();
+
+  if (validateStorageInfo(storageName, storageAddress, stockKeeperId)) {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/addStorage",
+      data: {
+        storageName: storageName,
+        storageAddress: storageAddress,
+        stockKeeperId: stockKeeperId
+      },
+      success: function(data) {
+        $("#add-storage-feedback").text("Add storage successfully!");
+      },
+      error: function(error) {
+        console.log(error);
+        $("#add-storage-feedback").text("Fail to add storage!");
+      }
+    });
+  }
+}
+
+function storageIdFieldClick() {
+  var selectTag = $(this);
+  var contextPath = selectTag.attr("context-path");
+
+  if (selectTag.find("option").length === 0) {
+    selectTag.empty();
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/getStorageIdList",
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        for (var i = 0; i < data.length; i++) {
+          $("<option>")
+            .val(data[i])
+            .text(data[i])
+            .appendTo(selectTag);
+        }
+      },
+      error: function(error) {
+        selectTag
+          .siblings("#storage-id-feedback")
+          .text("Can'load Storage Id List.");
+        console.log(error);
+      }
+    });
+  }
+}
+
+function validateImportBookInfo(
+  storageId,
+  bookId,
+  quantity,
+  importPrice,
+  contextPath
+) {
+  var flag = true;
+  var importBook = $("#import-book");
+  if (storageId === "") {
+    importBook
+      .find("#storage-id-feedback")
+      .text("This field must not be blank!");
+    flag = false;
+  } else {
+    importBook.find("#storage-id-feedback").text("");
+  }
+
+  if (bookId === "") {
+    importBook.find("#book-id-feedback").text("This field must not be blank!");
+    flag = false;
+  } else {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/checkBookIdExist",
+      data: {
+        bookId: bookId
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        if (data === false) {
+          importBook
+            .find("#book-id-feed-back")
+            .text("This book id is not existed!");
+          flag = false;
+        } else {
+          importBook.find("#book-id-feed-back").text("");
+        }
+      },
+      error: function(error) {
+        console.log(error);
+        flag = false;
+        importBook.find("#book-id-feed-back").text("Some thing went wrong!");
+      }
+    });
+  }
+
+  if (quantity === "") {
+    importBook.find("#quantity-feedback").text("This field must not be blank!");
+    flag = false;
+  } else {
+    importBook.find("#quantity-feedback").text("");
+  }
+
+  if (importPrice === "") {
+    importBook
+      .find("#import-price-feedback")
+      .text("This field must not be blank!");
+    flag = false;
+  } else {
+    importBook.find("#import-price-feedback").text("");
+  }
+
+  return flag;
+}
+
+function importBookButtonClick(event) {
+  var importBook = $("#import-book");
+  var contextPath = $(this).attr("context-path");
+  var storageId = importBook.find("#storage-id").val();
+  var bookId = importBook.find("#book-id").val();
+  var quantity = importBook.find("#quantity").val();
+  var importPrice = importBook.find("#import-price").val();
+
+  if (
+    validateImportBookInfo(
+      storageId,
+      bookId,
+      quantity,
+      importPrice,
+      contextPath
+    )
+  ) {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/importBook",
+      data: {
+        storageId: storageId,
+        bookId: bookId,
+        quantity: quantity,
+        importPrice: importPrice
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        importBook
+          .find("#import-book-feedback")
+          .text("Import book successfully!");
+      },
+      error: function(error) {
+        console.log(error);
+        importBook.find("#import-book-feedback").text("Fail to import book!");
+      }
+    });
+  }
+}
+
+// view importation
+
+function viewImportationSearchFieldChange(event) {
+  $("#view-importation")
+    .find("#next-button")
+    .text("Search")
+    .attr("disabled", false)
+    .attr("page", 0);
+  $("#view-importation")
+    .find("#previous-button")
+    .attr("disabled", true)
+    .attr("page", 0);
+}
+
+function viewImportationButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+
+  var parentTag = $(this).parent();
+  var importationId = parentTag.find("#importation-id").val();
+  var storageId = parentTag.find("#storage-id").val();
+  var bookId = parentTag.find("#book-id").val();
+  var importDate = parentTag.find("#import-date").val();
+  var tableBody = parentTag.find("tbody");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/viewImportation",
+    data: {
+      importationId: importationId,
+      storageId: storageId,
+      bookId: bookId,
+      importDate: importDate === "" ? importDate : dateFormat(importDate),
+      page: page
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append($("<td>").text(data[i].importationId))
+          .append($("<td>").text(data[i].storageId))
+          .append($("<td>").text(data[i].bookId))
+          .append($("<td>").text(data[i].quantity))
+          .append($("<td>").text(dateFormat(data[i].importDate)))
+          .append($("<td>").text(data[i].importPrice))
+          .appendTo(tableBody);
+      }
+
+      var previousButton = parentTag.find("#previous-button");
+      var nextButton = parentTag.find("#next-button");
+      nextButton.text("Next");
+      if (typeButton === "next") {
+        console.log(page + 1);
+
+        if (data.length < 10) {
+          nextButton.attr("disabled", true);
+        } else {
+          nextButton.attr("page", page + 1);
+          previousButton.attr("page", page);
+        }
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("disabled", false);
+        }
+      } else {
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("page", page - 1);
+          nextButton.attr("page", page);
+        }
+        nextButton.attr("disabled", false);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+// view exportation
+function viewExportationSearchFieldChange(event) {
+  $("#view-exportation")
+    .find("#next-button")
+    .text("Search")
+    .attr("disabled", false)
+    .attr("page", 0);
+  $("#view-exportation")
+    .find("#previous-button")
+    .attr("disabled", true)
+    .attr("page", 0);
+}
+
+function viewExportationButtonClick(event) {
+  var typeButton = $(this).attr("type-button");
+  var page = parseInt($(this).attr("page"));
+  var contextPath = $(this).attr("context-path");
+
+  var parentTag = $(this).parent();
+  var exportationId = parentTag.find("#exportation-id").val();
+  var storageId = parentTag.find("#storage-id").val();
+  var bookId = parentTag.find("#book-id").val();
+  var exportDate = parentTag.find("#export-date").val();
+  var tableBody = parentTag.find("tbody");
+
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/viewExportation",
+    data: {
+      exportationId: exportationId,
+      storageId: storageId,
+      bookId: bookId,
+      exportDate: exportDate === "" ? exportDate : dateFormat(exportDate),
+      page: page
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function(data) {
+      tableBody.empty();
+      for (var i = 0; i < data.length; i++) {
+        $("<tr>")
+          .append($("<td>").text(data[i].exportationId))
+          .append($("<td>").text(data[i].storageId))
+          .append($("<td>").text(data[i].bookId))
+          .append($("<td>").text(data[i].quantity))
+          .append($("<td>").text(dateFormat(data[i].exportDate)))
+          .appendTo(tableBody);
+      }
+
+      var previousButton = parentTag.find("#previous-button");
+      var nextButton = parentTag.find("#next-button");
+      nextButton.text("Next");
+      if (typeButton === "next") {
+        console.log(page + 1);
+
+        if (data.length < 10) {
+          nextButton.attr("disabled", true);
+        } else {
+          nextButton.attr("page", page + 1);
+          previousButton.attr("page", page);
+        }
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("disabled", false);
+        }
+      } else {
+        if (page === 0) {
+          previousButton.attr("disabled", true);
+        } else {
+          previousButton.attr("page", page - 1);
+          nextButton.attr("page", page);
+        }
+        nextButton.attr("disabled", false);
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+// revenue management
+
+function viewRevenuePerDayButtonClick(event) {
+  var revenuePerDay = $("#revenue-per-day");
+  var month = $(this)
+    .siblings("#month")
+    .val();
+  var contextPath = $(this).attr("context-path");
+
+  if (month !== "") {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/getRevenuePerDay",
+      data: {
+        month: month
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        fillRevenueChart(data, "Revenue Per Day", revenuePerDay);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+function fillRevenueChart(revenueList, title, revenueCanvas) {
+  var myChart = revenueCanvas.find("#myChart")[0].getContext("2d");
+  var config = {
+    type: "line",
+    data: {
+      labels: Array.from(revenueList, (value, index) => index + 1),
+      datasets: [
+        {
+          label: title,
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          fill: false,
+          data: revenueList
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: title
+      },
+      scales: {
+        xAxes: [
+          {
+            display: true
+          }
+        ],
+        yAxes: [
+          {
+            display: true,
+            type: "logarithmic"
+          }
+        ]
+      }
+    }
+  };
+  var chart = new Chart(myChart, config);
+}
+
+function viewRevenuePerMonthButtonClick(event) {
+  var revenuePerMonth = $("#revenue-per-month");
+  var year = $(this)
+    .siblings("#year")
+    .val();
+  var contextPath = $(this).attr("context-path");
+
+  if (year !== "") {
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: contextPath + "/getRevenuePerMonth",
+      data: {
+        year: year
+      },
+      dataType: "json",
+      timeout: 10000,
+      success: function(data) {
+        fillRevenueChart(data, "Revenue Per Month", revenuePerMonth);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  }
 }

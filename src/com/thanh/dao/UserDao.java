@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -92,6 +93,14 @@ public class UserDao {
 		}
 		criteria.setFirstResult(offset);
 		criteria.setMaxResults(quantity);
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Integer> getStockKeeperIdList(){
+		Criteria criteria = getSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("authority", Authority.ROLE_STOCKKEEPER));
+		criteria.setProjection(Projections.property("userId"));
 		return criteria.list();
 	}
 }

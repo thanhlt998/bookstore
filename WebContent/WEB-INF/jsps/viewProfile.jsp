@@ -43,7 +43,6 @@
 						<div class="ml-5">
 							<i class="fas fa-user-circle fa-7x text-secondary"></i> <span class="display-4 ml-3">Your Profile</span>
 						</div>
-						<div class="table-responsive">
 							<table class="table table-hover mx-5" id="table-profile">
 								<thead>
 									<td style="width: 60px;"></td>
@@ -83,8 +82,9 @@
 										<td><span>
 												<fmt:formatDate value="${user.birthDate }" pattern="yyyy-MM-dd" /></span>
 											<div class="inputChange mt-2">
-												<input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="<fmt:formatDate value="
-												 ${user.birthDate }" pattern="yyyy-MM-dd" />">
+												<%-- <input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="<fmt:formatDate value='
+												 ${user.birthDate }' pattern="yyyy-MM-dd" />"> --%>
+												 <input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="${user.birthDate }">
 											</div>
 										</td>
 										<td><i class="far fa-edit"></i></td>
@@ -129,7 +129,6 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
 					</div>
 
 					<div class="row" id="change-password" style="display: none;">

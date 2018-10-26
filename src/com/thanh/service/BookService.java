@@ -19,6 +19,7 @@ import com.thanh.model.BookListView;
 
 @Service("bookService")
 public class BookService {
+	private static final int NO_BOOK_IN_A_PAGE = 10;
 	@Autowired
 	private BookDao bookDao;
 
@@ -140,5 +141,13 @@ public class BookService {
 	
 	public void addBook(Book book) {
 		bookDao.saveBook(book);
+	}
+	
+	public List<Book> searchBookByIdNamePage(String bookId, String bookName, int page){
+		return bookDao.searchBookByIdNameOffsetQuantity(bookId, bookName, page*NO_BOOK_IN_A_PAGE, NO_BOOK_IN_A_PAGE);
+	}
+	
+	public boolean checkBookIdExist(int bookId) {
+		return bookDao.checkBookIdExist(bookId);
 	}
 }

@@ -1,5 +1,6 @@
 package com.thanh.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -76,4 +77,34 @@ public class BookDao {
 		return Integer.parseInt(criteria.uniqueResult().toString());
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Book> searchBookByIdNameOffsetQuantity(String bookId, String bookName, int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(Book.class);
+		if(!bookId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(bookId)));
+		}
+		if(!bookName.equals("")) {
+			criteria.add(Restrictions.ilike("bookName", "%" + bookName + "%"));
+		}
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getBookListByBookIdList(List<Integer> bookIdList){
+		Criteria criteria = getSession().createCriteria(Book.class);
+		if(bookIdList.size() != 0) {
+			criteria.add(Restrictions.in("bookId", bookIdList));
+			return criteria.list();
+		}
+		return new ArrayList<>();
+	}
+	
+	public boolean checkBookIdExist(int bookId) {
+		Criteria criteria = getSession().createCriteria(Book.class);
+		criteria.add(Restrictions.idEq(bookId));
+		criteria.setProjection(Projections.rowCount());
+		return (Integer.parseInt(criteria.uniqueResult().toString())) == 1;
+	}
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,5 +56,38 @@ public class PromotionDao {
 		criteria.add(Restrictions.le("fromDate", today));
 		criteria.add(Restrictions.ge("toDate", today));
 		return criteria.list();
+	}
+	
+	public void savePromotion(Promotion promotion) {
+		getSession().save(promotion);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Promotion> searchPromotionListByIdDescriptionOffsetQuantity(String promotionId, String promotionDescription, int offset, int quantity){
+		Criteria criteria = getSession().createCriteria(Promotion.class);
+		if(!promotionId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(promotionId)));
+		}
+		
+		if(!promotionDescription.equals("")) {
+			criteria.add(Restrictions.ilike("promotionDescription", "%" + promotionDescription + "%"));
+		}
+		
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		
+		criteria.addOrder(Order.desc("fromDate"));
+		return criteria.list();
+	}
+	
+	public boolean isPromotionAvailable(int promotionId) {
+		Date today = new Date();
+		Criteria criteria = getSession().createCriteria(Promotion.class);
+		criteria.add(Restrictions.idEq(promotionId));
+		criteria.add(Restrictions.ge("fromDate", today));
+//		criteria.add(Restrictions.ge("toDate", today));
+		criteria.setProjection(Projections.rowCount());
+		int rowCount = Integer.parseInt(criteria.uniqueResult().toString());
+		return rowCount == 1;
 	}
 }

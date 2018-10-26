@@ -1,15 +1,19 @@
 package com.thanh.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.thanh.entity.Book;
 import com.thanh.model.BookDetail;
 import com.thanh.model.BookListView;
 import com.thanh.service.BookService;
@@ -76,5 +80,28 @@ public class ViewBookController {
 		model.addAttribute("page", pageNum);
 		model.addAttribute("noPage", noPage);
 		return "viewSearchResult";
+	}
+	
+	
+	@RequestMapping(value="/searchBookByIdName", method=RequestMethod.GET)
+	public @ResponseBody String searchBookByIdName(HttpServletRequest request) {
+		
+		String ajaxResponse = "";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String bookId = request.getParameter("bookId");
+		String bookName = request.getParameter("bookName");
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		List<Book> bookList = bookService.searchBookByIdNamePage(bookId, bookName, page);
+		
+		try {
+			ajaxResponse = mapper.writeValueAsString(bookList);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ajaxResponse;
 	}
 }

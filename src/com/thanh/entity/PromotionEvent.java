@@ -7,30 +7,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="promotionEvent")
+@Table(name = "promotionEvent")
 public class PromotionEvent {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int promotionEventId;
 	private int promotionId;
 	private int bookId;
-	private int userId;
-	
+
 	public PromotionEvent() {
-		
+
 	}
-	
-	public PromotionEvent(int promotionEventId, int promotionId, int bookId, int userId) {
+
+	public PromotionEvent(int promotionEventId, int promotionId, int bookId) {
 		this.promotionEventId = promotionEventId;
 		this.promotionId = promotionId;
 		this.bookId = bookId;
-		this.userId = userId;
 	}
 
-	public PromotionEvent(int promotionId, int bookId, int userId) {
+	public PromotionEvent(int promotionId, int bookId) {
 		this.promotionId = promotionId;
 		this.bookId = bookId;
-		this.userId = userId;
 	}
 
 	public int getPromotionEventId() {
@@ -57,15 +54,4 @@ public class PromotionEvent {
 		this.bookId = bookId;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
-	
-	
-	
 }

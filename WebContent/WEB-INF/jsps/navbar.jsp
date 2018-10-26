@@ -51,6 +51,11 @@
 											Admin Fuction
 										</a>
 									</sec:authorize>
+									<sec:authorize access="hasAuthority('ROLE_STOCKKEEPER')">
+										<a href="${pageContext.request.contextPath }/storageManagement" class="dropdown-item"> <i class="fas fa-cog"></i>
+											Storage Management
+										</a>
+									</sec:authorize>
 								</div>
 							</li>
 						</sec:authorize>
