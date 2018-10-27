@@ -8,7 +8,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Home</title>
+	<title>Giỏ hàng</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	 crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+	<link rel="icon" href="${pageContext.request.contextPath }/resources/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
@@ -29,11 +30,11 @@
 				<table class="table">
 					<thead class="text-center">
 						<tr>
-							<td style="width: 150px;">Image</td>
-							<td>Book Name</td>
-							<td>Price per Unit</td>
-							<td>Quantity</td>
-							<td>Amount</td>
+							<td style="width: 150px;">Ảnh</td>
+							<td>Tên</td>
+							<td>Đơn giá</td>
+							<td>Số lượng</td>
+							<td>Tổng tạm</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,7 +49,7 @@
 							</tr>
 						</c:forEach>
 						<tr>
-							<td colspan="4" class="text-center">Total Price</td>
+							<td colspan="4" class="text-center">Tổng giá</td>
 							<td>${cart.totalPrice }</td>
 						</tr>
 						<tr>

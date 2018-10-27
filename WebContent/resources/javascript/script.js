@@ -220,6 +220,8 @@ $(document).ready(function() {
     viewImportationButtonClick
   );
 
+  $("#view-importation").on("click", "#storage-id", storageIdFieldClick);
+
   // view-exportation
   $("#view-exportation").on(
     "change",
@@ -232,6 +234,8 @@ $(document).ready(function() {
     "#next-button, #previous-button",
     viewExportationButtonClick
   );
+
+  $("#view-exportation").on("click", "#storage-id", storageIdFieldClick);
 
   //revenue management
   $("#revenue-per-day").on(
@@ -2328,8 +2332,11 @@ function storageIdFieldClick() {
   var selectTag = $(this);
   var contextPath = selectTag.attr("context-path");
 
-  if (selectTag.find("option").length === 0) {
+  if (selectTag.find("option").length <= 1) {
     selectTag.empty();
+    // $("<option>")
+    //   .text("Storage Id")
+    //   .appendTo(selectTag);
     $.ajax({
       type: "GET",
       contentType: "application/json",

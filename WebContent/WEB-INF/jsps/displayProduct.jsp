@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<section id="products"">
+<section id="products" class="bg-light">
 	<div class=" container my-3">
 	<h2>Products</h2>
 	<hr>
 	<div class="row align-items-center text-center">
 		<c:forEach var="book" items="${bookList }">
-			<div class="col-md-4 p-5 border-right">
+			<div class="col-md-4 p-5 border-right bg-white">
 				<div class="book-list-view w-100">
 					<a href="${pageContext.request.contextPath }/viewBookDetail?bookId=${book.bookId}">
 						<img src="${pageContext.request.contextPath }/resources/images/${book.imageUrl}" alt="" class="img-fluid mb-5">

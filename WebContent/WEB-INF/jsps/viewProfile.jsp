@@ -9,7 +9,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Home</title>
+	<title>Trang cá nhân</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	 crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+	<link rel="icon" href="${pageContext.request.contextPath }/resources/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
@@ -43,92 +44,91 @@
 						<div class="ml-5">
 							<i class="fas fa-user-circle fa-7x text-secondary"></i> <span class="display-4 ml-3">Your Profile</span>
 						</div>
-							<table class="table table-hover mx-5" id="table-profile">
-								<thead>
-									<td style="width: 60px;"></td>
-									<td></td>
-									<td style="width: 50px;"></td>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Username</td>
-										<td><span>${user.username }</span>
-											<div class="inputChange mt-2">
-												<input class="form-control" value="${user.username }" disabled>
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Name</td>
-										<td><span>${user.name }</span>
-											<div class="inputChange mt-2">
-												<input type="text" class="form-control changeField" id="name" name="name" value="${user.name }">
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Email</td>
-										<td><span>${user.email }</span>
-											<div class="inputChange mt-2">
-												<input type="email" class="form-control changeField" id="email" name="email" value="${user.email }">
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Birth Date</td>
-										<td><span>
-												<fmt:formatDate value="${user.birthDate }" pattern="yyyy-MM-dd" /></span>
-											<div class="inputChange mt-2">
-												<%-- <input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="<fmt:formatDate value='
-												 ${user.birthDate }' pattern="yyyy-MM-dd" />"> --%>
-												 <input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="${user.birthDate }">
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Gender</td>
-										<td><span>${user.gender }</span>
-											<div class="inputChange mt-2">
-												<select type="gender" class="form-control changeField" id="gender" name="gender" id="gender" required>
-													<option value="MALE" selected>Male</option>
-													<option value="FEMALE">Female</option>
-													<option value="OTHER">Other</option>
-												</select>
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Address</td>
-										<td><span>${user.address }</span>
-											<div class="inputChange mt-2">
-												<input type="text" class="form-control changeField" id="address" name="address" value="${user.address }">
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td>Phone</td>
-										<td><span>${user.phone }</span>
-											<div class="inputChange mt-2">
-												<input type="text" class="form-control changeField" id="phone" name="phone" value="${user.phone }">
-											</div>
-										</td>
-										<td><i class="far fa-edit"></i></td>
-									</tr>
-									<tr>
-										<td colspan="3" class="text-right">
-											<button class="btn btn-outline-dark" id="save-changes-button" context-path="${pageContext.request.contextPath}"
-											 disabled>Save
-												changes</button> <br> <small id="table-profile-feedback" class="text-muted"></small>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+						<table class="table table-hover mx-5" id="table-profile">
+							<thead>
+								<td style="width: 60px;"></td>
+								<td></td>
+								<td style="width: 50px;"></td>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Username</td>
+									<td><span>${user.username }</span>
+										<div class="inputChange mt-2">
+											<input class="form-control" value="${user.username }" disabled>
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Name</td>
+									<td><span>${user.name }</span>
+										<div class="inputChange mt-2">
+											<input type="text" class="form-control changeField" id="name" name="name" value="${user.name }">
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Email</td>
+									<td><span>${user.email }</span>
+										<div class="inputChange mt-2">
+											<input type="email" class="form-control changeField" id="email" name="email" value="${user.email }">
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Birth Date</td>
+									<td><span>
+											<fmt:formatDate value="${user.birthDate }" pattern="yyyy-MM-dd" /></span>
+										<div class="inputChange mt-2">
+											<fmt:formatDate var="displayDate" value='${user.birthDate }' pattern='yyyy-MM-dd' />
+											<input type="date" class="form-control changeField" id="birthDate" name="birthDate" value="${displayDate }">
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Gender</td>
+									<td><span>${user.gender }</span>
+										<div class="inputChange mt-2">
+											<select type="gender" class="form-control changeField" id="gender" name="gender" id="gender" required>
+												<option value="MALE" selected>Male</option>
+												<option value="FEMALE">Female</option>
+												<option value="OTHER">Other</option>
+											</select>
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Address</td>
+									<td><span>${user.address }</span>
+										<div class="inputChange mt-2">
+											<input type="text" class="form-control changeField" id="address" name="address" value="${user.address }">
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td>Phone</td>
+									<td><span>${user.phone }</span>
+										<div class="inputChange mt-2">
+											<input type="text" class="form-control changeField" id="phone" name="phone" value="${user.phone }">
+										</div>
+									</td>
+									<td><i class="far fa-edit"></i></td>
+								</tr>
+								<tr>
+									<td colspan="3" class="text-right">
+										<button class="btn btn-outline-dark" id="save-changes-button" context-path="${pageContext.request.contextPath}"
+										 disabled>Save
+											changes</button> <br> <small id="table-profile-feedback" class="text-muted"></small>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 
 					<div class="row" id="change-password" style="display: none;">
@@ -138,24 +138,22 @@
 								<hr>
 							</div>
 							<div class="form-group">
-								<label for="old-password">Old Password</label>
-								<input type="text" class="form-control" name="old-password" id="old-password">
+								<label for="old-password">Old Password</label> <input type="text" class="form-control" name="old-password" id="old-password">
 								<small class="input-form-text text-muted" id="old-password-feedback"></small>
 							</div>
 							<div class="form-group">
-								<label for="new-password">New Password</label>
-								<input type="text" class="form-control" name="new-password" id="new-password">
+								<label for="new-password">New Password</label> <input type="text" class="form-control" name="new-password" id="new-password">
 								<small class="input-form-text text-muted" id="new-password-feedback"></small>
 							</div>
 							<div class="form-group">
-								<label for="confirm-new-password">New Password</label>
-								<input type="text" class="form-control" name="confirm-new-password" id="confirm-new-password">
-								<small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
+								<label for="confirm-new-password">New Password</label> <input type="text" class="form-control" name="confirm-new-password"
+								 id="confirm-new-password"> <small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
 							</div>
 							<div class="text-right">
 								<button class="btn btn-outline-dark" id="change-password-button" context-path="${pageContext.request.contextPath }">Change
 									password</button>
-								<br><span id="change-password-feedback"></span>
+								<br>
+								<span id="change-password-feedback"></span>
 							</div>
 						</div>
 					</div>
@@ -190,26 +188,23 @@
 							<hr>
 							<div class="form-inline mb-3">
 								<input type="number" class="form-control mr-4 ml-auto" id="order-id-input">
-								<button class="btn btn-secondary view-order-button" context-path="${pageContext.request.contextPath}" id="view-order-button" disabled>View
-									Order</button>
+								<button class="btn btn-secondary view-order-button" context-path="${pageContext.request.contextPath}" id="view-order-button"
+								 disabled>View Order</button>
 							</div>
 							<div id="order-detail-view" style="display: none;">
 								<div class="row mb-3">
 									<div class="col-md-6">
 										<h4>Thông tin thanh toán</h4>
 										<p>
-											<span class="name">Lorem ipsum dolor sit.</span><br>
-											<span class="email">abcd@gmail.com</span><br>
-											<span class="phone">0123456789</span>
+											<span class="name">Lorem ipsum dolor sit.</span><br> <span class="email">abcd@gmail.com</span><br> <span
+											 class="phone">0123456789</span>
 										</p>
 									</div>
 									<div class="col-md-6">
 										<h4>Địa chỉ giao hàng</h4>
 										<p>
-											<span class="name">Lorem ipsum dolor sit.</span><br>
-											<span class="email">abcd@gmail.com</span><br>
-											<span class="address">1231 Ha Noi</span>
-											<span class="phone">0123456789</span>
+											<span class="name">Lorem ipsum dolor sit.</span><br> <span class="email">abcd@gmail.com</span><br> <span
+											 class="address">1231 Ha Noi</span> <span class="phone">0123456789</span>
 										</p>
 									</div>
 								</div>

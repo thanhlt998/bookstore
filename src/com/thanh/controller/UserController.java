@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +29,9 @@ import com.thanh.service.UserService;
 public class UserController {
 
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UserService userService;
@@ -113,8 +115,8 @@ public class UserController {
 		String newPassword = request.getParameter("newPassword");
 		User user = userService.getUserByUsername(username);
 
-		if (user.getPassword() == oldPassword) {
-			user.setPassword(newPassword);
+		if (user.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+			user.setPassword(passwordEncoder.encode(newPassword));
 			userService.updateUser(user);
 			try {
 				ajaxResponse = mapper.writeValueAsString(Boolean.TRUE);

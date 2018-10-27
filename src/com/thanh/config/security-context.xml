@@ -6,22 +6,143 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"
-				id="jdbcUserService"
+			<security:jdbc-user-service
+				data-source-ref="dataSource" id="jdbcUserService"
 				authorities-by-username-query="select username, authority from user where username = ?;"
 				users-by-username-query="select username, password, 'true' from user where username = ?;" />
+			<security:password-encoder
+				ref="passwordEncoder">
+			</security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
-	<security:http request-matcher="ant" use-expressions="true">
+	<security:http use-expressions="true">
+
+		<security:intercept-url
+			pattern="/loadManufacturer" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/loadCategory"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/adminDashboard" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/changeUserRole" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/searchOrders"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/changeOrder"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/adminViewOrderDetail" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/searchCategory" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/addCategory"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/searchManufacturer" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/addManufacturer" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/addBook"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/uploadImages"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/getStockKeeperIdList" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/addPromotion"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/viewPromotion" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/checkPromotionAvailable"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/addPromotionEvent" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/viewPromotionEvent" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/getRevenuePerDay" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/getRevenuePerMonth" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/viewStorage"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/saveStorage"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/addStorage"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/searchBookByIdName" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url
+			pattern="/checkBookIdExist" access="hasAuthority('ROLE_ADMIN')" />
+
+		<security:intercept-url
+			pattern="/getStorageIdList"
+			access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_STOCKKEEPER')" />
+		<security:intercept-url pattern="/importBook"
+			access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_STOCKKEEPER')" />
+		<security:intercept-url
+			pattern="/viewImportation"
+			access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_STOCKKEEPER')" />
+		<security:intercept-url
+			pattern="/viewExportation"
+			access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_STOCKKEEPER')" />
+
+		<security:intercept-url
+			pattern="/storageManagement"
+			access="hasAuthority('ROLE_STOCKKEEPER')" />
+
+		<security:intercept-url pattern="/viewProfile"
+			access="isAuthenticated()" />
+		<security:intercept-url
+			pattern="/updateProfile" access="isAuthenticated()" />
+		<security:intercept-url
+			pattern="/viewOrderHistory" access="isAuthenticated()" />
+		<security:intercept-url
+			pattern="/changePassword" access="isAuthenticated()" />
+		<security:intercept-url
+			pattern="/viewOrderDetail" access="isAuthenticated()" />
+		<security:intercept-url pattern="/createOrder"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/logout"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/"
+			access="permitAll" />
+		<security:intercept-url pattern="/login"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/loginFailed"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/register"
+			access="isAnonymous()" />
+		<security:intercept-url
+			pattern="/checkAvailableUsername" access="permitAll" />
+		<security:intercept-url pattern="/addCart"
+			access="permitAll" />
+		<security:intercept-url pattern="/viewCart"
+			access="permitAll" />
+		<security:intercept-url
+			pattern="/removeCartItem" access="permitAll" />
+		<security:intercept-url
+			pattern="/viewBookDetail" access="permitAll" />
+		<security:intercept-url
+			pattern="/viewBookByCategory" access="permitAll" />
+		<security:intercept-url
+			pattern="/viewBookSearchResult" access="permitAll" />
+		<security:intercept-url pattern="/denied"
+			access="permitAll" />
+
+		<security:access-denied-handler
+			error-page="/denied" />
 		<security:csrf disabled="false" />
 		<security:form-login login-processing-url="/login"
 			authentication-failure-url="/loginFailed"
 			password-parameter="password" username-parameter="username" />
-		<security:logout logout-url="/logout" logout-success-url="/" />
+		<security:logout logout-url="/logout"
+			logout-success-url="/" />
 	</security:http>
 
-	<security:global-method-security secured-annotations="enabled"></security:global-method-security>
+	<security:global-method-security
+		secured-annotations="enabled"></security:global-method-security>
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</bean>
 </beans>

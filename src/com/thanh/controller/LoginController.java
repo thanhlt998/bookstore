@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,17 +12,15 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.thanh.entity.Category;
 import com.thanh.entity.User;
 import com.thanh.enumeration.Authority;
 import com.thanh.enumeration.Gender;
-import com.thanh.model.Cart;
-import com.thanh.service.CategoryService;
 import com.thanh.service.UserService;
 
 @Controller
@@ -33,10 +30,15 @@ public class LoginController {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Autowired
-	private CategoryService categoryService;
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "loginFailedPage";
+	}
 	
 	@RequestMapping("/loginFailed")
 	public String loginFailed() {
@@ -48,7 +50,7 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
+	
 	@RequestMapping(value = "/checkAvailableUsername", method = RequestMethod.GET)
 	public @ResponseBody String checkAvailableUsername(HttpServletRequest request) {
 		String username = request.getParameter("username");
@@ -80,7 +82,7 @@ public class LoginController {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String password = passwordEncoder.encode(request.getParameter("password"));
 		Date birthDate = null;
 		try {
 			birthDate = dateFormat.parse(request.getParameter("birthDate"));

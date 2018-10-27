@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -84,7 +86,7 @@ public class AdminController {
 
 		return ajaxResponse;
 	}
-
+	
 	@RequestMapping("/adminDashboard")
 	public String viewAdminDashBoard() {
 		return "admin";

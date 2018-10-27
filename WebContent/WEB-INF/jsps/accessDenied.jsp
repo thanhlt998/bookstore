@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Trang chủ</title>
+	<title>Truy cập bị từ chối</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	 crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -21,20 +21,18 @@
 
 <body>
 
-	<!-- Header -->
-	
 	<jsp:include page="navbar.jsp"></jsp:include>
-	<jsp:include page="header.jsp"></jsp:include>
-	
-	<!-- Best seller section -->
-	<jsp:include page="bestsellerSection.jsp"></jsp:include>
 
-	<!-- Products -->	
-	<jsp:include page="displayProduct.jsp"></jsp:include>
-
-
-	
-
+	<section style="min-height: 100vh">
+        <div class="container w-100">
+            <div class="row w-100">
+                <div class="col-md-6 offset-md-3 text-center text-danger" style="margin-top: 20%">
+                    <i class="fas fa-ban fa-9x" style="font-size: 2000%"></i>
+                    <p class="display-3">Access Denied</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
 	<jsp:include page="footer.jsp"></jsp:include>
 
@@ -48,35 +46,8 @@
 	<script src="${pageContext.request.contextPath }/resources/javascript/script.js"></script>
 
 	<script>
-	$('.slider').slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    });
-		
+
 	</script>
 </body>
-
 
 </html>
