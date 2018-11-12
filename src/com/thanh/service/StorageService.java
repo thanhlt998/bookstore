@@ -61,9 +61,21 @@ public class StorageService {
 				bookId, importDate, page * NO_IMPORTATION_PER_PAGE, NO_IMPORTATION_PER_PAGE);
 	}
 	
+	public List<Importation> searchImportationByIdStorageIdListBookIdImportDatePage(String importationId, List<Integer> storageIdList,
+			String bookId, String importDate, int page) {
+		return importationDao.searchImportationByIdStorageIdListBookIdImportDateOffsetQuantity(importationId, storageIdList,
+				bookId, importDate, page * NO_IMPORTATION_PER_PAGE, NO_IMPORTATION_PER_PAGE);
+	}
+	
 	public List<Exportation> searchExportationByIdStorageIdBookIdExportDatePage(String importationId, String storageId,
 			String bookId, String exportDate, int page) {
 		return exportationDao.searchExportationByIdStorageIdBookIdExportDateOffsetQuantity(importationId, storageId,
+				bookId, exportDate, page * NO_EXPORTATION_PER_PAGE, NO_EXPORTATION_PER_PAGE);
+	}
+	
+	public List<Exportation> searchExportationByIdStorageIdListBookIdExportDatePage(String importationId, List<Integer> storageIdList,
+			String bookId, String exportDate, int page) {
+		return exportationDao.searchExportationByIdStorageIdListBookIdExportDateOffsetQuantity(importationId, storageIdList,
 				bookId, exportDate, page * NO_EXPORTATION_PER_PAGE, NO_EXPORTATION_PER_PAGE);
 	}
 }

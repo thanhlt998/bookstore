@@ -135,7 +135,8 @@
 		<security:csrf disabled="false" />
 		<security:form-login login-processing-url="/login"
 			authentication-failure-url="/loginFailed"
-			password-parameter="password" username-parameter="username" />
+			password-parameter="password" username-parameter="username"
+			login-page="/loginForm" />
 		<security:logout logout-url="/logout"
 			logout-success-url="/" />
 	</security:http>

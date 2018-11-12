@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -167,7 +168,7 @@ public class StorageController {
 	}
 
 	@RequestMapping(value = "/viewImportation", method = RequestMethod.GET)
-	public @ResponseBody String viewImportation(HttpServletRequest request) {
+	public @ResponseBody String viewImportation(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -176,9 +177,26 @@ public class StorageController {
 		String bookId = request.getParameter("bookId");
 		String importDate = request.getParameter("importDate");
 		int page = Integer.parseInt(request.getParameter("page"));
+		
+		String username = principal.getName();
+		User user = userService.getUserByUsername(username);
 
-		List<Importation> importationList = storageService
-				.searchImportationByIdStorageIdBookIdImportDatePage(importationId, storageId, bookId, importDate, page);
+		List<Importation> importationList = null;
+		
+		if(user.getAuthority().equals(Authority.ROLE_ADMIN)) {
+			importationList = storageService
+					.searchImportationByIdStorageIdBookIdImportDatePage(importationId, storageId, bookId, importDate, page);
+		}
+		else if (user.getAuthority().equals(Authority.ROLE_STOCKKEEPER)) {
+			if(!storageId.equals("")) {
+				importationList = storageService.searchImportationByIdStorageIdBookIdImportDatePage(importationId, storageId, bookId, importDate, page);
+			}
+			else {
+				List<Integer> storageIdList = storageService.getStorageIdListByStockKeeperId(user.getUserId());
+				importationList = storageService.searchImportationByIdStorageIdListBookIdImportDatePage(importationId, storageIdList, bookId, importDate, page);
+			}
+			
+		}
 		
 		try {
 			ajaxResponse = mapper.writeValueAsString(importationList);
@@ -191,7 +209,7 @@ public class StorageController {
 	}
 	
 	@RequestMapping(value = "/viewExportation", method = RequestMethod.GET)
-	public @ResponseBody String viewExportation(HttpServletRequest request) {
+	public @ResponseBody String viewExportation(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -200,9 +218,25 @@ public class StorageController {
 		String bookId = request.getParameter("bookId");
 		String exportDate = request.getParameter("exportDate");
 		int page = Integer.parseInt(request.getParameter("page"));
+		
+		String username = principal.getName();
+		User user = userService.getUserByUsername(username);
 
-		List<Exportation> exportationList = storageService
-				.searchExportationByIdStorageIdBookIdExportDatePage(importationId, storageId, bookId, exportDate, page);
+		List<Exportation> exportationList = null;
+		
+		if(user.getAuthority().equals(Authority.ROLE_ADMIN)) {
+			exportationList = storageService
+					.searchExportationByIdStorageIdBookIdExportDatePage(importationId, storageId, bookId, exportDate, page);
+		}
+		else if(user.getAuthority().equals(Authority.ROLE_STOCKKEEPER)) {
+			if(!storageId.equals("")) {
+				exportationList = storageService.searchExportationByIdStorageIdBookIdExportDatePage(importationId, storageId, bookId, exportDate, page);
+			}
+			else {
+				List<Integer> storageIdList = storageService.getStorageIdListByStockKeeperId(user.getUserId());
+				exportationList = storageService.searchExportationByIdStorageIdListBookIdExportDatePage(importationId, storageIdList, bookId, exportDate, page);
+			}
+		}
 		
 		try {
 			ajaxResponse = mapper.writeValueAsString(exportationList);

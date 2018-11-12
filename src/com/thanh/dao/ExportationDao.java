@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thanh.entity.Exportation;
-import com.thanh.entity.Importation;
 
 @Repository
 @Transactional
@@ -105,6 +104,32 @@ public class ExportationDao {
 		}
 		if(!storageId.equals("")) {
 			criteria.add(Restrictions.eq("storageId", Integer.parseInt(storageId)));
+		}
+		if(!bookId.equals("")) {
+			criteria.add(Restrictions.eq("bookId", Integer.parseInt(bookId)));
+		}
+		if(!exportDate.equals("")) {
+			try {
+				criteria.add(Restrictions.eq("importDate", dateFormat.parse(exportDate)));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		criteria.setFirstResult(offset);
+		criteria.setMaxResults(quantity);
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Exportation> searchExportationByIdStorageIdListBookIdExportDateOffsetQuantity(String exportationId,
+			List<Integer> storageIdList, String bookId, String exportDate, int offset, int quantity) {
+		Criteria criteria = getSession().createCriteria(Exportation.class);
+		if(!exportationId.equals("")) {
+			criteria.add(Restrictions.idEq(Integer.parseInt(exportationId)));
+		}
+		if(!storageIdList.isEmpty()) {
+			criteria.add(Restrictions.in("storageId", storageIdList));
 		}
 		if(!bookId.equals("")) {
 			criteria.add(Restrictions.eq("bookId", Integer.parseInt(bookId)));
