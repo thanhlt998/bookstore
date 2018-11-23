@@ -77,7 +77,7 @@ public class LoginController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, produces="application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String registerAccount(HttpServletRequest request) {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");

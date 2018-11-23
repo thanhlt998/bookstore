@@ -6,24 +6,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FilenameUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.thanh.entity.Book;
 import com.thanh.entity.Category;
@@ -65,7 +64,7 @@ public class AdminController {
 	@Autowired
 	private ServletContext context;
 
-	@RequestMapping(value = "/changeUserRole", method = RequestMethod.GET)
+	@RequestMapping(value = "/changeUserRole", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String changeUserRole(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -86,13 +85,13 @@ public class AdminController {
 
 		return ajaxResponse;
 	}
-	
+
 	@RequestMapping("/adminDashboard")
 	public String viewAdminDashBoard() {
 		return "admin";
 	}
 
-	@RequestMapping(value = "/searchUsers", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchUsers", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String searchUsers(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -114,7 +113,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/searchOrders", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchOrders", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String searchOrders(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -134,7 +133,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/changeOrder", method = RequestMethod.GET)
+	@RequestMapping(value = "/changeOrder", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String saveOrderChange(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -165,7 +164,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/adminViewOrderDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminViewOrderDetail", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewOrderDetail(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -192,7 +191,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/searchCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchCategory", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String searchCategory(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -211,7 +210,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/addCategory", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addCategory(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -230,7 +229,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/searchManufacturer", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchManufacturer", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String searchManufacturer(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -250,7 +249,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/addManufacturer", method = RequestMethod.GET)
+	@RequestMapping(value = "/addManufacturer", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addManufacturer(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -269,7 +268,7 @@ public class AdminController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
+	@RequestMapping(value = "/addBook", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addBook(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -295,48 +294,37 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/uploadImages", method = RequestMethod.POST)
-	public @ResponseBody String uploadImages(@RequestParam("file0") MultipartFile file1,
-			@RequestParam("file1") MultipartFile file2, @RequestParam("file2") MultipartFile file3,
-			@RequestParam("bookId") int bookId) {
-		List<MultipartFile> files = new ArrayList<>();
-		files.add(file1);
-		files.add(file2);
-		files.add(file3);
+	public @ResponseBody String uploadImages(MultipartHttpServletRequest request, @RequestParam("bookId") int bookId) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("size: " + files.size());
-		System.out.println("bookId" + bookId);
-
-		try {
-			for (int i = 0; i < files.size(); i++) {
-				if (!files.get(i).getOriginalFilename().isEmpty()) {
-					String imageName = "book" + bookId + "_" + i + "."
-							+ FilenameUtils.getExtension(files.get(i).getOriginalFilename());
-
-					BufferedOutputStream outputStream = new BufferedOutputStream(
-							new FileOutputStream(new File(context.getRealPath("/resources/images"), imageName)));
-					imageService.addImage(new Image(bookId, imageName));
-					outputStream.write(files.get(i).getBytes());
-					outputStream.flush();
-					outputStream.close();
-				}
+		
+		Iterator<String> iterator = request.getFileNames();
+		MultipartFile file = null;
+		while (iterator.hasNext()) {
+			file = request.getFile(iterator.next());
+			try {
+				String imageUrl = file.getOriginalFilename().replace(' ', '_');
+				FileCopyUtils.copy(file.getBytes(),
+						new BufferedOutputStream(new FileOutputStream(new File(context.getRealPath("/resources/images"),
+								imageUrl))));
+				imageService.addImage(new Image(bookId, imageUrl));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-
+		
 		try {
 			ajaxResponse = mapper.writeValueAsString(Boolean.TRUE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return ajaxResponse;
-
 	}
 
-	@RequestMapping(value = "/getStockKeeperIdList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getStockKeeperIdList", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String getStockKeeperIdList() {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();

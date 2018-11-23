@@ -19,7 +19,7 @@ public class ManufacturerController {
 	@Autowired
 	private ManufacturerService manufacturerService;
 	
-	@RequestMapping(value="/loadManufacturer", method=RequestMethod.GET)
+	@RequestMapping(value="/loadManufacturer", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String loadManufacturer() {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();

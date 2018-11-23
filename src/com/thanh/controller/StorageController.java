@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +34,7 @@ public class StorageController {
 	@Autowired
 	private BookService bookService;
 
-	@RequestMapping(value = "/viewStorage", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewStorage", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewStorage() {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -52,7 +51,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/saveStorage", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveStorage", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String saveStorage(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -75,7 +74,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/addStorage", method = RequestMethod.GET)
+	@RequestMapping(value = "/addStorage", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addStorage(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -97,7 +96,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/getStorageIdList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getStorageIdList", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String getStorageIdList(Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -124,7 +123,7 @@ public class StorageController {
 
 	}
 
-	@RequestMapping(value = "/checkBookIdExist", method = RequestMethod.GET)
+	@RequestMapping(value = "/checkBookIdExist", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String checkBookIdExist(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -143,7 +142,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/importBook", method = RequestMethod.GET)
+	@RequestMapping(value = "/importBook", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String importBook(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -167,7 +166,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/viewImportation", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewImportation", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewImportation(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -208,7 +207,7 @@ public class StorageController {
 		return ajaxResponse;
 	}
 	
-	@RequestMapping(value = "/viewExportation", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewExportation", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewExportation(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();

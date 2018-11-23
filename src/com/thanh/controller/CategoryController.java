@@ -18,7 +18,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@RequestMapping(value="/loadCategory", method=RequestMethod.GET)
+	@RequestMapping(value="/loadCategory", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String loadCategory() {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();

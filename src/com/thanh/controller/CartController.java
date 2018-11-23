@@ -28,7 +28,7 @@ public class CartController {
 	@Autowired
 	private StorageService storageService;
 
-	@RequestMapping(value = "/addCart", method = RequestMethod.GET)
+	@RequestMapping(value = "/addCart", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addCart(HttpServletRequest request, HttpSession session) {
 		ObjectMapper mapper = new ObjectMapper();
 		String ajaxResponse = "";

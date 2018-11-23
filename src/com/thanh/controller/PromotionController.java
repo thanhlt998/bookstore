@@ -27,7 +27,7 @@ public class PromotionController {
 	@Autowired
 	private PromotionService promotionService;
 
-	@RequestMapping("/addPromotion")
+	@RequestMapping(value="/addPromotion", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addPromotion(HttpServletRequest request) {
 		String promotionDescription = request.getParameter("promotionDescription");
 		Date fromDate = null;
@@ -58,7 +58,7 @@ public class PromotionController {
 		return ajaxResponse;
 	}
 	
-	@RequestMapping("/viewPromotion")
+	@RequestMapping(value="/viewPromotion", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewPromotion(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -79,7 +79,7 @@ public class PromotionController {
 		return ajaxResponse;
 	}
 	
-	@RequestMapping(value="/checkPromotionAvailable", method=RequestMethod.GET)
+	@RequestMapping(value="/checkPromotionAvailable", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String checkPromotionAvailable(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -98,7 +98,7 @@ public class PromotionController {
 		return ajaxResponse;
 	}
 	
-	@RequestMapping(value="/addPromotionEvent", method=RequestMethod.GET)
+	@RequestMapping(value="/addPromotionEvent", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String addPromotionEvent(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -118,7 +118,7 @@ public class PromotionController {
 		return ajaxResponse;
 	}
 	
-	@RequestMapping(value="/viewPromotionEvent", method=RequestMethod.GET)
+	@RequestMapping(value="/viewPromotionEvent", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewPromotionEvent(HttpServletRequest request) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();

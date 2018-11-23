@@ -36,7 +36,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
-	@RequestMapping(value="/createOrder", method=RequestMethod.GET)
+	@RequestMapping(value="/createOrder", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String createOrder(HttpSession session, HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 

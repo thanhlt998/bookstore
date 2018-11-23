@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+
+</head>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top">
+    <div class="container">
+        <div class="row w-100 align-items-center">
+            <div class="col-md-3 text-center">
+                <a href="#" class="navbar-brand">
+                    <i class="fas fa-book fa-2x pr-3"></i><span class="display-5">BookStore</span>
+                </a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarBar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-md-5 py-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="collapse navbar-collapse" id="navbarBar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown mr-3">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                Categories
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="" class="dropdown-item">
+                                    Lorem, ipsum dolor.
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    Lorem, ipsum dolor.
+                                </a>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown mr-3">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user-circle"></i> Profile
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-cog"></i> Setting
+                                </a>
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="#" class="nav-link"">
+                                <i class=" fas
+                                fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li> -->
+                        <li class="nav-item d-inline-block">
+                            <a href="#" class="nav-link" style="position: relative;">
+                                <i class="fas fa-shopping-cart fa-2x"></i><span id="badge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Admin menu -->
+<section id="admin-section" style="min-height: 100vh; margin-top: 54px;">
+    <div class="row p-2">
+        <div class="col-md-2">
+            <div class="text-center my-3"><i class="fas fa-user-circle fa-5x text-secondary"></i></div>
+            <div class="list-group">
+                <li class="list-group-item" data-target="#view-all-users">View Users</li>
+                <li class="list-group-item" data-target="#view-all-orders">View Orders</li>
+                <li class="list-group-item" data-target="#product-management">product management</li>
+                <li class="list-group-item" data-target="#storage-management">Storage management</li>
+                <li class="list-group-item" data-target="#revenue-management">Revenue management</li>
+            </div>
+        </div>
+        <div class="col-md-10 p-4">
+            <div id="view-all-users" style="display: none;">
+                <span class="display-4">Users Management</span>
+                <table class="table table-hover table-sm">
+                    <thead id="search-fields">
+                        <td colspan="10">
+                            <div class="form-inline">
+                                <input type="number" class="form-control mr-4" placeholder="User Id" id="user-id">
+                                <input type="text" class="form-control mr-4" placeholder="Username" id="username">
+                                <input type="text" class="form-control mr-4" placeholder="Name" id="name">
+                                <select name="authority" class="form-control mr-4" id="authority">
+                                    <option value=""></option>
+                                    <option value="ROLE_USER">USER</option>
+                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                    <option value="ROLE_STOCKKEEPER">STOCKKEEPER</option>
+                                </select>
+                            </div>
+                        </td>
+                    </thead>
+                    <thead class="text-center thead-light">
+                        <th scope="col" style="width: 7%;">User Id</th>
+                        <th scope="col" style="width: 10%;">Username</th>
+                        <th scope="col" style="width: 15%;">Name</th>
+                        <th scope="col" style="width: 20%;">Email</th>
+                        <th scope="col" style="width: 10%;">Birth Date</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Authority</th>
+                        <th scope="col" style="width: 50px;"></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>132465</td>
+                            <td>Username</td>
+                            <td>Le Tuan Thanh</td>
+                            <td>thanh@gmail.com</td>
+                            <td>1998-28-10</td>
+                            <td>MALE</td>
+                            <td>Di Che, Tien Lu, Hung Yen</td>
+                            <td>132321321</td>
+                            <td class="p-2">
+                                <select name="authority" class="form-control authority" disabled>
+                                    <option value="ROLE_USER">USER</option>
+                                    <option value="ROLE_ADMIN">ADMIN</option>
+                                    <option value="ROLE_STOCKKEEPER">STOCKKEEPER</option>
+                                </select>
+                            </td>
+                            <td class="align-middle"><i class="fas fa-user-edit" context-path="${pageContext.request.contextPath}"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-outline-dark" id="previous-button">Previous</button>
+                <button class="btn btn-outline-dark" id="next-button">Next</button>
+            </div>
+
+            <div id="view-all-orders" style="display: none;">
+                <i class="fas fa-file-invoice-dollar mr-3 fa-5x text-secondary"></i><span class="display-4">Orders
+                    Management</span>
+                <table class="table table-hover">
+                    <thead id="search-order-fields">
+                        <td colspan="9">
+                            <div class="form-inline">
+                                <input type="number" class="form-control mr-3" id="order-id" placeholder="Order Id">
+                                <input type="number" class="form-control mr-3" id="user-id" placeholder="User Id">
+                                <select name="order-status" id="order-status" class="form-control mr-3">
+                                    <option class="form-control" value=""></option>
+                                    <option class="form-control" value="PREPARING">Preparing</option>
+                                    <option class="form-control" value="SHIPPING">Shipping</option>
+                                    <option class="form-control" value="CANCELED">Canceled</option>
+                                    <option class="form-control" value="FINISH">Finish</option>
+                                </select>
+                            </div>
+                        </td>
+                    </thead>
+                    <thead class="text-center thead-light">
+                        <th>Order Id</th>
+                        <th>User Id</th>
+                        <th>Order Date</th>
+                        <th>Ship Date</th>
+                        <th>Ship Address</th>
+                        <th>Total amount</th>
+                        <th>Payment Method</th>
+                        <th>Order Status</th>
+                        <th style="width: 50px;"></th>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+                <button class="btn btn-outline-dark" id="previous-button">Previous</button>
+                <button class="btn btn-outline-dark" id="next-button">Next</button>
+            </div>
+
+            <div id="product-management" style="display: none">
+                <i class="fas fa-book fa-5x text-secondary mr-3"></i><span class="display-4">Book Management</span>
+                <div class="row my-2">
+                    <div class="col-md-2">
+                        <div class="list-group">
+                            <div class="list-group-item" data-target="#category-management">Category</div>
+                            <div class="list-group-item" data-target="#add-book-management">Book</div>
+                            <div class="list-group-item" data-target="#manufacturer-management">Manufacturer</div>
+                            <div class="list-group-item" data-target="#promotion-management">Promotion</div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="category-management" style="display: none">
+                            <div class="row">
+                                <div class="col-md-7" id="view-category">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <td colspan="2">
+                                                    <div class="form-inline">
+                                                        <input type="number" class="form-control w-25 mr-4" placeholder="Id"
+                                                            id="category-id">
+                                                        <input type="text" class="form-control mr-4" placeholder="Category Name"
+                                                            id="category-name">
+                                                        <button class="btn btn-outline-dark" context-path="${pageContext.request.contextPath}"
+                                                            id="search-category-button">Search</button>
+                                                    </div>
+                                                </td>
+                                            </thead>
+                                            <thead class="thead-light">
+                                                <th>Category Id</th>
+                                                <th>Category Name</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+
+                                        </table>
+                                        <span id="search-category-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" id="add-category">
+                                    <h4>Add category</h4>
+                                    <div class="form-group">
+                                        <label for="category-name">Category Name</label>
+                                        <input type="text" class="form-control" id="category-name">
+                                        <small class="form-text text-muted" id="add-category-feedback"></small>
+                                    </div>
+                                    <button class="btn btn-outline-dark" context-path="${pageContext.request.contextPath}"
+                                        id="add-category-button">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="manufacturer-management" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-7" id="view-manufacturer">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <td colspan="2">
+                                                    <div class="form-inline">
+                                                        <input type="number" class="form-control w-25 mr-4" placeholder="Id"
+                                                            id="manufacturer-id">
+                                                        <input type="text" class="form-control mr-4" placeholder="Manufacturer Name"
+                                                            id="manufacturer-name">
+                                                        <button class="btn btn-outline-dark" context-path="${pageContext.request.contextPath}"
+                                                            id="search-manufacturer-button">Search</button>
+                                                    </div>
+                                                </td>
+                                            </thead>
+                                            <thead class="thead-light">
+                                                <th>Manufacturer Id</th>
+                                                <th>Manufacturer Name</th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+
+                                        </table>
+                                        <span id="search-manufacturer-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" id="add-manufacturer">
+                                    <h4>Add manufacturer</h4>
+                                    <div class="form-group">
+                                        <label for="manufacturer-name">Manufacturer Name</label>
+                                        <input type="text" class="form-control" id="manufacturer-name">
+                                        <small class="form-text text-muted" id="add-manufacturer-feedback"></small>
+                                    </div>
+                                    <button class="btn btn-outline-dark" context-path="${pageContext.request.contextPath}"
+                                        id="add-manufacturer-button">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="add-book-management" style="display: none;">
+                            <h4>Add book</h4>
+                            <form action="addBook" id="add-book-form" enctype="multipart/form-data" method="GET">
+                                <div class="form-group">
+                                    <label for="category-id">Category</label>
+                                    <select class="form-control" name="category-name" id="category-id" context-path="${pageContext.request.contextPath}">
+                                    </select>
+                                    <small class="form-text text-muted" id="category-id-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-name">Name</label>
+                                    <input type="text" class="form-control" placeholder="Book Name" id="book-name">
+                                    <small class="form-text text-muted" id="book-name-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-description">Book Description</label>
+                                    <textarea name="book-description" id="book-description" cols="30" rows="5" class="form-control"
+                                        id="book-description" placeholder="Book Description"></textarea>
+                                    <small class="form-text text-muted" id="book-description-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="manufacturer-id">Manufacturer</label>
+                                    <select name="manufacturer-id" id="manufacturer-id" class="form-control"
+                                        context-path="${pageContext.request.contextPath}">
+
+                                    </select>
+                                    <small class="form-text text-muted" id="manufacturer-id-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <input type="text" class="form-control" id="author" placeholder="Author">
+                                    <small class="form-text text-muted" id="author-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" id="price" placeholder="Price">
+                                    <small class="form-text text-muted" id="price-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="images">Images</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file" name="file" multiple>
+                                        <label for="file" class="custom-file-label">Choose Files</label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline-dark" id="add-book-button" context-path="${pageContext.request.contextPath}">Add
+                                    Book</button>
+                                <small class="form-text text-muted" id="add-book-management-feedback"></small>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            </form>
+                        </div>
+
+
+                        <div id="promotion-management">
+                            <div class="btn-group tab mb-3">
+                                <button class="btn btn-outline-dark" data-target="#add-promotion">Add promotion</button>
+                                <button class="btn btn-outline-dark" data-target="#view-promotion">View promotion</button>
+                                <button class="btn btn-outline-dark" data-target="#add-promotion-event">Add
+                                    promotion event</button>
+                                <button class="btn btn-outline-dark" data-target="#view-promotion-event">View
+                                    promotion event</button>
+                            </div>
+                            <div id="add-promotion">
+                                <h4>Add promotion</h4>
+                                <div class="form-group">
+                                    <label for="promotion-description">Promotion Description</label>
+                                    <textarea name="promotion-description" id="promotion-description" cols="30" rows="5"
+                                        class="form-control" id="promotion-description" placeholder="Promotion Description"></textarea>
+                                    <small class="form-text text-muted" id="promotion-description-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="from-date">From Date</label>
+                                    <input type="date" class="form-control" id="from-date">
+                                    <small class="form-text text-muted" id="from-date-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="to-date">To Date</label>
+                                    <input type="date" class="form-control" id="to-date">
+                                    <small class="form-text text-muted" id="to-date-feedback"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="discount">Discount</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" max="100" min="1" id="discount">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                %
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted" id="discount-feedback"></small>
+                                </div>
+                                <button class="btn btn-outline-dark" context-path="${pageContext.request.contextPath}">Add</button>
+                                <small class="form-text text-muted" id="add-promotion-feedback"></small>
+                            </div>
+
+                            <div id="view-promotion" style="display: none;">
+                                <h4>View Promotion</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <td colspan="5">
+                                            <div class="form-inline">
+                                                <input type="number" class="form-control mr-3" id="search-by-id"
+                                                    placeholder="Id">
+                                                <input type="text" class="form-control mr-3" id="search-by-description"
+                                                    placeholder="Description">
+                                                <!-- <button class="btn btn-outline-dark">Search</button> -->
+                                            </div>
+                                        </td>
+                                    </thead>
+                                    <thead class="thead-light">
+                                        <th>Id</th>
+                                        <th>Description</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>Discount</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-outline-dark" id="previous-button" type-button="previous" page="0"
+                                    context-path="${pageContext.request.contextPath}" disabled>Previous</button>
+                                <button class="btn btn-outline-dark" id="next-button" type-button="next" page="0"
+                                    context-path="${pageContext.request.contextPath}">Next</button>
+                            </div>
+
+                            <div id="add-promotion-event" style="display: none;">
+                                <h4>Add promotion event</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="promotion-id" placeholder="Promotion Id"
+                                                context-path="${pageContext.request.contextPath}">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text" id="promotion-id-check">
+                                                    <i class="far fa-times-circle text-danger"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <td colspan="4">
+                                                    <div class="form-inline">
+                                                        <input type="number" class="form-control w-25 mr-3" id="book-id"
+                                                            placeholder="Book Id">
+                                                        <input type="text" class="form-control" id="book-name"
+                                                            placeholder="Book Name">
+                                                    </div>
+                                                </td>
+                                            </thead>
+                                            <thead class="thead-light">
+                                                <th>Id</th>
+                                                <th>Book Name</th>
+                                                <th>Author</th>
+                                                <th style="width: 50px"></th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>12</td>
+                                                    <td>Lorem, ipsum dolor.</td>
+                                                    <td>Lorem, ipsum dolor.</td>
+                                                    <td class="align-middle"><button class="btn btn-outline-dark add-promotion-event-button"
+                                                            context-path="${pageContext.request.contextPath}">Add</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <small class="form-text text-muted" id="add-promotion-event-feedback"></small>
+                                        <button class="btn btn-outline-dark" id="previous-button" type-button="previous"
+                                            page="0" context-path="${pageContext.request.contextPath}" disabled>Previous</button>
+                                        <button class="btn btn-outline-dark" id="next-button" type-button="next" page="0"
+                                            context-path="${pageContext.request.contextPath}">Next</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="view-promotion-event" style="display: none;">
+                                <h4>View promotion event</h4>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <td colspan="3">
+                                            <input type="number" class="form-control" id="promotion-id" placeholder="Promotion Id">
+                                        </td>
+                                    </thead>
+                                    <thead class="thead-light">
+                                        <th>Book Id</th>
+                                        <th>Book Name</th>
+                                        <th>Author</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <small class="form-text text-muted" id="add-promotion-event-feedback"></small>
+                                <button class="btn btn-outline-dark" id="previous-button" type-button="previous" page="0"
+                                    context-path="${pageContext.request.contextPath}" disabled>Previous</button>
+                                <button class="btn btn-outline-dark" id="next-button" type-button="next" page="0"
+                                    context-path="${pageContext.request.contextPath}">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="storage-management" style="display: none;">
+                <i class="fas fa-warehouse fa-5x mr-3 text-secondary mb-3"></i><span class="display-4">Storage
+                    Management</span><br>
+                <div class="btn-group tab mb-3">
+                    <button class="btn btn-outline-dark active" data-target="#view-storage">View Storage</button>
+                    <button class="btn btn-outline-dark" data-target="#add-storage">Add Storage</button>
+                    <button class="btn btn-outline-dark" data-target="#import-book">Import Book</button>
+                    <button class="btn btn-outline-dark" data-target="#view-importation">View Importation</button>
+                    <button class="btn btn-outline-dark" data-target="#view-exportation">View Exportation</button>
+                </div>
+                <div id="view-storage">
+                    <table class="table table-hover">
+                        <thead class="thead-light text-center">
+                            <th>Storage Id</th>
+                            <th>Storage Name</th>
+                            <th>Storage Address</th>
+                            <th>Stock Keeper Id</th>
+                            <th style="width: 50px"></th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-outline-dark" id="view-storage-button" context-path="${pageContext.request.contextPath}">View
+                        all storage</button>
+                    <small class="text-muted" id="view-storage-feedback"></small>
+                </div>
+                <div id="add-storage" style="display: none;">
+                    <div class="form-group">
+                        <label for="storage-name">Storage Name</label>
+                        <input type="text" class="form-control" id="storage-name" placeholder="Storage Name">
+                        <small class="form-text text-muted" id="storage-name-feedback"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="storage-address">Storage Address</label>
+                        <input type="text" class="form-control" id="storage-address" placeholder="Storage Address">
+                        <small class="form-text text-muted" id="storage-address-feedback"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock-keeper-id">Stock Keeper Id</label>
+                        <select name="stock-keeper-id" id="stock-keeper-id" class="form-control" context-path="${pageContext.request.contextPath}">
+
+                        </select>
+                        <small class="form-text text-muted" id="stock-keeper-id-feedback"></small>
+                    </div>
+                    <button class="btn btn-outline-dark" id="add-storage-button" context-path="${pageContext.request.contextPath}">Add
+                        storage</button>
+                    <small class="form-text text-muted" id="add-storage-feedback"></small>
+                </div>
+                <div id="import-book" style="display: none;">
+                    <div class="form-group">
+                        <label for="storage-id">Storage Id</label>
+                        <select name="storage-id" id="storage-id" class="form-control"></select>
+                        <small class="form-text text-muted" id="storage-id-feedback"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-id">Book Id</label>
+                        <input type="number" class="form-control" id="book-id">
+                        <small class="form-text text-muted" id="book-id-feedback"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" min="1">
+                        <small class="form-text text-muted" id="quantity-feedback"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="import-price">Import Price</label>
+                        <input type="number" class="form-control" id="import-price">
+                        <small class="form-text text-muted" id="import-price-feedback"></small>
+                    </div>
+                    <button class="btn btn-outline-dark" id="import-book-button" context-path="${pageContext.request.contextPath}">Import</button>
+                </div>
+                <div id="view-importation" style="display: none">
+                    <table class="table table-striped">
+                        <thead>
+                            <td colspan="6">
+                                <div class="form-inline">
+                                    <input type="number" class="form-control mr-3" id="importation-id" placeholder="Id">
+                                    <input type="number" class="form-control mr-3" id="storage-id" placeholder="Storage Id">
+                                    <input type="number" class="form-control mr-3" id="book-id" placeholder="Book Id">
+                                    <input type="date" class="form-control mr-3" id="import-date">
+                                </div>
+                            </td>
+                        </thead>
+                        <thead class="thead-light text-center">
+                            <th>Id</th>
+                            <th>Storage Id</th>
+                            <th>Book Id</th>
+                            <th>Quantity</th>
+                            <th>Import Date</th>
+                            <th>Import Price</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-outline-dark" id="previous-button" type-button="previous" page="0"
+                        context-path="${pageContext.request.contextPath}" disabled>Previous</button>
+                    <button class="btn btn-outline-dark" id="next-button" type-button="next" page="0" context-path="${pageContext.request.contextPath}">Next</button>
+                </div>
+
+                <div id="view-exportation" style="display: none">
+                    <table class="table table-striped">
+                        <thead>
+                            <td colspan="5">
+                                <div class="form-inline">
+                                    <input type="number" class="form-control mr-3" id="exportation-id" placeholder="Id">
+                                    <input type="number" class="form-control mr-3" id="storage-id" placeholder="Storage Id">
+                                    <input type="number" class="form-control mr-3" id="book-id" placeholder="Book Id">
+                                    <input type="date" class="form-control mr-3" id="export-date">
+                                </div>
+                            </td>
+                        </thead>
+                        <thead class="thead-light text-center">
+                            <th>Id</th>
+                            <th>Storage Id</th>
+                            <th>Book Id</th>
+                            <th>Quantity</th>
+                            <th>Export Date</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-outline-dark" id="previous-button" type-button="previous" page="0"
+                        context-path="${pageContext.request.contextPath}" disabled>Previous</button>
+                    <button class="btn btn-outline-dark" id="next-button" type-button="next" page="0" context-path="${pageContext.request.contextPath}">Next</button>
+                </div>
+            </div>
+
+            <div id="revenue-management" style="display: none;">
+                <i class="fas fa-hand-holding-usd text-secondary fa-5x mr-3 mb-3"></i><span class="display-4">Revenue
+                    Management</span><br>
+                <div class="btn-group tab mb-3">
+                    <button class="btn btn-outline-dark active" data-target="#revenue-per-day">Revenue Per Day</button>
+                    <button class="btn btn-outline-dark" data-target="#revenue-per-month">Revenue Per Month</button>
+                    <button class="btn btn-outline-dark" data-target="#revenue-per-year">Revenue Per Year</button>
+                </div>
+                <div id="revenue-per-day">
+                    <div class="row">
+                        <div class="form-inline">
+                            <input type="month" class="form-control mr-3" id="month">
+                            <button class="btn btn-outline-dark" id="view-revenue-per-day-button" context-path="${pageContext.request.contextPath}">View
+                                Revenue</button>
+                        </div>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="revenue-by-month">
+                    <div class="row">
+                        <div class="form-inline">
+                            <input type="number" class="form-control mr-3" id="year">
+                            <button class="btn btn-outline-dark" id="view-revenue-per-month-button" context-path="${pageContext.request.contextPath}">View
+                                Revenue</button>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- footer -->
+<footer class="main-footer bg-dark text-white text-muted small">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-md-3 col-sm-6 text-center px-5">
+                <i class="fas fa-book fa-2x"></i>
+                <h3 class="d-inline-block"> Bookstore</h3>
+                <hr style="color: white">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, tempore porro illo esse
+                    labore ipsum?</p>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center px-5">
+                <i class="fas fa-building fa-2x"></i>
+                <h3 class="d-inline-block"> Contact Us</h3>
+                <hr style="color: white">
+                <p class="text-left">
+                    Address: Lorem ipsum dolor, sit amet consectetur adipisicing elit <br>
+                    Phone: +84111111111 <br>
+                    admin@bookstore.com
+                </p>
+
+            </div>
+            <div class="col-md-3 col-sm-6 text-center px-4">
+                <i class="fas fa-share-alt fa-2x"></i>
+                <h3 class="d-inline-block"> Connect with us</h3>
+                <hr style="color: white">
+                <p class="text-left">
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-facebook fa-2x"></i>
+                        bookstore</a><br>
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-instagram fa-2x"></i>
+                        @bookstore</a><br>
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-google fa-2x"></i> bookstore</a><br>
+                </p>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center">
+                <i class="fas fa-info fa-2x"></i>
+                <h3 class="d-inline-block"> Information</h3>
+                <hr style="color: white">
+                <p>
+                    Lorem. <br>
+                    Lorem. <br>
+                    Lorem. <br>
+                    Lorem. <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="../../resources/javascript/script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

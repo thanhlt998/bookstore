@@ -9,6 +9,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Trang cá nhân</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	 crossorigin="anonymous">
@@ -138,15 +139,15 @@
 								<hr>
 							</div>
 							<div class="form-group">
-								<label for="old-password">Old Password</label> <input type="text" class="form-control" name="old-password" id="old-password">
+								<label for="old-password">Old Password</label> <input type="password" class="form-control" name="old-password" id="old-password">
 								<small class="input-form-text text-muted" id="old-password-feedback"></small>
 							</div>
 							<div class="form-group">
-								<label for="new-password">New Password</label> <input type="text" class="form-control" name="new-password" id="new-password">
+								<label for="new-password">New Password</label> <input type="password" class="form-control" name="new-password" id="new-password">
 								<small class="input-form-text text-muted" id="new-password-feedback"></small>
 							</div>
 							<div class="form-group">
-								<label for="confirm-new-password">New Password</label> <input type="text" class="form-control" name="confirm-new-password"
+								<label for="confirm-new-password">New Password</label> <input type="password" class="form-control" name="confirm-new-password"
 								 id="confirm-new-password"> <small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
 							</div>
 							<div class="text-right">

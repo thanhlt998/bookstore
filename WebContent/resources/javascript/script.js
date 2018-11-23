@@ -1,15 +1,15 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Validate form
   // ------------------------------------------------------------
   // var contextPath = $("#context-path").attr("context-path");
+
   var registerForm = $("#registerForm");
 
   validatePasswordRegisterForm(registerForm);
 
   registerForm.submit(validateSubmitRegisterForm);
 
-  $("#registerForm")
-    .find($("#username"))
+  registerForm.find("#username")
     .blur(validateUsernameField);
 
   // Add cart ------------------------------------------------------------
@@ -20,12 +20,12 @@ $(document).ready(function() {
   $(".small-img").click(replaceImg);
 
   $("#shopCart").hover(
-    function() {
+    function () {
       $("#cartDetail")
         .stop()
         .slideDown();
     },
-    function() {
+    function () {
       $("#cartDetail")
         .stop()
         .slideUp();
@@ -36,18 +36,17 @@ $(document).ready(function() {
     .on(
       "hover",
       ".remove-cart-item",
-      function(event) {
+      function (event) {
         $(this)
           .stop()
-          .animate(
-            {
+          .animate({
               "font-size": "120%"
             },
             300,
             "swing"
           );
       },
-      function(event) {
+      function (event) {
         $(this)
           .stop()
           .animate({
@@ -256,22 +255,22 @@ $(document).ready(function() {
 
 function validateSubmitRegisterForm(event) {
   var registerForm = $("#registerForm");
-  var passwordField = registerForm.find($("#password"));
-  var confirmPasswordField = registerForm.find($("#confirmPassword"));
+  var passwordField = registerForm.find("#password");
+  var confirmPasswordField = registerForm.find("#confirmPassword");
 
   validatePasswordField(passwordField, event);
   validateConfirmPasswordField(passwordField, confirmPasswordField, event);
 }
 
 function validatePasswordRegisterForm(registerForm) {
-  var passwordField = registerForm.find($("#password"));
-  var confirmPasswordField = registerForm.find($("#confirmPassword"));
+  var passwordField = registerForm.find("#password");
+  var confirmPasswordField = registerForm.find("#confirmPassword");
 
-  passwordField.blur(function(event) {
+  passwordField.blur(function (event) {
     validatePasswordField(passwordField, event);
   });
 
-  confirmPasswordField.blur(function(event) {
+  confirmPasswordField.blur(function (event) {
     validateConfirmPasswordField(passwordField, confirmPasswordField, event);
   });
 }
@@ -320,7 +319,7 @@ function validateUsernameField(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       if (data === true) {
         $("#usernameAppend").html(
@@ -333,7 +332,7 @@ function validateUsernameField(event) {
         );
       }
     },
-    error: function(e) {
+    error: function (e) {
       console.log(e);
     }
   });
@@ -372,7 +371,7 @@ function addCart(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       if (data === false) {
         alert("Cannot add more this book.");
@@ -390,13 +389,13 @@ function addCart(event) {
             .append($("<td>").text(cart[i].quantity))
             .append(
               $("<td>")
-                .addClass("text-danger align-middle")
-                .append(
-                  $("<i>")
-                    .addClass("far fa-times-circle remove-cart-item")
-                    .attr("book-id", cart[i].book.bookId)
-                    .attr("context-path", contextPath)
-                )
+              .addClass("text-danger align-middle")
+              .append(
+                $("<i>")
+                .addClass("far fa-times-circle remove-cart-item")
+                .attr("book-id", cart[i].book.bookId)
+                .attr("context-path", contextPath)
+              )
             )
             .appendTo(tableBody);
         }
@@ -404,13 +403,13 @@ function addCart(event) {
           .append($("<td>").text("Total Price"))
           .append(
             $("<td>")
-              .attr("colspan", "2")
-              .text(data.totalPrice)
+            .attr("colspan", "2")
+            .text(data.totalPrice)
           )
           .appendTo(tableBody);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -430,7 +429,7 @@ function removeCartItem(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       removeIcon
         .parent()
         .parent()
@@ -442,7 +441,7 @@ function removeCartItem(event) {
       $("#badge").text(data.totalQuantity);
       $("#cartDetail").css("height", "");
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -496,7 +495,7 @@ function createOrder(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         console.log(data);
         if (data === false) {
           message =
@@ -509,7 +508,7 @@ function createOrder(event) {
           $(location).attr("href", contextPath);
         }
       },
-      error: function(error) {
+      error: function (error) {
         message = "Some errors occured!";
         console.log(error);
       }
@@ -585,7 +584,7 @@ function updateUser(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === true) {
         tableProfile
           .find("#table-profile-feedback")
@@ -593,7 +592,7 @@ function updateUser(event) {
         $(this).attr("disabled", true);
       }
     },
-    error: function(error) {
+    error: function (error) {
       tableProfile
         .find("#table-profile-feedback")
         .text("Your profile cannot be changed!");
@@ -615,7 +614,7 @@ function viewOrderHistory(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
           .append($("<td>").text(data[i].orderId))
@@ -635,7 +634,7 @@ function viewOrderHistory(event) {
         $(this).attr("page", page + 1);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -646,9 +645,9 @@ function dateFormat(milliseconds) {
   return (
     date.getFullYear() +
     "-" +
-    (date.getMonth() + 1 < 10
-      ? "0" + (date.getMonth() + 1)
-      : date.getMonth() + 1) +
+    (date.getMonth() + 1 < 10 ?
+      "0" + (date.getMonth() + 1) :
+      date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
   );
@@ -701,7 +700,7 @@ function changePasswordFunction(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         if (data === true) {
           $("#change-password-feedback").text("Your password is updated!");
         } else {
@@ -711,7 +710,7 @@ function changePasswordFunction(event) {
           $("#change-password-feedback").text("Fail to update your password!");
         }
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         $("#change-password-feedback").text("Fail to update your password!");
       }
@@ -726,14 +725,12 @@ function enableChangePasswordValidate(changePassword) {
   var button = changePassword.find("#change-password-button");
 
   newPassword.blur(validateNewPassword);
-  confirmNewPassword.blur(
-    {
+  confirmNewPassword.blur({
       newPassword
     },
     validConfirmNewPassword
   );
-  button.click(
-    {
+  button.click({
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmNewPassword: confirmNewPassword
@@ -758,7 +755,7 @@ function viewOrderDetail(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === false) {
         orderDetailView.css("display", "none");
         orderDetail
@@ -790,7 +787,7 @@ function viewOrderDetail(event) {
             .append(
               $("<td>").text(
                 ordersDetailItemList[i].ordersDetail.quantity *
-                  ordersDetailItemList[i].ordersDetail.pricePerUnit
+                ordersDetailItemList[i].ordersDetail.pricePerUnit
               )
             )
             .appendTo(tableBody);
@@ -798,8 +795,8 @@ function viewOrderDetail(event) {
         $("<tr>")
           .append(
             $("<td>")
-              .attr("colspan", 4)
-              .text("Total Price")
+            .attr("colspan", 4)
+            .text("Total Price")
           )
           .append($("<td>").text(order.totalAmount))
           .appendTo(tableBody);
@@ -818,8 +815,8 @@ function editUserButtonClick(event) {
     .attr("disabled", false);
   $(this).replaceWith(
     $("<i>")
-      .addClass("far fa-save")
-      .attr("context-path", contextPath)
+    .addClass("far fa-save")
+    .attr("context-path", contextPath)
   );
 }
 
@@ -846,12 +843,12 @@ function saveRoleChange(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === true) {
         editIcon.replaceWith(
           $("<i>")
-            .addClass("fas fa-user-edit")
-            .attr("context-path", contextPath)
+          .addClass("fas fa-user-edit")
+          .attr("context-path", contextPath)
         );
         trParent.find(".authority").attr("disabled", true);
         alert(`Change the role of user with userId = ${userId} successfully!`);
@@ -859,7 +856,7 @@ function saveRoleChange(event) {
         alert("Can't change the role of this user!");
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       alert("Can't change the role of this user!");
     }
@@ -890,64 +887,64 @@ function viewUsersButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].userId)
+            .addClass("align-middle")
+            .text(data[i].userId)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].username)
+            .addClass("align-middle")
+            .text(data[i].username)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].name)
+            .addClass("align-middle")
+            .text(data[i].name)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].email)
+            .addClass("align-middle")
+            .text(data[i].email)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(dateFormat(data[i].birthDate))
+            .addClass("align-middle")
+            .text(dateFormat(data[i].birthDate))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].gender)
+            .addClass("align-middle")
+            .text(data[i].gender)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].address)
+            .addClass("align-middle")
+            .text(data[i].address)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].phone)
+            .addClass("align-middle")
+            .text(data[i].phone)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(createRoleSelect(data[i].authority))
+            .addClass("align-middle")
+            .append(createRoleSelect(data[i].authority))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(
-                $("<i>")
-                  .addClass("fas fa-user-edit align-middle")
-                  .attr("context-path", contextPath)
-              )
+            .addClass("align-middle")
+            .append(
+              $("<i>")
+              .addClass("fas fa-user-edit align-middle")
+              .attr("context-path", contextPath)
+            )
           )
           .appendTo(tableBody);
       }
@@ -979,7 +976,7 @@ function viewUsersButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -991,18 +988,18 @@ function createRoleSelect(authority) {
     .addClass("form-control authority")
     .append(
       $("<option>")
-        .val("ROLE_USER")
-        .text("USER")
+      .val("ROLE_USER")
+      .text("USER")
     )
     .append(
       $("<option>")
-        .val("ROLE_ADMIN")
-        .text("ADMIN")
+      .val("ROLE_ADMIN")
+      .text("ADMIN")
     )
     .append(
       $("<option>")
-        .val("ROLE_STOCKKEEPER")
-        .text("STOCKKEEPER")
+      .val("ROLE_STOCKKEEPER")
+      .text("STOCKKEEPER")
     )
     .attr("disabled", true);
   select.find(`option[value=${authority}]`).attr("selected", "selected");
@@ -1045,66 +1042,66 @@ function viewOrderButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].orderId)
+            .addClass("align-middle")
+            .text(data[i].orderId)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].userId)
+            .addClass("align-middle")
+            .text(data[i].userId)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(dateFormat(data[i].orderDate))
+            .addClass("align-middle")
+            .text(dateFormat(data[i].orderDate))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(
-                $("<input>")
-                  .addClass("form-control")
-                  .attr("type", "date")
-                  .val(dateFormat(data[i].shipDate))
-                  .attr("disabled", true)
-                  .attr("id", "ship-date")
-              )
+            .addClass("align-middle")
+            .append(
+              $("<input>")
+              .addClass("form-control")
+              .attr("type", "date")
+              .val(dateFormat(data[i].shipDate))
+              .attr("disabled", true)
+              .attr("id", "ship-date")
+            )
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].shipAddress)
+            .addClass("align-middle")
+            .text(data[i].shipAddress)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].totalAmount)
+            .addClass("align-middle")
+            .text(data[i].totalAmount)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].paymentMethod)
+            .addClass("align-middle")
+            .text(data[i].paymentMethod)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(createOrderStatusSelect(data[i].orderStatus))
+            .addClass("align-middle")
+            .append(createOrderStatusSelect(data[i].orderStatus))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(
-                $("<i>")
-                  .addClass("fas fa-user-edit align-middle")
-                  .attr("context-path", contextPath)
-              )
+            .addClass("align-middle")
+            .append(
+              $("<i>")
+              .addClass("fas fa-user-edit align-middle")
+              .attr("context-path", contextPath)
+            )
           )
           .appendTo(tableBody);
       }
@@ -1136,7 +1133,7 @@ function viewOrderButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -1149,23 +1146,23 @@ function createOrderStatusSelect(orderStatus) {
     .attr("disabled", true)
     .append(
       $("<option>")
-        .val("PREPARING")
-        .text("Preparing")
+      .val("PREPARING")
+      .text("Preparing")
     )
     .append(
       $("<option>")
-        .val("SHIPPING")
-        .text("Shipping")
+      .val("SHIPPING")
+      .text("Shipping")
     )
     .append(
       $("<option>")
-        .val("CANCELED")
-        .text("Canceled")
+      .val("CANCELED")
+      .text("Canceled")
     )
     .append(
       $("<option>")
-        .val("FINISH")
-        .text("Finish")
+      .val("FINISH")
+      .text("Finish")
     );
   select.find(`option[value='${orderStatus}']`).attr("selected", "selected");
   return select;
@@ -1192,8 +1189,8 @@ function editOrderButtonClick(event) {
     .attr("disabled", false);
   $(this).replaceWith(
     $("<i>")
-      .addClass("far fa-save")
-      .attr("context-path", contextPath)
+    .addClass("far fa-save")
+    .attr("context-path", contextPath)
   );
 }
 
@@ -1222,12 +1219,12 @@ function saveOrderChange(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === true) {
         editIcon.replaceWith(
           $("<i>")
-            .addClass("fas fa-user-edit")
-            .attr("context-path", contextPath)
+          .addClass("fas fa-user-edit")
+          .attr("context-path", contextPath)
         );
         trParent.find("#ship-date, #order-status").attr("disabled", true);
         alert(`Change order with orderId = ${orderId} successfully!`);
@@ -1235,7 +1232,7 @@ function saveOrderChange(event) {
         alert("Can't change this order!");
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       alert("Can't change this order!");
     }
@@ -1258,7 +1255,7 @@ function adminViewOrderDetail(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === false) {
         orderDetailView.css("display", "none");
         orderDetail
@@ -1290,7 +1287,7 @@ function adminViewOrderDetail(event) {
             .append(
               $("<td>").text(
                 ordersDetailItemList[i].ordersDetail.quantity *
-                  ordersDetailItemList[i].ordersDetail.pricePerUnit
+                ordersDetailItemList[i].ordersDetail.pricePerUnit
               )
             )
             .appendTo(tableBody);
@@ -1298,8 +1295,8 @@ function adminViewOrderDetail(event) {
         $("<tr>")
           .append(
             $("<td>")
-              .attr("colspan", 4)
-              .text("Total Price")
+            .attr("colspan", 4)
+            .text("Total Price")
           )
           .append($("<td>").text(order.totalAmount))
           .appendTo(tableBody);
@@ -1342,7 +1339,7 @@ function searchCategory(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data.length == 0) {
         viewCategory
           .find("#search-category-feedback")
@@ -1355,7 +1352,7 @@ function searchCategory(event) {
           .appendTo(tableBody);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -1375,7 +1372,7 @@ function addCategory(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === true) {
         addCategoryDiv
           .find("#add-category-feedback")
@@ -1387,7 +1384,7 @@ function addCategory(event) {
           .text("Fail to add category!");
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       addCategoryDiv
         .find("#add-category-feedback")
@@ -1414,7 +1411,7 @@ function searchManufacturer(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data.length == 0) {
         viewManufacturer
           .find("#search-manufacturer-feedback")
@@ -1427,7 +1424,7 @@ function searchManufacturer(event) {
           .appendTo(tableBody);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -1447,7 +1444,7 @@ function addManufacturer(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       if (data === true) {
         addManufacturerDiv
           .find("#add-manufacturer-feedback")
@@ -1459,7 +1456,7 @@ function addManufacturer(event) {
           .text("Fail to add manufacturer!");
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       addManufacturerDiv
         .find("#add-manufacturer-feedback")
@@ -1478,18 +1475,18 @@ function loadCategory(event) {
     url: contextPath + "/loadCategory",
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       selectTag.empty();
       $("#category-feedback").text("");
       for (var i = 0; i < data.length; i++) {
         selectTag.append(
           $("<option>")
-            .val(data[i].categoryId)
-            .text(data[i].categoryName)
+          .val(data[i].categoryId)
+          .text(data[i].categoryName)
         );
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       $("#category-feedback").text("Can't load category");
     }
@@ -1506,18 +1503,18 @@ function loadManufacturer(event) {
     url: contextPath + "/loadManufacturer",
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       selectTag.empty();
       $("#manufacturer-feedback").text("");
       for (var i = 0; i < data.length; i++) {
         selectTag.append(
           $("<option>")
-            .val(data[i].manufacturerId)
-            .text(data[i].manufacturerName)
+          .val(data[i].manufacturerId)
+          .text(data[i].manufacturerName)
         );
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       $("#manufacturer-feedback").text("Can't load manufacturer!");
     }
@@ -1559,8 +1556,7 @@ function validateAddBook(
   if (manufacturerId === "") {
     flag = false;
     $("#manufacturer-id-feedback").text("Not leave this field blank!");
-  } else {
-  }
+  } else {}
 }
 
 function addBook(event) {
@@ -1574,47 +1570,43 @@ function addBook(event) {
   var author = addBookManagement.find("#author").val();
   var price = addBookManagement.find("#price").val();
   var size = $("#file").prop("files").length;
-  if (size == 3) {
-    $.ajax({
-      type: "GET",
-      contentType: "application/json",
-      url: contextPath + "/addBook",
-      data: {
-        categoryId: categoryId,
-        bookName: bookName,
-        bookDescription: bookDescription,
-        manufacturerId: manufacturerId,
-        author: author,
-        price: price
-      },
-      dataType: "json",
-      timeout: 10000,
-      success: function(data) {
-        uploadImages(data);
-        $("#add-book-management-feedback").text("Add book successfully");
-      },
-      error: function(error) {
-        $("#add-book-management-feedback").text("Cannot add this book!");
-      }
-    });
+  if (size == 0) {
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: contextPath + "/addBook",
+    data: {
+      categoryId: categoryId,
+      bookName: bookName,
+      bookDescription: bookDescription,
+      manufacturerId: manufacturerId,
+      author: author,
+      price: price
+    },
+    dataType: "json",
+    timeout: 10000,
+    success: function (data) {
+      uploadImages(data);
+      $("#add-book-management-feedback").text("Add book successfully");
+    },
+    error: function (error) {
+      $("#add-book-management-feedback").text("Cannot add this book!");
+    }
+  });
   } else {
-    alert("You must upload 3 images.");
+    alert("You must upload with images");
   }
 }
 
 function uploadImages(bookId) {
-  var uploadImagesForm = $("#upload-images-form");
-  var fileField = $("#file").prop("files");
   var formData = new FormData();
+  var files = $("#file").prop("files");
+
+  for (var i = 0; i < files.length; i++) {
+    formData.append("file-" + i, files[i]);
+  }
+
   formData.append("bookId", bookId);
-
-  for (var i = 0; i < fileField.length; i++) {
-    formData.append("file" + i, fileField[i]);
-  }
-
-  for (var i = fileField.length; i < 3; i++) {
-    formData.append("file" + i, null);
-  }
 
   var contextPath = $("#upload-images-button").attr("context-path");
   var token = $("input[name='_csrf']").val();
@@ -1630,11 +1622,11 @@ function uploadImages(bookId) {
     enctype: "multipart/form-data",
     contentType: false,
     processData: false,
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       $("#upload-images-feedback").text("Upload images successfully!");
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       $("#upload-images-feedback").text("Fail to upload images!");
     }
@@ -1665,9 +1657,9 @@ function validateAddPromotionForm(
   today =
     date.getFullYear().toString() +
     "-" +
-    (date.getMonth() + 1 < 10
-      ? "0" + (date.getMonth() + 1)
-      : date.getMonth() + 1) +
+    (date.getMonth() + 1 < 10 ?
+      "0" + (date.getMonth() + 1) :
+      date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
 
@@ -1681,7 +1673,7 @@ function validateAddPromotionForm(
   }
 
   if (fromDate === "") {
-    $("#from-date-feedback").text("Please not leave this field blank!!y");
+    $("#from-date-feedback").text("Please not leave this field blank!!");
     flag = false;
   } else if (fromDate < today) {
     $("#from-date-feedback").text("From Date should be not before today");
@@ -1734,10 +1726,10 @@ function addPromotionButtonClick(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         $("#add-promotion-feedback").text("Add promotion successfully!");
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         $("#add-promotion-feedback").text("Fail to add promotion!");
       }
@@ -1779,35 +1771,35 @@ function viewPromotionButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       var tableBody = viewPromotion.find("tbody");
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].promotionId)
+            .addClass("align-middle")
+            .text(data[i].promotionId)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .text(data[i].promotionDescription)
+            .addClass("align-middle")
+            .text(data[i].promotionDescription)
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(dateFormat(data[i].fromDate))
+            .addClass("align-middle")
+            .append(dateFormat(data[i].fromDate))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(dateFormat(data[i].toDate))
+            .addClass("align-middle")
+            .append(dateFormat(data[i].toDate))
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(data[i].discount)
+            .addClass("align-middle")
+            .append(data[i].discount)
           )
           .appendTo(tableBody);
       }
@@ -1838,7 +1830,7 @@ function viewPromotionButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -1863,7 +1855,7 @@ function promotionIdFieldOnBlur(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         if (data === false) {
           addPromotionEvent
             .find(".add-promotion-event-button")
@@ -1882,7 +1874,7 @@ function promotionIdFieldOnBlur(event) {
             .append($("<i>").addClass("far fa-check-circle text-success"));
         }
       },
-      error: function(error) {
+      error: function (error) {
         addPromotionEvent
           .find(".add-promotion-event-button")
           .attr("disabled", true);
@@ -1928,7 +1920,7 @@ function viewBookButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
@@ -1938,9 +1930,9 @@ function viewBookButtonClick(event) {
           .append(
             $("<td>").append(
               $("<button>")
-                .addClass("btn btn-outline-dark add-promotion-event-button")
-                .attr("context-path", contextPath)
-                .text("Add")
+              .addClass("btn btn-outline-dark add-promotion-event-button")
+              .attr("context-path", contextPath)
+              .text("Add")
             )
           )
           .appendTo(tableBody);
@@ -1977,7 +1969,7 @@ function viewBookButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -2004,12 +1996,12 @@ function addPromotionEventButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       $("#add-promotion-event-feedback").text(
         "Add promotion event successfully!"
       );
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       $("#add-promotion-event-feedback").text("Fail to add promotion event!");
     }
@@ -2048,7 +2040,7 @@ function viewPromotionEventButtonClick(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         tableBody.empty();
         for (var i = 0; i < data.length; i++) {
           $("<tr>")
@@ -2085,7 +2077,7 @@ function viewPromotionEventButtonClick(event) {
           nextButton.attr("disabled", false);
         }
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     });
@@ -2116,31 +2108,31 @@ function viewStorage(stockKeeperIdList, tableBody, contextPath) {
     url: contextPath + "/viewStorage",
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
           .append(
             $("<td>")
-              .text(data[i].storageId)
-              .attr("id", "storage-id")
+            .text(data[i].storageId)
+            .attr("id", "storage-id")
           )
           .append(
             $("<td>").append(
               $("<input>")
-                .addClass("form-control")
-                .attr("id", "storage-name")
-                .val(data[i].storageName)
-                .attr("disabled", true)
+              .addClass("form-control")
+              .attr("id", "storage-name")
+              .val(data[i].storageName)
+              .attr("disabled", true)
             )
           )
           .append(
             $("<td>").append(
               $("<input>")
-                .addClass("form-control")
-                .attr("id", "storage-address")
-                .val(data[i].storageAddress)
-                .attr("disabled", true)
+              .addClass("form-control")
+              .attr("id", "storage-address")
+              .val(data[i].storageAddress)
+              .attr("disabled", true)
             )
           )
           .append(
@@ -2150,17 +2142,17 @@ function viewStorage(stockKeeperIdList, tableBody, contextPath) {
           )
           .append(
             $("<td>")
-              .addClass("align-middle")
-              .append(
-                $("<i>")
-                  .addClass("far fa-edit")
-                  .attr("context-path", contextPath)
-              )
+            .addClass("align-middle")
+            .append(
+              $("<i>")
+              .addClass("far fa-edit")
+              .attr("context-path", contextPath)
+            )
           )
           .appendTo(tableBody);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -2175,8 +2167,8 @@ function editStorageButtonClick(event) {
     .attr("disabled", false);
   $(this).replaceWith(
     $("<i>")
-      .addClass("far fa-save")
-      .attr("context-path", contextPath)
+    .addClass("far fa-save")
+    .attr("context-path", contextPath)
   );
 }
 
@@ -2192,10 +2184,10 @@ function viewStorageButtonClick(contextPath, event) {
     url: contextPath + "/getStockKeeperIdList",
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       viewStorage(data, tableBody, contextPath);
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -2223,16 +2215,16 @@ function saveStorageButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       $("#view-storage-feedback").text("Save changes successfully!");
       tdParent.find(".fa-save").replaceWith(
         $("<i>")
-          .addClass("far fa-edit")
-          .attr("context-path", contextPath)
+        .addClass("far fa-edit")
+        .attr("context-path", contextPath)
       );
       tdParent.find("input, select").attr("disabled", true);
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       $("#view-storage-feedback").text("Fail to save changes!");
     }
@@ -2251,7 +2243,7 @@ function stockKeeperIdFieldHover(event) {
       url: contextPath + "/getStockKeeperIdList",
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         for (var i = 0; i < data.length; i++) {
           $("<option>")
             .val(data[i])
@@ -2259,7 +2251,7 @@ function stockKeeperIdFieldHover(event) {
             .appendTo(selectTag);
         }
       },
-      error: function(error) {
+      error: function (error) {
         selectTag
           .siblings("#stock-keeper-id-feedback")
           .text("Can'load Stock Keeper Id List.");
@@ -2317,10 +2309,10 @@ function addStorageButtonClick(event) {
         storageAddress: storageAddress,
         stockKeeperId: stockKeeperId
       },
-      success: function(data) {
+      success: function (data) {
         $("#add-storage-feedback").text("Add storage successfully!");
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         $("#add-storage-feedback").text("Fail to add storage!");
       }
@@ -2343,7 +2335,7 @@ function storageIdFieldClick() {
       url: contextPath + "/getStorageIdList",
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         for (var i = 0; i < data.length; i++) {
           $("<option>")
             .val(data[i])
@@ -2351,7 +2343,7 @@ function storageIdFieldClick() {
             .appendTo(selectTag);
         }
       },
-      error: function(error) {
+      error: function (error) {
         selectTag
           .siblings("#storage-id-feedback")
           .text("Can'load Storage Id List.");
@@ -2392,7 +2384,7 @@ function validateImportBookInfo(
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         if (data === false) {
           importBook
             .find("#book-id-feed-back")
@@ -2402,7 +2394,7 @@ function validateImportBookInfo(
           importBook.find("#book-id-feed-back").text("");
         }
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         flag = false;
         importBook.find("#book-id-feed-back").text("Some thing went wrong!");
@@ -2458,12 +2450,12 @@ function importBookButtonClick(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         importBook
           .find("#import-book-feedback")
           .text("Import book successfully!");
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         importBook.find("#import-book-feedback").text("Fail to import book!");
       }
@@ -2510,7 +2502,7 @@ function viewImportationButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
@@ -2550,7 +2542,7 @@ function viewImportationButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -2594,7 +2586,7 @@ function viewExportationButtonClick(event) {
     },
     dataType: "json",
     timeout: 10000,
-    success: function(data) {
+    success: function (data) {
       tableBody.empty();
       for (var i = 0; i < data.length; i++) {
         $("<tr>")
@@ -2633,7 +2625,7 @@ function viewExportationButtonClick(event) {
         nextButton.attr("disabled", false);
       }
     },
-    error: function(error) {
+    error: function (error) {
       console.log(error);
     }
   });
@@ -2658,10 +2650,10 @@ function viewRevenuePerDayButtonClick(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         fillRevenueChart(data, "Revenue Per Day", revenuePerDay);
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     });
@@ -2674,15 +2666,13 @@ function fillRevenueChart(revenueList, title, revenueCanvas) {
     type: "line",
     data: {
       labels: Array.from(revenueList, (value, index) => index + 1),
-      datasets: [
-        {
-          label: title,
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgb(255, 99, 132)",
-          fill: false,
-          data: revenueList
-        }
-      ]
+      datasets: [{
+        label: title,
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
+        fill: false,
+        data: revenueList
+      }]
     },
     options: {
       responsive: true,
@@ -2691,17 +2681,13 @@ function fillRevenueChart(revenueList, title, revenueCanvas) {
         text: title
       },
       scales: {
-        xAxes: [
-          {
-            display: true
-          }
-        ],
-        yAxes: [
-          {
-            display: true,
-            type: "logarithmic"
-          }
-        ]
+        xAxes: [{
+          display: true
+        }],
+        yAxes: [{
+          display: true,
+          type: "logarithmic"
+        }]
       }
     }
   };
@@ -2725,10 +2711,10 @@ function viewRevenuePerMonthButtonClick(event) {
       },
       dataType: "json",
       timeout: 10000,
-      success: function(data) {
+      success: function (data) {
         fillRevenueChart(data, "Revenue Per Month", revenuePerMonth);
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     });

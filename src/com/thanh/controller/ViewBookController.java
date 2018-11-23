@@ -83,7 +83,7 @@ public class ViewBookController {
 	}
 	
 	
-	@RequestMapping(value="/searchBookByIdName", method=RequestMethod.GET)
+	@RequestMapping(value="/searchBookByIdName", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String searchBookByIdName(HttpServletRequest request) {
 		
 		String ajaxResponse = "";

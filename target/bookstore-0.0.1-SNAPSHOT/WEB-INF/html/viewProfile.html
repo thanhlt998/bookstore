@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+
+</head>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top">
+    <div class="container">
+        <div class="row w-100 align-items-center">
+            <div class="col-md-3 text-center">
+                <a href="#" class="navbar-brand">
+                    <i class="fas fa-book fa-2x pr-3"></i><span class="display-5">BookStore</span>
+                </a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarBar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-md-5 py-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="collapse navbar-collapse" id="navbarBar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown mr-3">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                Categories
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="" class="dropdown-item">
+                                    Lorem, ipsum dolor.
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    Lorem, ipsum dolor.
+                                </a>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown mr-3">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user-circle"></i> Profile
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-cog"></i> Setting
+                                </a>
+                            </div>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="#" class="nav-link"">
+                                <i class=" fas
+                                fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li> -->
+                        <li class="nav-item d-inline-block">
+                            <a href="#" class="nav-link" style="position: relative;">
+                                <i class="fas fa-shopping-cart fa-2x"></i><span id="badge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- View profile -->
+<section id="profile" style=" margin-top: 54px; min-height: 100vh;">
+    <div class="container h-100 w-100">
+        <div class="row h-100">
+            <div class="col-md-3 py-5 mt-5">
+                <div class="list-group align-middle mt-5">
+                    <li class="list-group-item active" data-target="#view-profile">View profile</li>
+                    <li class="list-group-item" data-target="#change-password">Change Password</li>
+                    <li class="list-group-item" data-target="#order-history">View Order History</li>
+                    <li class="list-group-item" data-target="#order-detail">Order Detail</li>
+                    <li class="list-group-item">Natus, omnis cum?</li>
+                </div>
+            </div>
+            <div class="col-md-9 py-5">
+                <div class="row" id="view-profile" style="display: none">
+                    <div class="ml-5">
+                        <i class="fas fa-user-circle fa-7x text-secondary"></i>
+                        <span class="display-4 ml-3">Your Profile</span>
+                    </div>
+                    <table class="table table-hover mx-5">
+                        <thead>
+                            <td style="width: 60px;"></td>
+                            <td></td>
+                            <td style="width: 50px;"></td>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Username</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input class="form-control" value="Username" disabled>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input type="text" class="form-control changeField" name="name" value="Name">
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input type="email" class="form-control changeField" name="email" value="email">
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Birth Date</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input type="date" class="form-control changeField" name="birthDate" value="2018-01-01">
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <select type="gender" class="form-control changeField" name="gender" id="gender"
+                                            required>
+                                            <option value="MALE" selected>Male</option>
+                                            <option value="FEMALE">Female</option>
+                                            <option value="OTHER">Other</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input type="text" class="form-control changeField" name="address" value="address">
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>
+                                    <span>Lorem, ipsum dolor.</span>
+                                    <div class="inputChange mt-2">
+                                        <input type="text" class="form-control changeField" name="phone" value="1321321321">
+                                    </div>
+                                </td>
+                                <td><i class="far fa-edit"></i></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">
+                                    <button class="btn btn-outline-dark" id="save-changes-button" context-path="${pageContext.request.contextPath}"
+                                        disabled>Save changes</button><br>
+                                    <small id="table-profile-feedback" class="text-muted">adfadf</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mb-3" id="change-password" style="display: none;">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="mb-3">
+                            <i class="fas fa-unlock-alt fa-7x text-secondary"></i><span class="display-4 ml-3">Change password</span>
+                            <hr>
+                        </div>
+                        <div class="form-group">
+                            <label for="old-password">Old Password</label>
+                            <input type="text" class="form-control" name="old-password" id="old-password">
+                            <small class="input-form-text text-muted" id="old-password-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="text" class="form-control" name="new-password" id="new-password">
+                            <small class="input-form-text text-muted" id="new-password-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">New Password</label>
+                            <input type="text" class="form-control" name="confirm-new-password" id="confirm-new-password">
+                            <small class="input-form-text text-muted" id="confirm-new-password-feedback"></small>
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-outline-dark" id="change-password-button" context-path="${pageContext.request.contextPath }">Change
+                                password</button>
+                            <br><span id="change-password-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="order-history"  style="display: none;">
+                    <div class="col">
+                        <i class="fas fa-history fa-5x text-secondary ml-3"></i><span class="display-4 ml-3">Order
+                            History</span>
+                        <table class="table table-striped my-3">
+                            <thead>
+                                <td>Order Id</td>
+                                <td>Order Date</td>
+                                <td>Ship Date</td>
+                                <td>Ship Address</td>
+                                <td>Total amount</td>
+                                <td>Payment Method</td>
+                                <td>Order Status</td>
+                            </thead>
+                            <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tbody>
+
+                        </table>
+                        <div class="text-right"><button class="btn btn-dark" id="view-order-history-button" page="0"
+                                context-path="${pageContext.request.contextPath}">View More</button></div>
+                    </div>
+                </div>
+                <div class="row" id="order-detail">
+                    <div class="col">
+                        <i class="fas fa-info-circle fa-5x text-secondary mr-3"></i><span class="display-4">View Order Detail</span>
+                        <hr>
+                        <div class="form-inline mb-3">
+                            <input type="number" class="form-control mr-4 ml-auto" id="order-id-input">
+                            <button class="btn btn-secondary view-order-button" context-path="${pageContext.request.contextPath}" id="view-order-button">View Order</button>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h4>Thông tin thanh toán</h4>
+                                <p>
+                                    <span class="name">Lorem ipsum dolor sit.</span><br>
+                                    <span class="email">abcd@gmail.com</span><br>
+                                    <span class="phone">0123456789</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Địa chỉ giao hàng</h4>
+                                <p>
+                                    <span class="name">Lorem ipsum dolor sit.</span><br>
+                                    <span class="email">abcd@gmail.com</span><br>
+                                    <span class="address">1231 Ha Noi</span>
+                                    <span class="phone">0123456789</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            Phương thức thanh toán: <span class="paymentMethod"></span><br>
+                            Thời gian giao hàng: <span class="shipDate"></span>
+                        </p>
+                        <h3>Chi tiết đơn hàng</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <td>Book</td>
+                                <td>Quantity</td>
+                                <td>Price Per Unit</td>
+                                <td>Amount</td>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- footer -->
+<footer class="main-footer bg-dark text-white text-muted small">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-md-3 col-sm-6 text-center px-5">
+                <i class="fas fa-book fa-2x"></i>
+                <h3 class="d-inline-block"> Bookstore</h3>
+                <hr style="color: white">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, tempore porro illo esse
+                    labore ipsum?</p>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center px-5">
+                <i class="fas fa-building fa-2x"></i>
+                <h3 class="d-inline-block"> Contact Us</h3>
+                <hr style="color: white">
+                <p class="text-left">
+                    Address: Lorem ipsum dolor, sit amet consectetur adipisicing elit <br>
+                    Phone: +84111111111 <br>
+                    admin@bookstore.com
+                </p>
+
+            </div>
+            <div class="col-md-3 col-sm-6 text-center px-4">
+                <i class="fas fa-share-alt fa-2x"></i>
+                <h3 class="d-inline-block"> Connect with us</h3>
+                <hr style="color: white">
+                <p class="text-left">
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-facebook fa-2x"></i>
+                        bookstore</a><br>
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-instagram fa-2x"></i>
+                        @bookstore</a><br>
+                    <a href="" class="footer-link text-white text-muted"><i class="fab fa-google fa-2x"></i> bookstore</a><br>
+                </p>
+            </div>
+            <div class="col-md-3 col-sm-6 text-center">
+                <i class="fas fa-info fa-2x"></i>
+                <h3 class="d-inline-block"> Information</h3>
+                <hr style="color: white">
+                <p>
+                    Lorem. <br>
+                    Lorem. <br>
+                    Lorem. <br>
+                    Lorem. <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="../../resources/javascript/script.js"></script>
+
+    <script>
+
+        $("#registerForm").find($("#username")).blur({
+            url: "${pageContext.request.contextPath}/checkAvailableUsername"
+        }, validateUsernameField);
+
+        $(".add-cart").click({
+            url: "${pageContext.request.contextPath }/addCart"
+        }, addCart);
+
+
+    </script>
+
+</body>
+
+</html>

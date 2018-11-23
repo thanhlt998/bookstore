@@ -47,7 +47,7 @@ public class UserController {
 		return "viewProfile";
 	}
 
-	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String updateProfile(HttpServletRequest request, Principal principal) {
 		String username = principal.getName();
 		User user = userService.getUserByUsername(username);
@@ -83,7 +83,7 @@ public class UserController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/viewOrderHistory", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewOrderHistory", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewOrderHistory(HttpSession session, HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -105,7 +105,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String changePassword(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -114,8 +114,8 @@ public class UserController {
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
 		User user = userService.getUserByUsername(username);
-
-		if (user.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+		
+		if (passwordEncoder.matches(oldPassword, user.getPassword())) {
 			user.setPassword(passwordEncoder.encode(newPassword));
 			userService.updateUser(user);
 			try {
@@ -136,7 +136,7 @@ public class UserController {
 		return ajaxResponse;
 	}
 
-	@RequestMapping(value = "/viewOrderDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewOrderDetail", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String viewOrderDetail(HttpServletRequest request, Principal principal) {
 		String ajaxResponse = "";
 		ObjectMapper mapper = new ObjectMapper();
